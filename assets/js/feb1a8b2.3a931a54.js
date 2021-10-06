@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkfluentax_developer=self.webpackChunkfluentax_developer||[]).push([[298],{2427:function(e){e.exports=JSON.parse('{"specUrl":"https://fx-api.fluentax.com/swagger/v1/swagger.json","type":"url","content":"https://fx-api.fluentax.com/swagger/v1/swagger.json"}')}}]);
