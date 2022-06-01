@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkfluentax_developer=self.webpackChunkfluentax_developer||[]).push([[240],{2685:function(e){e.exports=JSON.parse('{"specUrl":"/fx-api-1-0.json","type":"url","content":"/fx-api-1-0.json"}')}}]);
