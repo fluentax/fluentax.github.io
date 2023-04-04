@@ -9,12 +9,15 @@
     },
     "version": "1.0"
   },
+  "servers": [
+    {
+      "url": "https://fx-api.fluentax.com"
+    }
+  ],
   "paths": {
     "/v1/Banks/{bankId}/BankHolidays/{year}": {
       "get": {
-        "tags": [
-          "BankHolidays"
-        ],
+        "tags": ["BankHolidays"],
         "summary": "Returns the bank holidays for the specified bank and year. (Auth policies: RequireBankSubscription)",
         "operationId": "GetBankHolidaysForYear",
         "parameters": [
@@ -103,7 +106,73 @@
                     "$ref": "#/components/schemas/BankHolidayModel"
                   }
                 },
-                "example": [{"date":"2020-01-01","name":"New Year's Day","localName":"Første nyttårsdag"},{"date":"2020-04-09","name":"Maundy Thursday","localName":"Skjærtorsdag"},{"date":"2020-04-10","name":"Good Friday","localName":"Langfredag"},{"date":"2020-04-12","name":"Easter Sunday","localName":"Første påskedag"},{"date":"2020-04-13","name":"Easter Monday","localName":"Andre påskedag"},{"date":"2020-05-01","name":"Labour Day","localName":"Første mai"},{"date":"2020-05-17","name":"Constitution Day","localName":"Syttende mai"},{"date":"2020-05-21","name":"Ascension Day","localName":"Kristi himmelfartsdag"},{"date":"2020-05-31","name":"Pentecost","localName":"Første pinsedag"},{"date":"2020-06-01","name":"Whit Monday","localName":"Andre pinsedag"},{"date":"2020-12-24","name":"Christmas Eve","localName":"Julaften"},{"date":"2020-12-25","name":"Christmas Day","localName":"Første juledag"},{"date":"2020-12-26","name":"St. Stephen's Day","localName":"Andre juledag"}]
+                "example": [
+                  {
+                    "date": "2020-01-01",
+                    "name": "New Year's Day",
+                    "localName": "Første nyttårsdag"
+                  },
+                  {
+                    "date": "2020-04-09",
+                    "name": "Maundy Thursday",
+                    "localName": "Skjærtorsdag"
+                  },
+                  {
+                    "date": "2020-04-10",
+                    "name": "Good Friday",
+                    "localName": "Langfredag"
+                  },
+                  {
+                    "date": "2020-04-12",
+                    "name": "Easter Sunday",
+                    "localName": "Første påskedag"
+                  },
+                  {
+                    "date": "2020-04-13",
+                    "name": "Easter Monday",
+                    "localName": "Andre påskedag"
+                  },
+                  {
+                    "date": "2020-05-01",
+                    "name": "Labour Day",
+                    "localName": "Første mai"
+                  },
+                  {
+                    "date": "2020-05-17",
+                    "name": "Constitution Day",
+                    "localName": "Syttende mai"
+                  },
+                  {
+                    "date": "2020-05-21",
+                    "name": "Ascension Day",
+                    "localName": "Kristi himmelfartsdag"
+                  },
+                  {
+                    "date": "2020-05-31",
+                    "name": "Pentecost",
+                    "localName": "Første pinsedag"
+                  },
+                  {
+                    "date": "2020-06-01",
+                    "name": "Whit Monday",
+                    "localName": "Andre pinsedag"
+                  },
+                  {
+                    "date": "2020-12-24",
+                    "name": "Christmas Eve",
+                    "localName": "Julaften"
+                  },
+                  {
+                    "date": "2020-12-25",
+                    "name": "Christmas Day",
+                    "localName": "Første juledag"
+                  },
+                  {
+                    "date": "2020-12-26",
+                    "name": "St. Stephen's Day",
+                    "localName": "Andre juledag"
+                  }
+                ]
               }
             }
           },
@@ -114,7 +183,15 @@
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 },
-                "example": {"type":"https://tools.ietf.org/html/rfc7231#section-6.5.1","title":"One or more validation errors occurred.","status":400,"traceId":"00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00","errors":{"bankId":"Daily rates are not supported for the specified bank."}}
+                "example": {
+                  "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+                  "title": "One or more validation errors occurred.",
+                  "status": 400,
+                  "traceId": "00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00",
+                  "errors": {
+                    "bankId": "Daily rates are not supported for the specified bank."
+                  }
+                }
               }
             }
           },
@@ -130,18 +207,14 @@
         },
         "security": [
           {
-            "oauth2": [
-              "fx_api"
-            ]
+            "oauth2": ["fx_api"]
           }
         ]
       }
     },
     "/v1/Banks/{bankId}/BankHolidays/{year}.{format}": {
       "get": {
-        "tags": [
-          "BankHolidays"
-        ],
+        "tags": ["BankHolidays"],
         "summary": "Returns the bank holidays for the specified bank and year. (Auth policies: RequireBankSubscription)",
         "operationId": "GetBankHolidaysForYearBinary",
         "parameters": [
@@ -231,7 +304,73 @@
                     "$ref": "#/components/schemas/BankHolidayModel"
                   }
                 },
-                "example": [{"date":"2020-01-01","name":"New Year's Day","localName":"Første nyttårsdag"},{"date":"2020-04-09","name":"Maundy Thursday","localName":"Skjærtorsdag"},{"date":"2020-04-10","name":"Good Friday","localName":"Langfredag"},{"date":"2020-04-12","name":"Easter Sunday","localName":"Første påskedag"},{"date":"2020-04-13","name":"Easter Monday","localName":"Andre påskedag"},{"date":"2020-05-01","name":"Labour Day","localName":"Første mai"},{"date":"2020-05-17","name":"Constitution Day","localName":"Syttende mai"},{"date":"2020-05-21","name":"Ascension Day","localName":"Kristi himmelfartsdag"},{"date":"2020-05-31","name":"Pentecost","localName":"Første pinsedag"},{"date":"2020-06-01","name":"Whit Monday","localName":"Andre pinsedag"},{"date":"2020-12-24","name":"Christmas Eve","localName":"Julaften"},{"date":"2020-12-25","name":"Christmas Day","localName":"Første juledag"},{"date":"2020-12-26","name":"St. Stephen's Day","localName":"Andre juledag"}]
+                "example": [
+                  {
+                    "date": "2020-01-01",
+                    "name": "New Year's Day",
+                    "localName": "Første nyttårsdag"
+                  },
+                  {
+                    "date": "2020-04-09",
+                    "name": "Maundy Thursday",
+                    "localName": "Skjærtorsdag"
+                  },
+                  {
+                    "date": "2020-04-10",
+                    "name": "Good Friday",
+                    "localName": "Langfredag"
+                  },
+                  {
+                    "date": "2020-04-12",
+                    "name": "Easter Sunday",
+                    "localName": "Første påskedag"
+                  },
+                  {
+                    "date": "2020-04-13",
+                    "name": "Easter Monday",
+                    "localName": "Andre påskedag"
+                  },
+                  {
+                    "date": "2020-05-01",
+                    "name": "Labour Day",
+                    "localName": "Første mai"
+                  },
+                  {
+                    "date": "2020-05-17",
+                    "name": "Constitution Day",
+                    "localName": "Syttende mai"
+                  },
+                  {
+                    "date": "2020-05-21",
+                    "name": "Ascension Day",
+                    "localName": "Kristi himmelfartsdag"
+                  },
+                  {
+                    "date": "2020-05-31",
+                    "name": "Pentecost",
+                    "localName": "Første pinsedag"
+                  },
+                  {
+                    "date": "2020-06-01",
+                    "name": "Whit Monday",
+                    "localName": "Andre pinsedag"
+                  },
+                  {
+                    "date": "2020-12-24",
+                    "name": "Christmas Eve",
+                    "localName": "Julaften"
+                  },
+                  {
+                    "date": "2020-12-25",
+                    "name": "Christmas Day",
+                    "localName": "Første juledag"
+                  },
+                  {
+                    "date": "2020-12-26",
+                    "name": "St. Stephen's Day",
+                    "localName": "Andre juledag"
+                  }
+                ]
               }
             }
           },
@@ -242,7 +381,15 @@
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 },
-                "example": {"type":"https://tools.ietf.org/html/rfc7231#section-6.5.1","title":"One or more validation errors occurred.","status":400,"traceId":"00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00","errors":{"bankId":"Daily rates are not supported for the specified bank."}}
+                "example": {
+                  "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+                  "title": "One or more validation errors occurred.",
+                  "status": 400,
+                  "traceId": "00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00",
+                  "errors": {
+                    "bankId": "Daily rates are not supported for the specified bank."
+                  }
+                }
               }
             }
           },
@@ -258,18 +405,14 @@
         },
         "security": [
           {
-            "oauth2": [
-              "fx_api"
-            ]
+            "oauth2": ["fx_api"]
           }
         ]
       }
     },
     "/v1/Banks/{bankId}/BankHolidays": {
       "get": {
-        "tags": [
-          "BankHolidays"
-        ],
+        "tags": ["BankHolidays"],
         "summary": "Returns the bank holidays for the specified bank and date range. (Auth policies: RequireBankSubscription)",
         "operationId": "GetBankHolidaysBetweenDates",
         "parameters": [
@@ -289,7 +432,7 @@
             "required": true,
             "schema": {
               "type": "string",
-              "format": "date-time"
+              "format": "date"
             }
           },
           {
@@ -299,7 +442,7 @@
             "required": true,
             "schema": {
               "type": "string",
-              "format": "date-time"
+              "format": "date"
             }
           },
           {
@@ -368,7 +511,73 @@
                     "$ref": "#/components/schemas/BankHolidayModel"
                   }
                 },
-                "example": [{"date":"2020-01-01","name":"New Year's Day","localName":"Første nyttårsdag"},{"date":"2020-04-09","name":"Maundy Thursday","localName":"Skjærtorsdag"},{"date":"2020-04-10","name":"Good Friday","localName":"Langfredag"},{"date":"2020-04-12","name":"Easter Sunday","localName":"Første påskedag"},{"date":"2020-04-13","name":"Easter Monday","localName":"Andre påskedag"},{"date":"2020-05-01","name":"Labour Day","localName":"Første mai"},{"date":"2020-05-17","name":"Constitution Day","localName":"Syttende mai"},{"date":"2020-05-21","name":"Ascension Day","localName":"Kristi himmelfartsdag"},{"date":"2020-05-31","name":"Pentecost","localName":"Første pinsedag"},{"date":"2020-06-01","name":"Whit Monday","localName":"Andre pinsedag"},{"date":"2020-12-24","name":"Christmas Eve","localName":"Julaften"},{"date":"2020-12-25","name":"Christmas Day","localName":"Første juledag"},{"date":"2020-12-26","name":"St. Stephen's Day","localName":"Andre juledag"}]
+                "example": [
+                  {
+                    "date": "2020-01-01",
+                    "name": "New Year's Day",
+                    "localName": "Første nyttårsdag"
+                  },
+                  {
+                    "date": "2020-04-09",
+                    "name": "Maundy Thursday",
+                    "localName": "Skjærtorsdag"
+                  },
+                  {
+                    "date": "2020-04-10",
+                    "name": "Good Friday",
+                    "localName": "Langfredag"
+                  },
+                  {
+                    "date": "2020-04-12",
+                    "name": "Easter Sunday",
+                    "localName": "Første påskedag"
+                  },
+                  {
+                    "date": "2020-04-13",
+                    "name": "Easter Monday",
+                    "localName": "Andre påskedag"
+                  },
+                  {
+                    "date": "2020-05-01",
+                    "name": "Labour Day",
+                    "localName": "Første mai"
+                  },
+                  {
+                    "date": "2020-05-17",
+                    "name": "Constitution Day",
+                    "localName": "Syttende mai"
+                  },
+                  {
+                    "date": "2020-05-21",
+                    "name": "Ascension Day",
+                    "localName": "Kristi himmelfartsdag"
+                  },
+                  {
+                    "date": "2020-05-31",
+                    "name": "Pentecost",
+                    "localName": "Første pinsedag"
+                  },
+                  {
+                    "date": "2020-06-01",
+                    "name": "Whit Monday",
+                    "localName": "Andre pinsedag"
+                  },
+                  {
+                    "date": "2020-12-24",
+                    "name": "Christmas Eve",
+                    "localName": "Julaften"
+                  },
+                  {
+                    "date": "2020-12-25",
+                    "name": "Christmas Day",
+                    "localName": "Første juledag"
+                  },
+                  {
+                    "date": "2020-12-26",
+                    "name": "St. Stephen's Day",
+                    "localName": "Andre juledag"
+                  }
+                ]
               }
             }
           },
@@ -379,7 +588,15 @@
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 },
-                "example": {"type":"https://tools.ietf.org/html/rfc7231#section-6.5.1","title":"One or more validation errors occurred.","status":400,"traceId":"00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00","errors":{"bankId":"Daily rates are not supported for the specified bank."}}
+                "example": {
+                  "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+                  "title": "One or more validation errors occurred.",
+                  "status": 400,
+                  "traceId": "00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00",
+                  "errors": {
+                    "bankId": "Daily rates are not supported for the specified bank."
+                  }
+                }
               }
             }
           },
@@ -395,18 +612,14 @@
         },
         "security": [
           {
-            "oauth2": [
-              "fx_api"
-            ]
+            "oauth2": ["fx_api"]
           }
         ]
       }
     },
     "/v1/Banks/{bankId}/BankHolidays.{format}": {
       "get": {
-        "tags": [
-          "BankHolidays"
-        ],
+        "tags": ["BankHolidays"],
         "summary": "Returns the bank holidays for the specified bank and date range. (Auth policies: RequireBankSubscription)",
         "operationId": "GetBankHolidaysBetweenDatesBinary",
         "parameters": [
@@ -426,7 +639,7 @@
             "required": true,
             "schema": {
               "type": "string",
-              "format": "date-time"
+              "format": "date"
             }
           },
           {
@@ -436,7 +649,7 @@
             "required": true,
             "schema": {
               "type": "string",
-              "format": "date-time"
+              "format": "date"
             }
           },
           {
@@ -513,7 +726,15 @@
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 },
-                "example": {"type":"https://tools.ietf.org/html/rfc7231#section-6.5.1","title":"One or more validation errors occurred.","status":400,"traceId":"00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00","errors":{"bankId":"Daily rates are not supported for the specified bank."}}
+                "example": {
+                  "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+                  "title": "One or more validation errors occurred.",
+                  "status": 400,
+                  "traceId": "00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00",
+                  "errors": {
+                    "bankId": "Daily rates are not supported for the specified bank."
+                  }
+                }
               }
             }
           },
@@ -529,18 +750,14 @@
         },
         "security": [
           {
-            "oauth2": [
-              "fx_api"
-            ]
+            "oauth2": ["fx_api"]
           }
         ]
       }
     },
     "/v1/Banks/{bankId}/BankHolidays/Next": {
       "get": {
-        "tags": [
-          "BankHolidays"
-        ],
+        "tags": ["BankHolidays"],
         "summary": "Returns the next upcoming bank holiday for the specified bank. (Auth policies: RequireBankSubscription)",
         "operationId": "GetNextBankHoliday",
         "parameters": [
@@ -647,7 +864,15 @@
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 },
-                "example": {"type":"https://tools.ietf.org/html/rfc7231#section-6.5.1","title":"One or more validation errors occurred.","status":400,"traceId":"00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00","errors":{"bankId":"Daily rates are not supported for the specified bank."}}
+                "example": {
+                  "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+                  "title": "One or more validation errors occurred.",
+                  "status": 400,
+                  "traceId": "00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00",
+                  "errors": {
+                    "bankId": "Daily rates are not supported for the specified bank."
+                  }
+                }
               }
             }
           },
@@ -663,18 +888,14 @@
         },
         "security": [
           {
-            "oauth2": [
-              "fx_api"
-            ]
+            "oauth2": ["fx_api"]
           }
         ]
       }
     },
     "/v1/Banks": {
       "get": {
-        "tags": [
-          "Banks"
-        ],
+        "tags": ["Banks"],
         "summary": "Returns the bank details for all available banks. (Auth)",
         "operationId": "GetBanks",
         "responses": {
@@ -734,7 +955,35 @@
                     "$ref": "#/components/schemas/BankModel"
                   }
                 },
-                "example": [{"id":"NOCB","name":[{"languageCode":"en","name":"Norges Bank","abbreviatedName":"Norgesbank"},{"languageCode":"no","name":"Norges Bank","abbreviatedName":"Norgesbank"}],"dailyUpdateTime":"16:00:00","bankCurrency":"NOK","countryCode":["NO"],"region":["EuropeNonEU"],"timeZone":{"windowsTimeZoneId":"W. Europe Standard Time","ianaTimeZoneName":"Europe/Oslo"},"supportedFrequencies":["Daily"],"supportedPriceTypes":null,"website":null,"peggedRate":null}]
+                "example": [
+                  {
+                    "id": "NOCB",
+                    "name": [
+                      {
+                        "languageCode": "en",
+                        "name": "Norges Bank",
+                        "abbreviatedName": "Norgesbank"
+                      },
+                      {
+                        "languageCode": "no",
+                        "name": "Norges Bank",
+                        "abbreviatedName": "Norgesbank"
+                      }
+                    ],
+                    "dailyUpdateTime": "16:00:00",
+                    "bankCurrency": "NOK",
+                    "countryCode": ["NO"],
+                    "region": ["EuropeNonEU"],
+                    "timeZone": {
+                      "windowsTimeZoneId": "W. Europe Standard Time",
+                      "ianaTimeZoneName": "Europe/Oslo"
+                    },
+                    "supportedFrequencies": ["Daily"],
+                    "supportedPriceTypes": null,
+                    "website": null,
+                    "peggedRate": null
+                  }
+                ]
               }
             }
           },
@@ -745,7 +994,15 @@
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 },
-                "example": {"type":"https://tools.ietf.org/html/rfc7231#section-6.5.1","title":"One or more validation errors occurred.","status":400,"traceId":"00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00","errors":{"bankId":"Daily rates are not supported for the specified bank."}}
+                "example": {
+                  "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+                  "title": "One or more validation errors occurred.",
+                  "status": 400,
+                  "traceId": "00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00",
+                  "errors": {
+                    "bankId": "Daily rates are not supported for the specified bank."
+                  }
+                }
               }
             }
           },
@@ -758,18 +1015,14 @@
         },
         "security": [
           {
-            "oauth2": [
-              "fx_api"
-            ]
+            "oauth2": ["fx_api"]
           }
         ]
       }
     },
     "/v1/Banks/{bankId}": {
       "get": {
-        "tags": [
-          "Banks"
-        ],
+        "tags": ["Banks"],
         "summary": "Returns the bank details for the specified bank. (Auth)",
         "operationId": "GetBank",
         "parameters": [
@@ -837,7 +1090,33 @@
                 "schema": {
                   "$ref": "#/components/schemas/BankModel"
                 },
-                "example": {"id":"NOCB","name":[{"languageCode":"en","name":"Norges Bank","abbreviatedName":"Norgesbank"},{"languageCode":"no","name":"Norges Bank","abbreviatedName":"Norgesbank"}],"dailyUpdateTime":"16:00:00","bankCurrency":"NOK","countryCode":["NO"],"region":["EuropeNonEU"],"timeZone":{"windowsTimeZoneId":"W. Europe Standard Time","ianaTimeZoneName":"Europe/Oslo"},"supportedFrequencies":["Daily"],"supportedPriceTypes":null,"website":null,"peggedRate":null}
+                "example": {
+                  "id": "NOCB",
+                  "name": [
+                    {
+                      "languageCode": "en",
+                      "name": "Norges Bank",
+                      "abbreviatedName": "Norgesbank"
+                    },
+                    {
+                      "languageCode": "no",
+                      "name": "Norges Bank",
+                      "abbreviatedName": "Norgesbank"
+                    }
+                  ],
+                  "dailyUpdateTime": "16:00:00",
+                  "bankCurrency": "NOK",
+                  "countryCode": ["NO"],
+                  "region": ["EuropeNonEU"],
+                  "timeZone": {
+                    "windowsTimeZoneId": "W. Europe Standard Time",
+                    "ianaTimeZoneName": "Europe/Oslo"
+                  },
+                  "supportedFrequencies": ["Daily"],
+                  "supportedPriceTypes": null,
+                  "website": null,
+                  "peggedRate": null
+                }
               }
             }
           },
@@ -848,7 +1127,15 @@
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 },
-                "example": {"type":"https://tools.ietf.org/html/rfc7231#section-6.5.1","title":"One or more validation errors occurred.","status":400,"traceId":"00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00","errors":{"bankId":"Daily rates are not supported for the specified bank."}}
+                "example": {
+                  "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+                  "title": "One or more validation errors occurred.",
+                  "status": 400,
+                  "traceId": "00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00",
+                  "errors": {
+                    "bankId": "Daily rates are not supported for the specified bank."
+                  }
+                }
               }
             }
           },
@@ -864,18 +1151,14 @@
         },
         "security": [
           {
-            "oauth2": [
-              "fx_api"
-            ]
+            "oauth2": ["fx_api"]
           }
         ]
       }
     },
     "/v1/Convert": {
       "get": {
-        "tags": [
-          "Convert"
-        ],
+        "tags": ["Convert"],
         "summary": "Convert an amount from one currency to another. (Auth)",
         "operationId": "Convert",
         "parameters": [
@@ -906,7 +1189,7 @@
             "required": true,
             "schema": {
               "type": "number",
-              "format": "double"
+              "format": "decimal"
             },
             "example": 152.47
           },
@@ -916,7 +1199,7 @@
             "description": "The conversion date.",
             "schema": {
               "type": "string",
-              "format": "date-time"
+              "format": "date"
             },
             "example": "2020-09-24"
           },
@@ -1003,7 +1286,15 @@
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 },
-                "example": {"type":"https://tools.ietf.org/html/rfc7231#section-6.5.1","title":"One or more validation errors occurred.","status":400,"traceId":"00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00","errors":{"bankId":"Daily rates are not supported for the specified bank."}}
+                "example": {
+                  "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+                  "title": "One or more validation errors occurred.",
+                  "status": 400,
+                  "traceId": "00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00",
+                  "errors": {
+                    "bankId": "Daily rates are not supported for the specified bank."
+                  }
+                }
               }
             }
           },
@@ -1014,7 +1305,15 @@
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 },
-                "example": {"type":"https://tools.ietf.org/html/rfc7231#section-6.5.1","title":"One or more validation errors occurred.","status":400,"traceId":"00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00","errors":{"bankId":"Daily rates are not supported for the specified bank."}}
+                "example": {
+                  "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+                  "title": "One or more validation errors occurred.",
+                  "status": 400,
+                  "traceId": "00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00",
+                  "errors": {
+                    "bankId": "Daily rates are not supported for the specified bank."
+                  }
+                }
               }
             }
           },
@@ -1030,18 +1329,14 @@
         },
         "security": [
           {
-            "oauth2": [
-              "fx_api"
-            ]
+            "oauth2": ["fx_api"]
           }
         ]
       }
     },
     "/v1/Currencies": {
       "get": {
-        "tags": [
-          "Currencies"
-        ],
+        "tags": ["Currencies"],
         "summary": "Returns the currency details for all available currencies. (Auth)",
         "operationId": "GetCurrencies",
         "parameters": [
@@ -1129,7 +1424,15 @@
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 },
-                "example": {"type":"https://tools.ietf.org/html/rfc7231#section-6.5.1","title":"One or more validation errors occurred.","status":400,"traceId":"00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00","errors":{"bankId":"Daily rates are not supported for the specified bank."}}
+                "example": {
+                  "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+                  "title": "One or more validation errors occurred.",
+                  "status": 400,
+                  "traceId": "00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00",
+                  "errors": {
+                    "bankId": "Daily rates are not supported for the specified bank."
+                  }
+                }
               }
             }
           },
@@ -1142,18 +1445,14 @@
         },
         "security": [
           {
-            "oauth2": [
-              "fx_api"
-            ]
+            "oauth2": ["fx_api"]
           }
         ]
       }
     },
     "/v1/Currencies/{currencyCode}": {
       "get": {
-        "tags": [
-          "Currencies"
-        ],
+        "tags": ["Currencies"],
         "summary": "Returns the currency details for the specified currency code. (Auth)",
         "operationId": "GetCurrency",
         "parameters": [
@@ -1234,7 +1533,15 @@
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 },
-                "example": {"type":"https://tools.ietf.org/html/rfc7231#section-6.5.1","title":"One or more validation errors occurred.","status":400,"traceId":"00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00","errors":{"bankId":"Daily rates are not supported for the specified bank."}}
+                "example": {
+                  "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+                  "title": "One or more validation errors occurred.",
+                  "status": 400,
+                  "traceId": "00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00",
+                  "errors": {
+                    "bankId": "Daily rates are not supported for the specified bank."
+                  }
+                }
               }
             }
           },
@@ -1247,18 +1554,14 @@
         },
         "security": [
           {
-            "oauth2": [
-              "fx_api"
-            ]
+            "oauth2": ["fx_api"]
           }
         ]
       }
     },
     "/v1/Banks/{bankId}/DailyRates/Availability": {
       "get": {
-        "tags": [
-          "DailyRates"
-        ],
+        "tags": ["DailyRates"],
         "summary": "Returns the data availability information. (Auth policies: RequireBankSubscription)",
         "operationId": "GetAvailability",
         "parameters": [
@@ -1365,7 +1668,15 @@
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 },
-                "example": {"type":"https://tools.ietf.org/html/rfc7231#section-6.5.1","title":"One or more validation errors occurred.","status":400,"traceId":"00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00","errors":{"bankId":"Daily rates are not supported for the specified bank."}}
+                "example": {
+                  "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+                  "title": "One or more validation errors occurred.",
+                  "status": 400,
+                  "traceId": "00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00",
+                  "errors": {
+                    "bankId": "Daily rates are not supported for the specified bank."
+                  }
+                }
               }
             }
           },
@@ -1378,18 +1689,14 @@
         },
         "security": [
           {
-            "oauth2": [
-              "fx_api"
-            ]
+            "oauth2": ["fx_api"]
           }
         ]
       }
     },
     "/v1/Banks/{bankId}/DailyRates/Availability/{startDate}/{endDate}": {
       "get": {
-        "tags": [
-          "DailyRates"
-        ],
+        "tags": ["DailyRates"],
         "summary": "Returns the data availability information for the specified period. (Auth policies: RequireBankSubscription)",
         "operationId": "GetAvailabilityBetweenDates",
         "parameters": [
@@ -1409,7 +1716,7 @@
             "required": true,
             "schema": {
               "type": "string",
-              "format": "date-time"
+              "format": "date"
             }
           },
           {
@@ -1419,7 +1726,7 @@
             "required": true,
             "schema": {
               "type": "string",
-              "format": "date-time"
+              "format": "date"
             }
           }
         ],
@@ -1520,7 +1827,15 @@
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 },
-                "example": {"type":"https://tools.ietf.org/html/rfc7231#section-6.5.1","title":"One or more validation errors occurred.","status":400,"traceId":"00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00","errors":{"bankId":"Daily rates are not supported for the specified bank."}}
+                "example": {
+                  "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+                  "title": "One or more validation errors occurred.",
+                  "status": 400,
+                  "traceId": "00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00",
+                  "errors": {
+                    "bankId": "Daily rates are not supported for the specified bank."
+                  }
+                }
               }
             }
           },
@@ -1533,18 +1848,14 @@
         },
         "security": [
           {
-            "oauth2": [
-              "fx_api"
-            ]
+            "oauth2": ["fx_api"]
           }
         ]
       }
     },
     "/v1/Banks/{bankId}/DailyRates/TimeSeries": {
       "get": {
-        "tags": [
-          "DailyRates"
-        ],
+        "tags": ["DailyRates"],
         "summary": "Returns the exchange rates for the given date range. (Auth policies: RequireBankSubscription)",
         "operationId": "GetDailyRateTimeSeries",
         "parameters": [
@@ -1564,7 +1875,7 @@
             "required": true,
             "schema": {
               "type": "string",
-              "format": "date-time"
+              "format": "date"
             }
           },
           {
@@ -1574,7 +1885,7 @@
             "required": true,
             "schema": {
               "type": "string",
-              "format": "date-time"
+              "format": "date"
             }
           },
           {
@@ -1659,7 +1970,25 @@
                 "schema": {
                   "$ref": "#/components/schemas/ExchangeRatesModel"
                 },
-                "example": {"bankId":"NOCB","baseCurrency":"NOK","quoteType":"Direct","rates":{"2020-09-24":{"CHF":{"rate":1030.66,"unitMultiplier":2},"CNY":{"rate":139.6,"unitMultiplier":2},"EUR":{"rate":11.1023,"unitMultiplier":null},"USD":{"rate":9.534,"unitMultiplier":null}},"2020-09-25":{"CHF":{"rate":1032.09,"unitMultiplier":2},"CNY":{"rate":140.27,"unitMultiplier":2},"EUR":{"rate":11.1445,"unitMultiplier":null},"USD":{"rate":9.5793,"unitMultiplier":null}}}}
+                "example": {
+                  "bankId": "NOCB",
+                  "baseCurrency": "NOK",
+                  "quoteType": "Direct",
+                  "rates": {
+                    "2020-09-24": {
+                      "CHF": { "rate": 1030.66, "unitMultiplier": 2 },
+                      "CNY": { "rate": 139.6, "unitMultiplier": 2 },
+                      "EUR": { "rate": 11.1023, "unitMultiplier": null },
+                      "USD": { "rate": 9.534, "unitMultiplier": null }
+                    },
+                    "2020-09-25": {
+                      "CHF": { "rate": 1032.09, "unitMultiplier": 2 },
+                      "CNY": { "rate": 140.27, "unitMultiplier": 2 },
+                      "EUR": { "rate": 11.1445, "unitMultiplier": null },
+                      "USD": { "rate": 9.5793, "unitMultiplier": null }
+                    }
+                  }
+                }
               },
               "application/xml": {
                 "schema": {
@@ -1694,7 +2023,15 @@
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 },
-                "example": {"type":"https://tools.ietf.org/html/rfc7231#section-6.5.1","title":"One or more validation errors occurred.","status":400,"traceId":"00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00","errors":{"bankId":"Daily rates are not supported for the specified bank."}}
+                "example": {
+                  "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+                  "title": "One or more validation errors occurred.",
+                  "status": 400,
+                  "traceId": "00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00",
+                  "errors": {
+                    "bankId": "Daily rates are not supported for the specified bank."
+                  }
+                }
               }
             }
           },
@@ -1707,18 +2044,14 @@
         },
         "security": [
           {
-            "oauth2": [
-              "fx_api"
-            ]
+            "oauth2": ["fx_api"]
           }
         ]
       }
     },
     "/v1/Banks/{bankId}/DailyRates/TimeSeries.{format}": {
       "get": {
-        "tags": [
-          "DailyRates"
-        ],
+        "tags": ["DailyRates"],
         "summary": "Returns the exchange rates for the given date range exported into the given file format. (Auth policies: RequireBankSubscription)",
         "operationId": "GetDailyRateTimeSeriesBinary",
         "parameters": [
@@ -1738,7 +2071,7 @@
             "required": true,
             "schema": {
               "type": "string",
-              "format": "date-time"
+              "format": "date"
             }
           },
           {
@@ -1748,7 +2081,7 @@
             "required": true,
             "schema": {
               "type": "string",
-              "format": "date-time"
+              "format": "date"
             }
           },
           {
@@ -1867,7 +2200,15 @@
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 },
-                "example": {"type":"https://tools.ietf.org/html/rfc7231#section-6.5.1","title":"One or more validation errors occurred.","status":400,"traceId":"00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00","errors":{"bankId":"Daily rates are not supported for the specified bank."}}
+                "example": {
+                  "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+                  "title": "One or more validation errors occurred.",
+                  "status": 400,
+                  "traceId": "00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00",
+                  "errors": {
+                    "bankId": "Daily rates are not supported for the specified bank."
+                  }
+                }
               }
             }
           },
@@ -1880,18 +2221,14 @@
         },
         "security": [
           {
-            "oauth2": [
-              "fx_api"
-            ]
+            "oauth2": ["fx_api"]
           }
         ]
       }
     },
     "/v1/Banks/{bankId}/DailyRates/{date}": {
       "get": {
-        "tags": [
-          "DailyRates"
-        ],
+        "tags": ["DailyRates"],
         "summary": "Returns the exchange rates for the specified date. (Auth policies: RequireBankSubscription)",
         "operationId": "GetDailyRates",
         "parameters": [
@@ -1911,7 +2248,7 @@
             "required": true,
             "schema": {
               "type": "string",
-              "format": "date-time"
+              "format": "date"
             }
           },
           {
@@ -1996,7 +2333,25 @@
                 "schema": {
                   "$ref": "#/components/schemas/ExchangeRatesModel"
                 },
-                "example": {"bankId":"NOCB","baseCurrency":"NOK","quoteType":"Direct","rates":{"2020-09-24":{"CHF":{"rate":1030.66,"unitMultiplier":2},"CNY":{"rate":139.6,"unitMultiplier":2},"EUR":{"rate":11.1023,"unitMultiplier":null},"USD":{"rate":9.534,"unitMultiplier":null}},"2020-09-25":{"CHF":{"rate":1032.09,"unitMultiplier":2},"CNY":{"rate":140.27,"unitMultiplier":2},"EUR":{"rate":11.1445,"unitMultiplier":null},"USD":{"rate":9.5793,"unitMultiplier":null}}}}
+                "example": {
+                  "bankId": "NOCB",
+                  "baseCurrency": "NOK",
+                  "quoteType": "Direct",
+                  "rates": {
+                    "2020-09-24": {
+                      "CHF": { "rate": 1030.66, "unitMultiplier": 2 },
+                      "CNY": { "rate": 139.6, "unitMultiplier": 2 },
+                      "EUR": { "rate": 11.1023, "unitMultiplier": null },
+                      "USD": { "rate": 9.534, "unitMultiplier": null }
+                    },
+                    "2020-09-25": {
+                      "CHF": { "rate": 1032.09, "unitMultiplier": 2 },
+                      "CNY": { "rate": 140.27, "unitMultiplier": 2 },
+                      "EUR": { "rate": 11.1445, "unitMultiplier": null },
+                      "USD": { "rate": 9.5793, "unitMultiplier": null }
+                    }
+                  }
+                }
               },
               "application/xml": {
                 "schema": {
@@ -2031,7 +2386,15 @@
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 },
-                "example": {"type":"https://tools.ietf.org/html/rfc7231#section-6.5.1","title":"One or more validation errors occurred.","status":400,"traceId":"00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00","errors":{"bankId":"Daily rates are not supported for the specified bank."}}
+                "example": {
+                  "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+                  "title": "One or more validation errors occurred.",
+                  "status": 400,
+                  "traceId": "00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00",
+                  "errors": {
+                    "bankId": "Daily rates are not supported for the specified bank."
+                  }
+                }
               }
             }
           },
@@ -2044,18 +2407,14 @@
         },
         "security": [
           {
-            "oauth2": [
-              "fx_api"
-            ]
+            "oauth2": ["fx_api"]
           }
         ]
       }
     },
     "/v1/Banks/{bankId}/DailyRates/{date}.{format}": {
       "get": {
-        "tags": [
-          "DailyRates"
-        ],
+        "tags": ["DailyRates"],
         "summary": "Returns the exchange rates for the specified date exported into the given file format. (Auth policies: RequireBankSubscription)",
         "operationId": "GetDailyRatesBinary",
         "parameters": [
@@ -2075,7 +2434,7 @@
             "required": true,
             "schema": {
               "type": "string",
-              "format": "date-time"
+              "format": "date"
             }
           },
           {
@@ -2194,7 +2553,15 @@
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 },
-                "example": {"type":"https://tools.ietf.org/html/rfc7231#section-6.5.1","title":"One or more validation errors occurred.","status":400,"traceId":"00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00","errors":{"bankId":"Daily rates are not supported for the specified bank."}}
+                "example": {
+                  "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+                  "title": "One or more validation errors occurred.",
+                  "status": 400,
+                  "traceId": "00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00",
+                  "errors": {
+                    "bankId": "Daily rates are not supported for the specified bank."
+                  }
+                }
               }
             }
           },
@@ -2207,18 +2574,14 @@
         },
         "security": [
           {
-            "oauth2": [
-              "fx_api"
-            ]
+            "oauth2": ["fx_api"]
           }
         ]
       }
     },
     "/v1/Banks/{bankId}/DailyRates/Latest": {
       "get": {
-        "tags": [
-          "DailyRates"
-        ],
+        "tags": ["DailyRates"],
         "summary": "Returns the latest available exchange rates. (Auth policies: RequireBankSubscription)",
         "operationId": "GetLatestDailyRates",
         "parameters": [
@@ -2313,7 +2676,25 @@
                 "schema": {
                   "$ref": "#/components/schemas/ExchangeRatesModel"
                 },
-                "example": {"bankId":"NOCB","baseCurrency":"NOK","quoteType":"Direct","rates":{"2020-09-24":{"CHF":{"rate":1030.66,"unitMultiplier":2},"CNY":{"rate":139.6,"unitMultiplier":2},"EUR":{"rate":11.1023,"unitMultiplier":null},"USD":{"rate":9.534,"unitMultiplier":null}},"2020-09-25":{"CHF":{"rate":1032.09,"unitMultiplier":2},"CNY":{"rate":140.27,"unitMultiplier":2},"EUR":{"rate":11.1445,"unitMultiplier":null},"USD":{"rate":9.5793,"unitMultiplier":null}}}}
+                "example": {
+                  "bankId": "NOCB",
+                  "baseCurrency": "NOK",
+                  "quoteType": "Direct",
+                  "rates": {
+                    "2020-09-24": {
+                      "CHF": { "rate": 1030.66, "unitMultiplier": 2 },
+                      "CNY": { "rate": 139.6, "unitMultiplier": 2 },
+                      "EUR": { "rate": 11.1023, "unitMultiplier": null },
+                      "USD": { "rate": 9.534, "unitMultiplier": null }
+                    },
+                    "2020-09-25": {
+                      "CHF": { "rate": 1032.09, "unitMultiplier": 2 },
+                      "CNY": { "rate": 140.27, "unitMultiplier": 2 },
+                      "EUR": { "rate": 11.1445, "unitMultiplier": null },
+                      "USD": { "rate": 9.5793, "unitMultiplier": null }
+                    }
+                  }
+                }
               },
               "application/xml": {
                 "schema": {
@@ -2348,7 +2729,15 @@
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 },
-                "example": {"type":"https://tools.ietf.org/html/rfc7231#section-6.5.1","title":"One or more validation errors occurred.","status":400,"traceId":"00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00","errors":{"bankId":"Daily rates are not supported for the specified bank."}}
+                "example": {
+                  "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+                  "title": "One or more validation errors occurred.",
+                  "status": 400,
+                  "traceId": "00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00",
+                  "errors": {
+                    "bankId": "Daily rates are not supported for the specified bank."
+                  }
+                }
               }
             }
           },
@@ -2361,18 +2750,14 @@
         },
         "security": [
           {
-            "oauth2": [
-              "fx_api"
-            ]
+            "oauth2": ["fx_api"]
           }
         ]
       }
     },
     "/v1/Banks/{bankId}/DailyRates/Latest.{format}": {
       "get": {
-        "tags": [
-          "DailyRates"
-        ],
+        "tags": ["DailyRates"],
         "summary": "Returns the latest available exchange rates exported into the given file format. (Auth policies: RequireBankSubscription)",
         "operationId": "GetLatestDailyRatesBinary",
         "parameters": [
@@ -2501,7 +2886,15 @@
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 },
-                "example": {"type":"https://tools.ietf.org/html/rfc7231#section-6.5.1","title":"One or more validation errors occurred.","status":400,"traceId":"00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00","errors":{"bankId":"Daily rates are not supported for the specified bank."}}
+                "example": {
+                  "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+                  "title": "One or more validation errors occurred.",
+                  "status": 400,
+                  "traceId": "00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00",
+                  "errors": {
+                    "bankId": "Daily rates are not supported for the specified bank."
+                  }
+                }
               }
             }
           },
@@ -2514,18 +2907,14 @@
         },
         "security": [
           {
-            "oauth2": [
-              "fx_api"
-            ]
+            "oauth2": ["fx_api"]
           }
         ]
       }
     },
     "/v1/Banks/{bankId}/DailyRates/Today": {
       "get": {
-        "tags": [
-          "DailyRates"
-        ],
+        "tags": ["DailyRates"],
         "summary": "Returns the exchange rates for the current day (in UTC time). (Auth policies: RequireBankSubscription)",
         "operationId": "GetTodaysDailyRates",
         "parameters": [
@@ -2620,7 +3009,25 @@
                 "schema": {
                   "$ref": "#/components/schemas/ExchangeRatesModel"
                 },
-                "example": {"bankId":"NOCB","baseCurrency":"NOK","quoteType":"Direct","rates":{"2020-09-24":{"CHF":{"rate":1030.66,"unitMultiplier":2},"CNY":{"rate":139.6,"unitMultiplier":2},"EUR":{"rate":11.1023,"unitMultiplier":null},"USD":{"rate":9.534,"unitMultiplier":null}},"2020-09-25":{"CHF":{"rate":1032.09,"unitMultiplier":2},"CNY":{"rate":140.27,"unitMultiplier":2},"EUR":{"rate":11.1445,"unitMultiplier":null},"USD":{"rate":9.5793,"unitMultiplier":null}}}}
+                "example": {
+                  "bankId": "NOCB",
+                  "baseCurrency": "NOK",
+                  "quoteType": "Direct",
+                  "rates": {
+                    "2020-09-24": {
+                      "CHF": { "rate": 1030.66, "unitMultiplier": 2 },
+                      "CNY": { "rate": 139.6, "unitMultiplier": 2 },
+                      "EUR": { "rate": 11.1023, "unitMultiplier": null },
+                      "USD": { "rate": 9.534, "unitMultiplier": null }
+                    },
+                    "2020-09-25": {
+                      "CHF": { "rate": 1032.09, "unitMultiplier": 2 },
+                      "CNY": { "rate": 140.27, "unitMultiplier": 2 },
+                      "EUR": { "rate": 11.1445, "unitMultiplier": null },
+                      "USD": { "rate": 9.5793, "unitMultiplier": null }
+                    }
+                  }
+                }
               },
               "application/xml": {
                 "schema": {
@@ -2687,7 +3094,15 @@
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 },
-                "example": {"type":"https://tools.ietf.org/html/rfc7231#section-6.5.1","title":"One or more validation errors occurred.","status":400,"traceId":"00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00","errors":{"bankId":"Daily rates are not supported for the specified bank."}}
+                "example": {
+                  "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+                  "title": "One or more validation errors occurred.",
+                  "status": 400,
+                  "traceId": "00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00",
+                  "errors": {
+                    "bankId": "Daily rates are not supported for the specified bank."
+                  }
+                }
               }
             }
           },
@@ -2700,18 +3115,14 @@
         },
         "security": [
           {
-            "oauth2": [
-              "fx_api"
-            ]
+            "oauth2": ["fx_api"]
           }
         ]
       }
     },
     "/v1/Banks/{bankId}/DailyRates/Today.{format}": {
       "get": {
-        "tags": [
-          "DailyRates"
-        ],
+        "tags": ["DailyRates"],
         "summary": "Returns the exchange rates for the current day (in UTC time) exported into the given file format. (Auth policies: RequireBankSubscription)",
         "operationId": "GetTodaysDailyRatesBinary",
         "parameters": [
@@ -2869,7 +3280,15 @@
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 },
-                "example": {"type":"https://tools.ietf.org/html/rfc7231#section-6.5.1","title":"One or more validation errors occurred.","status":400,"traceId":"00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00","errors":{"bankId":"Daily rates are not supported for the specified bank."}}
+                "example": {
+                  "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+                  "title": "One or more validation errors occurred.",
+                  "status": 400,
+                  "traceId": "00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00",
+                  "errors": {
+                    "bankId": "Daily rates are not supported for the specified bank."
+                  }
+                }
               }
             }
           },
@@ -2882,18 +3301,14 @@
         },
         "security": [
           {
-            "oauth2": [
-              "fx_api"
-            ]
+            "oauth2": ["fx_api"]
           }
         ]
       }
     },
     "/v1/Banks/{bankId}/MonthlyRates/Availability": {
       "get": {
-        "tags": [
-          "MonthlyRates"
-        ],
+        "tags": ["MonthlyRates"],
         "summary": "Returns the data availability information. (Auth policies: RequireBankSubscription)",
         "operationId": "GetAvailability",
         "parameters": [
@@ -3000,7 +3415,15 @@
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 },
-                "example": {"type":"https://tools.ietf.org/html/rfc7231#section-6.5.1","title":"One or more validation errors occurred.","status":400,"traceId":"00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00","errors":{"bankId":"Daily rates are not supported for the specified bank."}}
+                "example": {
+                  "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+                  "title": "One or more validation errors occurred.",
+                  "status": 400,
+                  "traceId": "00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00",
+                  "errors": {
+                    "bankId": "Daily rates are not supported for the specified bank."
+                  }
+                }
               }
             }
           },
@@ -3013,18 +3436,14 @@
         },
         "security": [
           {
-            "oauth2": [
-              "fx_api"
-            ]
+            "oauth2": ["fx_api"]
           }
         ]
       }
     },
     "/v1/Banks/{bankId}/MonthlyRates/Availability/{startDate}/{endDate}": {
       "get": {
-        "tags": [
-          "MonthlyRates"
-        ],
+        "tags": ["MonthlyRates"],
         "summary": "Returns the data availability information for the specified period. (Auth policies: RequireBankSubscription)",
         "operationId": "GetAvailabilityBetweenDates",
         "parameters": [
@@ -3044,7 +3463,7 @@
             "required": true,
             "schema": {
               "type": "string",
-              "format": "date-time"
+              "format": "date"
             }
           },
           {
@@ -3054,7 +3473,7 @@
             "required": true,
             "schema": {
               "type": "string",
-              "format": "date-time"
+              "format": "date"
             }
           }
         ],
@@ -3155,7 +3574,15 @@
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 },
-                "example": {"type":"https://tools.ietf.org/html/rfc7231#section-6.5.1","title":"One or more validation errors occurred.","status":400,"traceId":"00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00","errors":{"bankId":"Daily rates are not supported for the specified bank."}}
+                "example": {
+                  "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+                  "title": "One or more validation errors occurred.",
+                  "status": 400,
+                  "traceId": "00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00",
+                  "errors": {
+                    "bankId": "Daily rates are not supported for the specified bank."
+                  }
+                }
               }
             }
           },
@@ -3168,18 +3595,14 @@
         },
         "security": [
           {
-            "oauth2": [
-              "fx_api"
-            ]
+            "oauth2": ["fx_api"]
           }
         ]
       }
     },
     "/v1/Banks/{bankId}/MonthlyRates/{year}/{month}": {
       "get": {
-        "tags": [
-          "MonthlyRates"
-        ],
+        "tags": ["MonthlyRates"],
         "summary": "Returns the exchange rates for the given month. (Auth policies: RequireBankSubscription)",
         "operationId": "GetMonthlyRates",
         "parameters": [
@@ -3297,7 +3720,25 @@
                 "schema": {
                   "$ref": "#/components/schemas/ExchangeRatesModel"
                 },
-                "example": {"bankId":"NOCB","baseCurrency":"NOK","quoteType":"Direct","rates":{"2020-09-24":{"CHF":{"rate":1030.66,"unitMultiplier":2},"CNY":{"rate":139.6,"unitMultiplier":2},"EUR":{"rate":11.1023,"unitMultiplier":null},"USD":{"rate":9.534,"unitMultiplier":null}},"2020-09-25":{"CHF":{"rate":1032.09,"unitMultiplier":2},"CNY":{"rate":140.27,"unitMultiplier":2},"EUR":{"rate":11.1445,"unitMultiplier":null},"USD":{"rate":9.5793,"unitMultiplier":null}}}}
+                "example": {
+                  "bankId": "NOCB",
+                  "baseCurrency": "NOK",
+                  "quoteType": "Direct",
+                  "rates": {
+                    "2020-09-24": {
+                      "CHF": { "rate": 1030.66, "unitMultiplier": 2 },
+                      "CNY": { "rate": 139.6, "unitMultiplier": 2 },
+                      "EUR": { "rate": 11.1023, "unitMultiplier": null },
+                      "USD": { "rate": 9.534, "unitMultiplier": null }
+                    },
+                    "2020-09-25": {
+                      "CHF": { "rate": 1032.09, "unitMultiplier": 2 },
+                      "CNY": { "rate": 140.27, "unitMultiplier": 2 },
+                      "EUR": { "rate": 11.1445, "unitMultiplier": null },
+                      "USD": { "rate": 9.5793, "unitMultiplier": null }
+                    }
+                  }
+                }
               },
               "application/xml": {
                 "schema": {
@@ -3332,7 +3773,15 @@
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 },
-                "example": {"type":"https://tools.ietf.org/html/rfc7231#section-6.5.1","title":"One or more validation errors occurred.","status":400,"traceId":"00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00","errors":{"bankId":"Daily rates are not supported for the specified bank."}}
+                "example": {
+                  "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+                  "title": "One or more validation errors occurred.",
+                  "status": 400,
+                  "traceId": "00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00",
+                  "errors": {
+                    "bankId": "Daily rates are not supported for the specified bank."
+                  }
+                }
               }
             }
           },
@@ -3345,18 +3794,14 @@
         },
         "security": [
           {
-            "oauth2": [
-              "fx_api"
-            ]
+            "oauth2": ["fx_api"]
           }
         ]
       }
     },
     "/v1/Banks/{bankId}/MonthlyRates/{year}/{month}.{format}": {
       "get": {
-        "tags": [
-          "MonthlyRates"
-        ],
+        "tags": ["MonthlyRates"],
         "summary": "Returns the exchange rates for the given month exported into the given file format. (Auth policies: RequireBankSubscription)",
         "operationId": "GetMonthlyRatesBinary",
         "parameters": [
@@ -3508,7 +3953,15 @@
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 },
-                "example": {"type":"https://tools.ietf.org/html/rfc7231#section-6.5.1","title":"One or more validation errors occurred.","status":400,"traceId":"00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00","errors":{"bankId":"Daily rates are not supported for the specified bank."}}
+                "example": {
+                  "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+                  "title": "One or more validation errors occurred.",
+                  "status": 400,
+                  "traceId": "00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00",
+                  "errors": {
+                    "bankId": "Daily rates are not supported for the specified bank."
+                  }
+                }
               }
             }
           },
@@ -3521,18 +3974,14 @@
         },
         "security": [
           {
-            "oauth2": [
-              "fx_api"
-            ]
+            "oauth2": ["fx_api"]
           }
         ]
       }
     },
     "/v1/Banks/{bankId}/MonthlyRates/Latest": {
       "get": {
-        "tags": [
-          "MonthlyRates"
-        ],
+        "tags": ["MonthlyRates"],
         "summary": "Returns the latest available exchange rates. (Auth policies: RequireBankSubscription)",
         "operationId": "GetLatestMonthlyRates",
         "parameters": [
@@ -3627,7 +4076,25 @@
                 "schema": {
                   "$ref": "#/components/schemas/ExchangeRatesModel"
                 },
-                "example": {"bankId":"NOCB","baseCurrency":"NOK","quoteType":"Direct","rates":{"2020-09-24":{"CHF":{"rate":1030.66,"unitMultiplier":2},"CNY":{"rate":139.6,"unitMultiplier":2},"EUR":{"rate":11.1023,"unitMultiplier":null},"USD":{"rate":9.534,"unitMultiplier":null}},"2020-09-25":{"CHF":{"rate":1032.09,"unitMultiplier":2},"CNY":{"rate":140.27,"unitMultiplier":2},"EUR":{"rate":11.1445,"unitMultiplier":null},"USD":{"rate":9.5793,"unitMultiplier":null}}}}
+                "example": {
+                  "bankId": "NOCB",
+                  "baseCurrency": "NOK",
+                  "quoteType": "Direct",
+                  "rates": {
+                    "2020-09-24": {
+                      "CHF": { "rate": 1030.66, "unitMultiplier": 2 },
+                      "CNY": { "rate": 139.6, "unitMultiplier": 2 },
+                      "EUR": { "rate": 11.1023, "unitMultiplier": null },
+                      "USD": { "rate": 9.534, "unitMultiplier": null }
+                    },
+                    "2020-09-25": {
+                      "CHF": { "rate": 1032.09, "unitMultiplier": 2 },
+                      "CNY": { "rate": 140.27, "unitMultiplier": 2 },
+                      "EUR": { "rate": 11.1445, "unitMultiplier": null },
+                      "USD": { "rate": 9.5793, "unitMultiplier": null }
+                    }
+                  }
+                }
               },
               "application/xml": {
                 "schema": {
@@ -3662,7 +4129,15 @@
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 },
-                "example": {"type":"https://tools.ietf.org/html/rfc7231#section-6.5.1","title":"One or more validation errors occurred.","status":400,"traceId":"00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00","errors":{"bankId":"Daily rates are not supported for the specified bank."}}
+                "example": {
+                  "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+                  "title": "One or more validation errors occurred.",
+                  "status": 400,
+                  "traceId": "00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00",
+                  "errors": {
+                    "bankId": "Daily rates are not supported for the specified bank."
+                  }
+                }
               }
             }
           },
@@ -3675,18 +4150,14 @@
         },
         "security": [
           {
-            "oauth2": [
-              "fx_api"
-            ]
+            "oauth2": ["fx_api"]
           }
         ]
       }
     },
     "/v1/Banks/{bankId}/MonthlyRates/Latest.{format}": {
       "get": {
-        "tags": [
-          "MonthlyRates"
-        ],
+        "tags": ["MonthlyRates"],
         "summary": "Returns the latest available exchange rates exported into the given file format. (Auth policies: RequireBankSubscription)",
         "operationId": "GetLatestMonthlyRatesBinary",
         "parameters": [
@@ -3815,7 +4286,15 @@
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 },
-                "example": {"type":"https://tools.ietf.org/html/rfc7231#section-6.5.1","title":"One or more validation errors occurred.","status":400,"traceId":"00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00","errors":{"bankId":"Daily rates are not supported for the specified bank."}}
+                "example": {
+                  "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+                  "title": "One or more validation errors occurred.",
+                  "status": 400,
+                  "traceId": "00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00",
+                  "errors": {
+                    "bankId": "Daily rates are not supported for the specified bank."
+                  }
+                }
               }
             }
           },
@@ -3828,18 +4307,14 @@
         },
         "security": [
           {
-            "oauth2": [
-              "fx_api"
-            ]
+            "oauth2": ["fx_api"]
           }
         ]
       }
     },
     "/v1/Banks/{bankId}/MonthlyRates/ThisMonth": {
       "get": {
-        "tags": [
-          "MonthlyRates"
-        ],
+        "tags": ["MonthlyRates"],
         "summary": "Returns the exchange rates for the current month (in UTC time). (Auth policies: RequireBankSubscription)",
         "operationId": "GetThisMonthMonthlyRates",
         "parameters": [
@@ -3934,7 +4409,25 @@
                 "schema": {
                   "$ref": "#/components/schemas/ExchangeRatesModel"
                 },
-                "example": {"bankId":"NOCB","baseCurrency":"NOK","quoteType":"Direct","rates":{"2020-09-24":{"CHF":{"rate":1030.66,"unitMultiplier":2},"CNY":{"rate":139.6,"unitMultiplier":2},"EUR":{"rate":11.1023,"unitMultiplier":null},"USD":{"rate":9.534,"unitMultiplier":null}},"2020-09-25":{"CHF":{"rate":1032.09,"unitMultiplier":2},"CNY":{"rate":140.27,"unitMultiplier":2},"EUR":{"rate":11.1445,"unitMultiplier":null},"USD":{"rate":9.5793,"unitMultiplier":null}}}}
+                "example": {
+                  "bankId": "NOCB",
+                  "baseCurrency": "NOK",
+                  "quoteType": "Direct",
+                  "rates": {
+                    "2020-09-24": {
+                      "CHF": { "rate": 1030.66, "unitMultiplier": 2 },
+                      "CNY": { "rate": 139.6, "unitMultiplier": 2 },
+                      "EUR": { "rate": 11.1023, "unitMultiplier": null },
+                      "USD": { "rate": 9.534, "unitMultiplier": null }
+                    },
+                    "2020-09-25": {
+                      "CHF": { "rate": 1032.09, "unitMultiplier": 2 },
+                      "CNY": { "rate": 140.27, "unitMultiplier": 2 },
+                      "EUR": { "rate": 11.1445, "unitMultiplier": null },
+                      "USD": { "rate": 9.5793, "unitMultiplier": null }
+                    }
+                  }
+                }
               },
               "application/xml": {
                 "schema": {
@@ -3969,7 +4462,15 @@
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 },
-                "example": {"type":"https://tools.ietf.org/html/rfc7231#section-6.5.1","title":"One or more validation errors occurred.","status":400,"traceId":"00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00","errors":{"bankId":"Daily rates are not supported for the specified bank."}}
+                "example": {
+                  "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+                  "title": "One or more validation errors occurred.",
+                  "status": 400,
+                  "traceId": "00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00",
+                  "errors": {
+                    "bankId": "Daily rates are not supported for the specified bank."
+                  }
+                }
               }
             }
           },
@@ -3982,18 +4483,14 @@
         },
         "security": [
           {
-            "oauth2": [
-              "fx_api"
-            ]
+            "oauth2": ["fx_api"]
           }
         ]
       }
     },
     "/v1/Banks/{bankId}/MonthlyRates/ThisMonth.{format}": {
       "get": {
-        "tags": [
-          "MonthlyRates"
-        ],
+        "tags": ["MonthlyRates"],
         "summary": "Returns the exchange rates for the current month (in UTC time) exported into the given file format. (Auth policies: RequireBankSubscription)",
         "operationId": "GetThisMonthMonthlyRatesBinary",
         "parameters": [
@@ -4122,7 +4619,15 @@
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 },
-                "example": {"type":"https://tools.ietf.org/html/rfc7231#section-6.5.1","title":"One or more validation errors occurred.","status":400,"traceId":"00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00","errors":{"bankId":"Daily rates are not supported for the specified bank."}}
+                "example": {
+                  "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+                  "title": "One or more validation errors occurred.",
+                  "status": 400,
+                  "traceId": "00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00",
+                  "errors": {
+                    "bankId": "Daily rates are not supported for the specified bank."
+                  }
+                }
               }
             }
           },
@@ -4135,18 +4640,14 @@
         },
         "security": [
           {
-            "oauth2": [
-              "fx_api"
-            ]
+            "oauth2": ["fx_api"]
           }
         ]
       }
     },
     "/v1/Banks/{bankId}/WeeklyRates/Availability": {
       "get": {
-        "tags": [
-          "WeeklyRates"
-        ],
+        "tags": ["WeeklyRates"],
         "summary": "Returns the data availability information. (Auth policies: RequireBankSubscription)",
         "operationId": "GetAvailability",
         "parameters": [
@@ -4253,7 +4754,15 @@
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 },
-                "example": {"type":"https://tools.ietf.org/html/rfc7231#section-6.5.1","title":"One or more validation errors occurred.","status":400,"traceId":"00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00","errors":{"bankId":"Daily rates are not supported for the specified bank."}}
+                "example": {
+                  "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+                  "title": "One or more validation errors occurred.",
+                  "status": 400,
+                  "traceId": "00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00",
+                  "errors": {
+                    "bankId": "Daily rates are not supported for the specified bank."
+                  }
+                }
               }
             }
           },
@@ -4266,18 +4775,14 @@
         },
         "security": [
           {
-            "oauth2": [
-              "fx_api"
-            ]
+            "oauth2": ["fx_api"]
           }
         ]
       }
     },
     "/v1/Banks/{bankId}/WeeklyRates/Availability/{startDate}/{endDate}": {
       "get": {
-        "tags": [
-          "WeeklyRates"
-        ],
+        "tags": ["WeeklyRates"],
         "summary": "Returns the data availability information for the specified period. (Auth policies: RequireBankSubscription)",
         "operationId": "GetAvailabilityBetweenDates",
         "parameters": [
@@ -4297,7 +4802,7 @@
             "required": true,
             "schema": {
               "type": "string",
-              "format": "date-time"
+              "format": "date"
             }
           },
           {
@@ -4307,7 +4812,7 @@
             "required": true,
             "schema": {
               "type": "string",
-              "format": "date-time"
+              "format": "date"
             }
           }
         ],
@@ -4408,7 +4913,15 @@
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 },
-                "example": {"type":"https://tools.ietf.org/html/rfc7231#section-6.5.1","title":"One or more validation errors occurred.","status":400,"traceId":"00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00","errors":{"bankId":"Daily rates are not supported for the specified bank."}}
+                "example": {
+                  "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+                  "title": "One or more validation errors occurred.",
+                  "status": 400,
+                  "traceId": "00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00",
+                  "errors": {
+                    "bankId": "Daily rates are not supported for the specified bank."
+                  }
+                }
               }
             }
           },
@@ -4421,18 +4934,14 @@
         },
         "security": [
           {
-            "oauth2": [
-              "fx_api"
-            ]
+            "oauth2": ["fx_api"]
           }
         ]
       }
     },
     "/v1/Banks/{bankId}/WeeklyRates/{year}/{month}": {
       "get": {
-        "tags": [
-          "WeeklyRates"
-        ],
+        "tags": ["WeeklyRates"],
         "summary": "Returns the exchange rates for the given month. (Auth policies: RequireBankSubscription)",
         "operationId": "GetWeeklyRates",
         "parameters": [
@@ -4550,7 +5059,25 @@
                 "schema": {
                   "$ref": "#/components/schemas/ExchangeRatesModel"
                 },
-                "example": {"bankId":"NOCB","baseCurrency":"NOK","quoteType":"Direct","rates":{"2020-09-24":{"CHF":{"rate":1030.66,"unitMultiplier":2},"CNY":{"rate":139.6,"unitMultiplier":2},"EUR":{"rate":11.1023,"unitMultiplier":null},"USD":{"rate":9.534,"unitMultiplier":null}},"2020-09-25":{"CHF":{"rate":1032.09,"unitMultiplier":2},"CNY":{"rate":140.27,"unitMultiplier":2},"EUR":{"rate":11.1445,"unitMultiplier":null},"USD":{"rate":9.5793,"unitMultiplier":null}}}}
+                "example": {
+                  "bankId": "NOCB",
+                  "baseCurrency": "NOK",
+                  "quoteType": "Direct",
+                  "rates": {
+                    "2020-09-24": {
+                      "CHF": { "rate": 1030.66, "unitMultiplier": 2 },
+                      "CNY": { "rate": 139.6, "unitMultiplier": 2 },
+                      "EUR": { "rate": 11.1023, "unitMultiplier": null },
+                      "USD": { "rate": 9.534, "unitMultiplier": null }
+                    },
+                    "2020-09-25": {
+                      "CHF": { "rate": 1032.09, "unitMultiplier": 2 },
+                      "CNY": { "rate": 140.27, "unitMultiplier": 2 },
+                      "EUR": { "rate": 11.1445, "unitMultiplier": null },
+                      "USD": { "rate": 9.5793, "unitMultiplier": null }
+                    }
+                  }
+                }
               },
               "application/xml": {
                 "schema": {
@@ -4585,7 +5112,15 @@
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 },
-                "example": {"type":"https://tools.ietf.org/html/rfc7231#section-6.5.1","title":"One or more validation errors occurred.","status":400,"traceId":"00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00","errors":{"bankId":"Daily rates are not supported for the specified bank."}}
+                "example": {
+                  "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+                  "title": "One or more validation errors occurred.",
+                  "status": 400,
+                  "traceId": "00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00",
+                  "errors": {
+                    "bankId": "Daily rates are not supported for the specified bank."
+                  }
+                }
               }
             }
           },
@@ -4598,18 +5133,14 @@
         },
         "security": [
           {
-            "oauth2": [
-              "fx_api"
-            ]
+            "oauth2": ["fx_api"]
           }
         ]
       }
     },
     "/v1/Banks/{bankId}/WeeklyRates/{year}/{month}.{format}": {
       "get": {
-        "tags": [
-          "WeeklyRates"
-        ],
+        "tags": ["WeeklyRates"],
         "summary": "Returns the exchange rates for the given month exported into the given file format. (Auth policies: RequireBankSubscription)",
         "operationId": "GetWeeklyRatesBinary",
         "parameters": [
@@ -4761,7 +5292,15 @@
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 },
-                "example": {"type":"https://tools.ietf.org/html/rfc7231#section-6.5.1","title":"One or more validation errors occurred.","status":400,"traceId":"00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00","errors":{"bankId":"Daily rates are not supported for the specified bank."}}
+                "example": {
+                  "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+                  "title": "One or more validation errors occurred.",
+                  "status": 400,
+                  "traceId": "00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00",
+                  "errors": {
+                    "bankId": "Daily rates are not supported for the specified bank."
+                  }
+                }
               }
             }
           },
@@ -4774,18 +5313,14 @@
         },
         "security": [
           {
-            "oauth2": [
-              "fx_api"
-            ]
+            "oauth2": ["fx_api"]
           }
         ]
       }
     },
     "/v1/Banks/{bankId}/WeeklyRates/Latest": {
       "get": {
-        "tags": [
-          "WeeklyRates"
-        ],
+        "tags": ["WeeklyRates"],
         "summary": "Returns the latest available exchange rates. (Auth policies: RequireBankSubscription)",
         "operationId": "GetLatestWeeklyRates",
         "parameters": [
@@ -4880,7 +5415,25 @@
                 "schema": {
                   "$ref": "#/components/schemas/ExchangeRatesModel"
                 },
-                "example": {"bankId":"NOCB","baseCurrency":"NOK","quoteType":"Direct","rates":{"2020-09-24":{"CHF":{"rate":1030.66,"unitMultiplier":2},"CNY":{"rate":139.6,"unitMultiplier":2},"EUR":{"rate":11.1023,"unitMultiplier":null},"USD":{"rate":9.534,"unitMultiplier":null}},"2020-09-25":{"CHF":{"rate":1032.09,"unitMultiplier":2},"CNY":{"rate":140.27,"unitMultiplier":2},"EUR":{"rate":11.1445,"unitMultiplier":null},"USD":{"rate":9.5793,"unitMultiplier":null}}}}
+                "example": {
+                  "bankId": "NOCB",
+                  "baseCurrency": "NOK",
+                  "quoteType": "Direct",
+                  "rates": {
+                    "2020-09-24": {
+                      "CHF": { "rate": 1030.66, "unitMultiplier": 2 },
+                      "CNY": { "rate": 139.6, "unitMultiplier": 2 },
+                      "EUR": { "rate": 11.1023, "unitMultiplier": null },
+                      "USD": { "rate": 9.534, "unitMultiplier": null }
+                    },
+                    "2020-09-25": {
+                      "CHF": { "rate": 1032.09, "unitMultiplier": 2 },
+                      "CNY": { "rate": 140.27, "unitMultiplier": 2 },
+                      "EUR": { "rate": 11.1445, "unitMultiplier": null },
+                      "USD": { "rate": 9.5793, "unitMultiplier": null }
+                    }
+                  }
+                }
               },
               "application/xml": {
                 "schema": {
@@ -4915,7 +5468,15 @@
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 },
-                "example": {"type":"https://tools.ietf.org/html/rfc7231#section-6.5.1","title":"One or more validation errors occurred.","status":400,"traceId":"00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00","errors":{"bankId":"Daily rates are not supported for the specified bank."}}
+                "example": {
+                  "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+                  "title": "One or more validation errors occurred.",
+                  "status": 400,
+                  "traceId": "00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00",
+                  "errors": {
+                    "bankId": "Daily rates are not supported for the specified bank."
+                  }
+                }
               }
             }
           },
@@ -4928,18 +5489,14 @@
         },
         "security": [
           {
-            "oauth2": [
-              "fx_api"
-            ]
+            "oauth2": ["fx_api"]
           }
         ]
       }
     },
     "/v1/Banks/{bankId}/WeeklyRates/Latest.{format}": {
       "get": {
-        "tags": [
-          "WeeklyRates"
-        ],
+        "tags": ["WeeklyRates"],
         "summary": "Returns the latest available exchange rates exported into the given file format. (Auth policies: RequireBankSubscription)",
         "operationId": "GetLatestWeeklyRatesBinary",
         "parameters": [
@@ -5068,7 +5625,15 @@
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 },
-                "example": {"type":"https://tools.ietf.org/html/rfc7231#section-6.5.1","title":"One or more validation errors occurred.","status":400,"traceId":"00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00","errors":{"bankId":"Daily rates are not supported for the specified bank."}}
+                "example": {
+                  "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+                  "title": "One or more validation errors occurred.",
+                  "status": 400,
+                  "traceId": "00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00",
+                  "errors": {
+                    "bankId": "Daily rates are not supported for the specified bank."
+                  }
+                }
               }
             }
           },
@@ -5081,18 +5646,14 @@
         },
         "security": [
           {
-            "oauth2": [
-              "fx_api"
-            ]
+            "oauth2": ["fx_api"]
           }
         ]
       }
     },
     "/v1/Banks/{bankId}/WeeklyRates/ThisMonth": {
       "get": {
-        "tags": [
-          "WeeklyRates"
-        ],
+        "tags": ["WeeklyRates"],
         "summary": "Returns the exchange rates for the current month (in UTC time). (Auth policies: RequireBankSubscription)",
         "operationId": "GetThisMonthWeeklyRates",
         "parameters": [
@@ -5187,7 +5748,25 @@
                 "schema": {
                   "$ref": "#/components/schemas/ExchangeRatesModel"
                 },
-                "example": {"bankId":"NOCB","baseCurrency":"NOK","quoteType":"Direct","rates":{"2020-09-24":{"CHF":{"rate":1030.66,"unitMultiplier":2},"CNY":{"rate":139.6,"unitMultiplier":2},"EUR":{"rate":11.1023,"unitMultiplier":null},"USD":{"rate":9.534,"unitMultiplier":null}},"2020-09-25":{"CHF":{"rate":1032.09,"unitMultiplier":2},"CNY":{"rate":140.27,"unitMultiplier":2},"EUR":{"rate":11.1445,"unitMultiplier":null},"USD":{"rate":9.5793,"unitMultiplier":null}}}}
+                "example": {
+                  "bankId": "NOCB",
+                  "baseCurrency": "NOK",
+                  "quoteType": "Direct",
+                  "rates": {
+                    "2020-09-24": {
+                      "CHF": { "rate": 1030.66, "unitMultiplier": 2 },
+                      "CNY": { "rate": 139.6, "unitMultiplier": 2 },
+                      "EUR": { "rate": 11.1023, "unitMultiplier": null },
+                      "USD": { "rate": 9.534, "unitMultiplier": null }
+                    },
+                    "2020-09-25": {
+                      "CHF": { "rate": 1032.09, "unitMultiplier": 2 },
+                      "CNY": { "rate": 140.27, "unitMultiplier": 2 },
+                      "EUR": { "rate": 11.1445, "unitMultiplier": null },
+                      "USD": { "rate": 9.5793, "unitMultiplier": null }
+                    }
+                  }
+                }
               },
               "application/xml": {
                 "schema": {
@@ -5222,7 +5801,15 @@
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 },
-                "example": {"type":"https://tools.ietf.org/html/rfc7231#section-6.5.1","title":"One or more validation errors occurred.","status":400,"traceId":"00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00","errors":{"bankId":"Daily rates are not supported for the specified bank."}}
+                "example": {
+                  "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+                  "title": "One or more validation errors occurred.",
+                  "status": 400,
+                  "traceId": "00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00",
+                  "errors": {
+                    "bankId": "Daily rates are not supported for the specified bank."
+                  }
+                }
               }
             }
           },
@@ -5235,18 +5822,14 @@
         },
         "security": [
           {
-            "oauth2": [
-              "fx_api"
-            ]
+            "oauth2": ["fx_api"]
           }
         ]
       }
     },
     "/v1/Banks/{bankId}/WeeklyRates/ThisMonth.{format}": {
       "get": {
-        "tags": [
-          "WeeklyRates"
-        ],
+        "tags": ["WeeklyRates"],
         "summary": "Returns the exchange rates for the current month (in UTC time) exported into the given file format. (Auth policies: RequireBankSubscription)",
         "operationId": "GetThisMonthWeeklyRatesBinary",
         "parameters": [
@@ -5375,7 +5958,15 @@
                 "schema": {
                   "$ref": "#/components/schemas/ProblemDetails"
                 },
-                "example": {"type":"https://tools.ietf.org/html/rfc7231#section-6.5.1","title":"One or more validation errors occurred.","status":400,"traceId":"00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00","errors":{"bankId":"Daily rates are not supported for the specified bank."}}
+                "example": {
+                  "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+                  "title": "One or more validation errors occurred.",
+                  "status": 400,
+                  "traceId": "00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00",
+                  "errors": {
+                    "bankId": "Daily rates are not supported for the specified bank."
+                  }
+                }
               }
             }
           },
@@ -5388,9 +5979,7 @@
         },
         "security": [
           {
-            "oauth2": [
-              "fx_api"
-            ]
+            "oauth2": ["fx_api"]
           }
         ]
       }
@@ -5404,12 +5993,12 @@
           "firstEffectiveDate": {
             "type": "string",
             "description": "The first available effective date.",
-            "format": "date-time"
+            "format": "date"
           },
           "lastEffectiveDate": {
             "type": "string",
             "description": "The last available effective date.",
-            "format": "date-time"
+            "format": "date"
           },
           "availableCurrencies": {
             "uniqueItems": true,
@@ -5503,7 +6092,10 @@
           "ILCB",
           "RSCB",
           "NOTOLL",
-          "ZACB"
+          "ZACB",
+          "EGCB",
+          "IDMOF",
+          "KRSMBS"
         ],
         "type": "string"
       },
@@ -5533,6 +6125,7 @@
           "dailyUpdateTime": {
             "type": "string",
             "description": "The time at which the daily exchange rates are published by the bank.",
+            "format": "time",
             "nullable": true,
             "example": "16:00:00"
           },
@@ -5571,6 +6164,7 @@
             "description": "The price types available for the bank."
           },
           "website": {
+            "minLength": 1,
             "type": "string",
             "description": "The website of the bank."
           },
@@ -5973,6 +6567,7 @@
           "SEK",
           "SGD",
           "SHP",
+          "SLE",
           "SLL",
           "SOS",
           "SRD",
@@ -6031,15 +6626,13 @@
         "additionalProperties": false
       },
       "CurrencyConversionRateModel": {
-        "required": [
-          "rate"
-        ],
+        "required": ["rate"],
         "type": "object",
         "properties": {
           "rate": {
             "type": "number",
             "description": "The exchange rate.",
-            "format": "double",
+            "format": "decimal",
             "example": 569.82
           },
           "unitMultiplier": {
@@ -6065,7 +6658,7 @@
           },
           "effectiveDate": {
             "type": "string",
-            "format": "date-time"
+            "format": "date"
           },
           "quoteType": {
             "$ref": "#/components/schemas/ExchangeRateQuoteType"
@@ -6078,7 +6671,7 @@
         "properties": {
           "result": {
             "type": "number",
-            "format": "double"
+            "format": "decimal"
           },
           "rate": {
             "type": "array",
@@ -6117,25 +6710,18 @@
         "additionalProperties": false
       },
       "ExchangeRateQuoteType": {
-        "enum": [
-          "Direct",
-          "Indirect"
-        ],
+        "enum": ["Direct", "Indirect"],
         "type": "string"
       },
       "ExchangeRatesModel": {
-        "required": [
-          "bankId",
-          "baseCurrency",
-          "quoteType",
-          "rates"
-        ],
+        "required": ["bankId", "baseCurrency", "quoteType", "rates"],
         "type": "object",
         "properties": {
           "bankId": {
             "$ref": "#/components/schemas/BankId"
           },
           "baseCurrency": {
+            "minLength": 1,
             "type": "string",
             "description": "The base currency.",
             "example": "NOK"
@@ -6158,28 +6744,15 @@
         "additionalProperties": false
       },
       "Format": {
-        "enum": [
-          "Json",
-          "Xml",
-          "Xlsx",
-          "Csv",
-          "SapFlatFile"
-        ],
+        "enum": ["Json", "Xml", "Xlsx", "Csv", "SapFlatFile"],
         "type": "string"
       },
       "Frequency": {
-        "enum": [
-          "Daily",
-          "Monthly",
-          "Weekly"
-        ],
+        "enum": ["Daily", "Monthly", "Weekly"],
         "type": "string"
       },
       "HolidayFormat": {
-        "enum": [
-          "Json",
-          "Ics"
-        ],
+        "enum": ["Json", "Ics"],
         "type": "string"
       },
       "LocalName": {
@@ -6201,21 +6774,18 @@
         "additionalProperties": false
       },
       "PeggedRateModel": {
-        "required": [
-          "currency",
-          "peggedSince",
-          "rate"
-        ],
+        "required": ["currency", "peggedSince", "rate"],
         "type": "object",
         "properties": {
           "currency": {
+            "minLength": 1,
             "type": "string",
             "description": "The reference currency."
           },
           "rate": {
             "type": "number",
             "description": "Rate (reference/fixed).",
-            "format": "double"
+            "format": "decimal"
           },
           "peggedSince": {
             "type": "string",
@@ -6226,11 +6796,7 @@
         "additionalProperties": false
       },
       "PriceType": {
-        "enum": [
-          "Mid",
-          "Bid",
-          "Ask"
-        ],
+        "enum": ["Mid", "Bid", "Ask"],
         "type": "string"
       },
       "ProblemDetails": {
@@ -6258,18 +6824,16 @@
             "nullable": true
           }
         },
-        "additionalProperties": { }
+        "additionalProperties": {}
       },
       "RateModel": {
-        "required": [
-          "rate"
-        ],
+        "required": ["rate"],
         "type": "object",
         "properties": {
           "rate": {
             "type": "number",
             "description": "The exchange rate.",
-            "format": "double",
+            "format": "decimal",
             "example": 569.82
           },
           "unitMultiplier": {
@@ -6320,8 +6884,8 @@
         "type": "oauth2",
         "flows": {
           "implicit": {
-            "authorizationUrl": "https://sso.fluentax.com/auth/realms/fluentax/protocol/openid-connect/auth",
-            "tokenUrl": "https://sso.fluentax.com/auth/realms/fluentax/protocol/openid-connect/token",
+            "authorizationUrl": "http://sso.localhost/auth/realms/fluentax/protocol/openid-connect/auth",
+            "tokenUrl": "http://sso.localhost/auth/realms/fluentax/protocol/openid-connect/token",
             "scopes": {
               "fx_api": "FX Rates API - full access"
             }

@@ -8,6 +8,8 @@ info:
     name: FX Support Team
     email: fx-support@fluentax.com
   version: '1.0'
+servers:
+  - url: https://fx-api.fluentax.com
 paths:
   /v1/Banks/{bankId}/BankHolidays/{year}:
     get:
@@ -299,7 +301,7 @@ paths:
           required: true
           schema:
             type: string
-            format: date-time
+            format: date
         - name: endDate
           in: query
           description: >-
@@ -308,7 +310,7 @@ paths:
           required: true
           schema:
             type: string
-            format: date-time
+            format: date
         - name: format
           in: query
           description: The requested format.
@@ -442,7 +444,7 @@ paths:
           required: true
           schema:
             type: string
-            format: date-time
+            format: date
         - name: endDate
           in: query
           description: >-
@@ -451,7 +453,7 @@ paths:
           required: true
           schema:
             type: string
-            format: date-time
+            format: date
         - name: format
           in: path
           description: The requested format.
@@ -850,14 +852,14 @@ paths:
           required: true
           schema:
             type: number
-            format: double
+            format: decimal
           example: 152.47
         - name: date
           in: query
           description: The conversion date.
           schema:
             type: string
-            format: date-time
+            format: date
           example: '2020-09-24'
         - name: bankId
           in: query
@@ -1233,14 +1235,14 @@ paths:
           required: true
           schema:
             type: string
-            format: date-time
+            format: date
         - name: endDate
           in: path
           description: The end date.
           required: true
           schema:
             type: string
-            format: date-time
+            format: date
       responses:
         '200':
           description: Returns the data availability information.
@@ -1353,14 +1355,14 @@ paths:
           required: true
           schema:
             type: string
-            format: date-time
+            format: date
         - name: endDate
           in: query
           description: The end date.
           required: true
           schema:
             type: string
-            format: date-time
+            format: date
         - name: currencies
           in: query
           description: The currencies to return.
@@ -1516,14 +1518,14 @@ paths:
           required: true
           schema:
             type: string
-            format: date-time
+            format: date
         - name: endDate
           in: query
           description: The end date.
           required: true
           schema:
             type: string
-            format: date-time
+            format: date
         - name: currencies
           in: query
           description: The currencies to return.
@@ -1641,7 +1643,7 @@ paths:
           required: true
           schema:
             type: string
-            format: date-time
+            format: date
         - name: currencies
           in: query
           description: The currencies to return.
@@ -1797,7 +1799,7 @@ paths:
           required: true
           schema:
             type: string
-            format: date-time
+            format: date
         - name: currencies
           in: query
           description: The currencies to return.
@@ -2592,14 +2594,14 @@ paths:
           required: true
           schema:
             type: string
-            format: date-time
+            format: date
         - name: endDate
           in: path
           description: The end date.
           required: true
           schema:
             type: string
-            format: date-time
+            format: date
       responses:
         '200':
           description: Returns the data availability information.
@@ -3629,14 +3631,14 @@ paths:
           required: true
           schema:
             type: string
-            format: date-time
+            format: date
         - name: endDate
           in: path
           description: The end date.
           required: true
           schema:
             type: string
-            format: date-time
+            format: date
       responses:
         '200':
           description: Returns the data availability information.
@@ -4550,11 +4552,11 @@ components:
         firstEffectiveDate:
           type: string
           description: The first available effective date.
-          format: date-time
+          format: date
         lastEffectiveDate:
           type: string
           description: The last available effective date.
-          format: date-time
+          format: date
         availableCurrencies:
           uniqueItems: true
           type: array
@@ -4637,6 +4639,9 @@ components:
         - RSCB
         - NOTOLL
         - ZACB
+        - EGCB
+        - IDMOF
+        - KRSMBS
       type: string
     BankModel:
       required:
@@ -4662,6 +4667,7 @@ components:
           description: >-
             The time at which the daily exchange rates are published by the
             bank.
+          format: time
           nullable: true
           example: '16:00:00'
         bankCurrency:
@@ -4689,6 +4695,7 @@ components:
             $ref: '#/components/schemas/PriceType'
           description: The price types available for the bank.
         website:
+          minLength: 1
           type: string
           description: The website of the bank.
         peggedRate:
@@ -5085,6 +5092,7 @@ components:
         - SEK
         - SGD
         - SHP
+        - SLE
         - SLL
         - SOS
         - SRD
@@ -5148,7 +5156,7 @@ components:
         rate:
           type: number
           description: The exchange rate.
-          format: double
+          format: decimal
           example: 569.82
         unitMultiplier:
           type: integer
@@ -5170,7 +5178,7 @@ components:
           $ref: '#/components/schemas/Frequency'
         effectiveDate:
           type: string
-          format: date-time
+          format: date
         quoteType:
           $ref: '#/components/schemas/ExchangeRateQuoteType'
       additionalProperties: false
@@ -5179,7 +5187,7 @@ components:
       properties:
         result:
           type: number
-          format: double
+          format: decimal
         rate:
           type: array
           items:
@@ -5221,6 +5229,7 @@ components:
         bankId:
           $ref: '#/components/schemas/BankId'
         baseCurrency:
+          minLength: 1
           type: string
           description: The base currency.
           example: NOK
@@ -5275,12 +5284,13 @@ components:
       type: object
       properties:
         currency:
+          minLength: 1
           type: string
           description: The reference currency.
         rate:
           type: number
           description: Rate (reference/fixed).
-          format: double
+          format: decimal
         peggedSince:
           type: string
           description: The date from which the fixed rate applies.
@@ -5320,7 +5330,7 @@ components:
         rate:
           type: number
           description: The exchange rate.
-          format: double
+          format: decimal
           example: 569.82
         unitMultiplier:
           type: integer
@@ -5363,8 +5373,8 @@ components:
       flows:
         implicit:
           authorizationUrl: >-
-            https://sso.fluentax.com/auth/realms/fluentax/protocol/openid-connect/auth
+            http://sso.localhost/auth/realms/fluentax/protocol/openid-connect/auth
           tokenUrl: >-
-            https://sso.fluentax.com/auth/realms/fluentax/protocol/openid-connect/token
+            http://sso.localhost/auth/realms/fluentax/protocol/openid-connect/token
           scopes:
             fx_api: FX Rates API - full access
