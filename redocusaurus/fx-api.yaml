@@ -677,6 +677,7 @@ paths:
                     - languageCode: 'no'
                       name: Norges Bank
                       abbreviatedName: Norgesbank
+                  publishedDays: null
                   dailyUpdateTime: '16:00:00'
                   bankCurrency: NOK
                   countryCode:
@@ -776,6 +777,7 @@ paths:
                   - languageCode: 'no'
                     name: Norges Bank
                     abbreviatedName: Norgesbank
+                publishedDays: null
                 dailyUpdateTime: '16:00:00'
                 bankCurrency: NOK
                 countryCode:
@@ -4642,6 +4644,8 @@ components:
         - EGCB
         - IDMOF
         - KRSMBS
+        - JPMUFG
+        - CRCB
       type: string
     BankModel:
       required:
@@ -4662,6 +4666,8 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/LocalName'
+        publishedDays:
+          $ref: '#/components/schemas/PublishedDays'
         dailyUpdateTime:
           type: string
           description: >-
@@ -5322,6 +5328,13 @@ components:
           type: string
           nullable: true
       additionalProperties: {}
+    PublishedDays:
+      enum:
+        - MondayToFriday
+        - MondayToSunday
+        - SundayToThursday
+        - TuesdayToSaturday
+      type: string
     RateModel:
       required:
         - rate
@@ -5373,8 +5386,8 @@ components:
       flows:
         implicit:
           authorizationUrl: >-
-            http://sso.localhost/auth/realms/fluentax/protocol/openid-connect/auth
+            https://sso.fluentax.com/auth/realms/fluentax/protocol/openid-connect/auth
           tokenUrl: >-
-            http://sso.localhost/auth/realms/fluentax/protocol/openid-connect/token
+            https://sso.fluentax.com/auth/realms/fluentax/protocol/openid-connect/token
           scopes:
             fx_api: FX Rates API - full access

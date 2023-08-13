@@ -970,6 +970,7 @@
                         "abbreviatedName": "Norgesbank"
                       }
                     ],
+                    "publishedDays": null,
                     "dailyUpdateTime": "16:00:00",
                     "bankCurrency": "NOK",
                     "countryCode": ["NO"],
@@ -1104,6 +1105,7 @@
                       "abbreviatedName": "Norgesbank"
                     }
                   ],
+                  "publishedDays": null,
                   "dailyUpdateTime": "16:00:00",
                   "bankCurrency": "NOK",
                   "countryCode": ["NO"],
@@ -6095,7 +6097,9 @@
           "ZACB",
           "EGCB",
           "IDMOF",
-          "KRSMBS"
+          "KRSMBS",
+          "JPMUFG",
+          "CRCB"
         ],
         "type": "string"
       },
@@ -6121,6 +6125,9 @@
             "items": {
               "$ref": "#/components/schemas/LocalName"
             }
+          },
+          "publishedDays": {
+            "$ref": "#/components/schemas/PublishedDays"
           },
           "dailyUpdateTime": {
             "type": "string",
@@ -6826,6 +6833,15 @@
         },
         "additionalProperties": {}
       },
+      "PublishedDays": {
+        "enum": [
+          "MondayToFriday",
+          "MondayToSunday",
+          "SundayToThursday",
+          "TuesdayToSaturday"
+        ],
+        "type": "string"
+      },
       "RateModel": {
         "required": ["rate"],
         "type": "object",
@@ -6884,8 +6900,8 @@
         "type": "oauth2",
         "flows": {
           "implicit": {
-            "authorizationUrl": "http://sso.localhost/auth/realms/fluentax/protocol/openid-connect/auth",
-            "tokenUrl": "http://sso.localhost/auth/realms/fluentax/protocol/openid-connect/token",
+            "authorizationUrl": "https://sso.fluentax.com/auth/realms/fluentax/protocol/openid-connect/auth",
+            "tokenUrl": "https://sso.fluentax.com/auth/realms/fluentax/protocol/openid-connect/token",
             "scopes": {
               "fx_api": "FX Rates API - full access"
             }
