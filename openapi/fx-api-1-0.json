@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "Exchange Rates API",
-    "description": "Exchange Rates API for retrieving daily or monthly exchange rates from official sources (central banks, tax authorities).",
+    "description": "Exchange Rates API for retrieving daily, weekly, biweekly, and monthly currency exchange rates from official sources (central banks, tax authorities).",
     "contact": {
       "name": "FX Support Team",
       "email": "fx-support@fluentax.com"
@@ -1149,6 +1149,1345 @@
           },
           "401": {
             "description": "Unauthorized"
+          }
+        },
+        "security": [
+          {
+            "oauth2": ["fx_api"]
+          }
+        ]
+      }
+    },
+    "/v1/Banks/{bankId}/BiweeklyRates/Availability": {
+      "get": {
+        "tags": ["BiweeklyRates"],
+        "summary": "Returns the data availability information. (Auth policies: RequireBankSubscription)",
+        "operationId": "GetAvailability",
+        "parameters": [
+          {
+            "name": "bankId",
+            "in": "path",
+            "description": "The bank identifier.",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/BankId"
+            }
+          }
+        ],
+        "responses": {
+          "429": {
+            "description": "Too Many Requests",
+            "headers": {
+              "Retry-After": {
+                "description": "Indicates how long to wait before making a new request",
+                "schema": {
+                  "type": "integer",
+                  "description": "Indicates how long to wait before making a new request",
+                  "format": "int32"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Returns the data availability information.",
+            "headers": {
+              "X-Rate-Limit-Limit": {
+                "description": "The rate limit period that is applicable for the current request (eg. 1m, 12h, 1d)",
+                "schema": {
+                  "type": "string",
+                  "description": "The rate limit period that is applicable for the current request (eg. 1m, 12h, 1d)",
+                  "format": ""
+                }
+              },
+              "X-Rate-Limit-Remaining": {
+                "description": "The number of requests left for the current rate-limit window",
+                "schema": {
+                  "type": "integer",
+                  "description": "The number of requests left for the current rate-limit window",
+                  "format": "int32"
+                }
+              },
+              "X-Rate-Limit-Reset": {
+                "description": "UTC date time (ISO 8601) when the rate limit resets",
+                "schema": {
+                  "type": "string",
+                  "description": "UTC date time (ISO 8601) when the rate limit resets",
+                  "format": "date-time"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BankDataAvailabilityModel"
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "The data availability information is not available.",
+            "headers": {
+              "X-Rate-Limit-Limit": {
+                "description": "The rate limit period that is applicable for the current request (eg. 1m, 12h, 1d)",
+                "schema": {
+                  "type": "string",
+                  "description": "The rate limit period that is applicable for the current request (eg. 1m, 12h, 1d)",
+                  "format": ""
+                }
+              },
+              "X-Rate-Limit-Remaining": {
+                "description": "The number of requests left for the current rate-limit window",
+                "schema": {
+                  "type": "integer",
+                  "description": "The number of requests left for the current rate-limit window",
+                  "format": "int32"
+                }
+              },
+              "X-Rate-Limit-Reset": {
+                "description": "UTC date time (ISO 8601) when the rate limit resets",
+                "schema": {
+                  "type": "string",
+                  "description": "UTC date time (ISO 8601) when the rate limit resets",
+                  "format": "date-time"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                },
+                "example": {
+                  "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+                  "title": "One or more validation errors occurred.",
+                  "status": 400,
+                  "traceId": "00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00",
+                  "errors": {
+                    "bankId": "Daily rates are not supported for the specified bank."
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": ["fx_api"]
+          }
+        ]
+      }
+    },
+    "/v1/Banks/{bankId}/BiweeklyRates/Availability/{startDate}/{endDate}": {
+      "get": {
+        "tags": ["BiweeklyRates"],
+        "summary": "Returns the data availability information for the specified period. (Auth policies: RequireBankSubscription)",
+        "operationId": "GetAvailabilityBetweenDates",
+        "parameters": [
+          {
+            "name": "bankId",
+            "in": "path",
+            "description": "The bank identifier.",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/BankId"
+            }
+          },
+          {
+            "name": "startDate",
+            "in": "path",
+            "description": "The start date.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          },
+          {
+            "name": "endDate",
+            "in": "path",
+            "description": "The end date.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "date"
+            }
+          }
+        ],
+        "responses": {
+          "429": {
+            "description": "Too Many Requests",
+            "headers": {
+              "Retry-After": {
+                "description": "Indicates how long to wait before making a new request",
+                "schema": {
+                  "type": "integer",
+                  "description": "Indicates how long to wait before making a new request",
+                  "format": "int32"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Returns the data availability information.",
+            "headers": {
+              "X-Rate-Limit-Limit": {
+                "description": "The rate limit period that is applicable for the current request (eg. 1m, 12h, 1d)",
+                "schema": {
+                  "type": "string",
+                  "description": "The rate limit period that is applicable for the current request (eg. 1m, 12h, 1d)",
+                  "format": ""
+                }
+              },
+              "X-Rate-Limit-Remaining": {
+                "description": "The number of requests left for the current rate-limit window",
+                "schema": {
+                  "type": "integer",
+                  "description": "The number of requests left for the current rate-limit window",
+                  "format": "int32"
+                }
+              },
+              "X-Rate-Limit-Reset": {
+                "description": "UTC date time (ISO 8601) when the rate limit resets",
+                "schema": {
+                  "type": "string",
+                  "description": "UTC date time (ISO 8601) when the rate limit resets",
+                  "format": "date-time"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "format": "date-time"
+                  }
+                }
+              }
+            }
+          },
+          "204": {
+            "description": "The data availability information is not available.",
+            "headers": {
+              "X-Rate-Limit-Limit": {
+                "description": "The rate limit period that is applicable for the current request (eg. 1m, 12h, 1d)",
+                "schema": {
+                  "type": "string",
+                  "description": "The rate limit period that is applicable for the current request (eg. 1m, 12h, 1d)",
+                  "format": ""
+                }
+              },
+              "X-Rate-Limit-Remaining": {
+                "description": "The number of requests left for the current rate-limit window",
+                "schema": {
+                  "type": "integer",
+                  "description": "The number of requests left for the current rate-limit window",
+                  "format": "int32"
+                }
+              },
+              "X-Rate-Limit-Reset": {
+                "description": "UTC date time (ISO 8601) when the rate limit resets",
+                "schema": {
+                  "type": "string",
+                  "description": "UTC date time (ISO 8601) when the rate limit resets",
+                  "format": "date-time"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                },
+                "example": {
+                  "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+                  "title": "One or more validation errors occurred.",
+                  "status": 400,
+                  "traceId": "00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00",
+                  "errors": {
+                    "bankId": "Daily rates are not supported for the specified bank."
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": ["fx_api"]
+          }
+        ]
+      }
+    },
+    "/v1/Banks/{bankId}/BiweeklyRates/{year}/{month}": {
+      "get": {
+        "tags": ["BiweeklyRates"],
+        "summary": "Returns the exchange rates for the given month. (Auth policies: RequireBankSubscription)",
+        "operationId": "GetBiweeklyRates",
+        "parameters": [
+          {
+            "name": "bankId",
+            "in": "path",
+            "description": "The bank identifier.",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/BankId"
+            }
+          },
+          {
+            "name": "year",
+            "in": "path",
+            "description": "The requested year.",
+            "required": true,
+            "schema": {
+              "minimum": 1900,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "month",
+            "in": "path",
+            "description": "The requested month.",
+            "required": true,
+            "schema": {
+              "maximum": 12,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "currencies",
+            "in": "query",
+            "description": "The currencies to return.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/CurrencyCode"
+              }
+            }
+          },
+          {
+            "name": "priceType",
+            "in": "query",
+            "description": "The requested price type. Defaults to mid.",
+            "schema": {
+              "$ref": "#/components/schemas/PriceType"
+            }
+          },
+          {
+            "name": "format",
+            "in": "query",
+            "description": "The response format.",
+            "schema": {
+              "$ref": "#/components/schemas/Format"
+            }
+          }
+        ],
+        "responses": {
+          "429": {
+            "description": "Too Many Requests",
+            "headers": {
+              "Retry-After": {
+                "description": "Indicates how long to wait before making a new request",
+                "schema": {
+                  "type": "integer",
+                  "description": "Indicates how long to wait before making a new request",
+                  "format": "int32"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Returns the exchange rates.",
+            "headers": {
+              "X-Rate-Limit-Limit": {
+                "description": "The rate limit period that is applicable for the current request (eg. 1m, 12h, 1d)",
+                "schema": {
+                  "type": "string",
+                  "description": "The rate limit period that is applicable for the current request (eg. 1m, 12h, 1d)",
+                  "format": ""
+                }
+              },
+              "X-Rate-Limit-Remaining": {
+                "description": "The number of requests left for the current rate-limit window",
+                "schema": {
+                  "type": "integer",
+                  "description": "The number of requests left for the current rate-limit window",
+                  "format": "int32"
+                }
+              },
+              "X-Rate-Limit-Reset": {
+                "description": "UTC date time (ISO 8601) when the rate limit resets",
+                "schema": {
+                  "type": "string",
+                  "description": "UTC date time (ISO 8601) when the rate limit resets",
+                  "format": "date-time"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExchangeRatesModel"
+                },
+                "example": {
+                  "bankId": "NOCB",
+                  "baseCurrency": "NOK",
+                  "quoteType": "Direct",
+                  "rates": {
+                    "2020-09-24": {
+                      "CHF": { "rate": 1030.66, "unitMultiplier": 2 },
+                      "CNY": { "rate": 139.6, "unitMultiplier": 2 },
+                      "EUR": { "rate": 11.1023, "unitMultiplier": null },
+                      "USD": { "rate": 9.534, "unitMultiplier": null }
+                    },
+                    "2020-09-25": {
+                      "CHF": { "rate": 1032.09, "unitMultiplier": 2 },
+                      "CNY": { "rate": 140.27, "unitMultiplier": 2 },
+                      "EUR": { "rate": 11.1445, "unitMultiplier": null },
+                      "USD": { "rate": 9.5793, "unitMultiplier": null }
+                    }
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExchangeRatesModel"
+                },
+                "example": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<ExchangeRates xmlns=\"http://schemas.fluentax.com/ExchangeRates/1.0/ExchangeRates\">\r\n   <BankId>NOCB</BankId>\r\n   <BaseCurrency>NOK</BaseCurrency>\r\n   <QuoteType>Direct</QuoteType>\r\n   <Rates effectiveDate=\"2020-09-24\">\r\n      <Rate currency=\"CHF\" value=\"1030.66\" unitMultiplier=\"2\" />\r\n      <Rate currency=\"CNY\" value=\"139.6\" unitMultiplier=\"2\" />\r\n      <Rate currency=\"EUR\" value=\"11.1023\" />\r\n      <Rate currency=\"USD\" value=\"9.534\" />\r\n   </Rates>\r\n</ExchangeRates>"
+              },
+              "text/csv": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExchangeRatesModel"
+                },
+                "example": "BankId,From Currency,To Currency,Effective Date,Exchange Rate,Unit\r\nNOCB,CHF,NOK,2020-09-24,1030.66,100\r\nNOCB,CNY,NOK,2020-09-24,139.6,100\r\nNOCB,EUR,NOK,2020-09-24,11.1023,1\r\nNOCB,USD,NOK,2020-09-24,9.534,1\r\n"
+              },
+              "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExchangeRatesModel"
+                },
+                "example": "<ExchangeRatesModel xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">\n  <BankId>NOCB</BankId>\n  <BaseCurrency>NOK</BaseCurrency>\n  <QuoteType>Direct</QuoteType>\n</ExchangeRatesModel>"
+              },
+              "application/x-sap-flat-file": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExchangeRatesModel"
+                },
+                "example": "NOCB;CHF;NOK;20200924;1030.66;100;1\r\nNOCB;CNY;NOK;20200924;139.6;100;1\r\nNOCB;EUR;NOK;20200924;11.1023;1;1\r\nNOCB;USD;NOK;20200924;9.534;1;1\r\n"
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                },
+                "example": {
+                  "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+                  "title": "One or more validation errors occurred.",
+                  "status": 400,
+                  "traceId": "00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00",
+                  "errors": {
+                    "bankId": "Daily rates are not supported for the specified bank."
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": ["fx_api"]
+          }
+        ]
+      }
+    },
+    "/v1/Banks/{bankId}/BiweeklyRates/{year}/{month}.{format}": {
+      "get": {
+        "tags": ["BiweeklyRates"],
+        "summary": "Returns the exchange rates for the given month exported into the given file format. (Auth policies: RequireBankSubscription)",
+        "operationId": "GetBiweeklyRatesBinary",
+        "parameters": [
+          {
+            "name": "bankId",
+            "in": "path",
+            "description": "The bank identifier.",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/BankId"
+            }
+          },
+          {
+            "name": "year",
+            "in": "path",
+            "description": "The requested year.",
+            "required": true,
+            "schema": {
+              "minimum": 1900,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "month",
+            "in": "path",
+            "description": "The requested month.",
+            "required": true,
+            "schema": {
+              "maximum": 12,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "currencies",
+            "in": "query",
+            "description": "The currencies to return.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/CurrencyCode"
+              }
+            }
+          },
+          {
+            "name": "priceType",
+            "in": "query",
+            "description": "The requested price type. Defaults to mid.",
+            "schema": {
+              "$ref": "#/components/schemas/PriceType"
+            }
+          },
+          {
+            "name": "format",
+            "in": "path",
+            "description": "The response format.",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Format"
+            }
+          }
+        ],
+        "responses": {
+          "429": {
+            "description": "Too Many Requests",
+            "headers": {
+              "Retry-After": {
+                "description": "Indicates how long to wait before making a new request",
+                "schema": {
+                  "type": "integer",
+                  "description": "Indicates how long to wait before making a new request",
+                  "format": "int32"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Returns the exchange rates.",
+            "headers": {
+              "X-Rate-Limit-Limit": {
+                "description": "The rate limit period that is applicable for the current request (eg. 1m, 12h, 1d)",
+                "schema": {
+                  "type": "string",
+                  "description": "The rate limit period that is applicable for the current request (eg. 1m, 12h, 1d)",
+                  "format": ""
+                }
+              },
+              "X-Rate-Limit-Remaining": {
+                "description": "The number of requests left for the current rate-limit window",
+                "schema": {
+                  "type": "integer",
+                  "description": "The number of requests left for the current rate-limit window",
+                  "format": "int32"
+                }
+              },
+              "X-Rate-Limit-Reset": {
+                "description": "UTC date time (ISO 8601) when the rate limit resets",
+                "schema": {
+                  "type": "string",
+                  "description": "UTC date time (ISO 8601) when the rate limit resets",
+                  "format": "date-time"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "file"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "file"
+                },
+                "example": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<ExchangeRates xmlns=\"http://schemas.fluentax.com/ExchangeRates/1.0/ExchangeRates\">\r\n   <BankId>NOCB</BankId>\r\n   <BaseCurrency>NOK</BaseCurrency>\r\n   <QuoteType>Direct</QuoteType>\r\n   <Rates effectiveDate=\"2020-09-24\">\r\n      <Rate currency=\"CHF\" value=\"1030.66\" unitMultiplier=\"2\" />\r\n      <Rate currency=\"CNY\" value=\"139.6\" unitMultiplier=\"2\" />\r\n      <Rate currency=\"EUR\" value=\"11.1023\" />\r\n      <Rate currency=\"USD\" value=\"9.534\" />\r\n   </Rates>\r\n</ExchangeRates>"
+              },
+              "text/csv": {
+                "schema": {
+                  "type": "file"
+                },
+                "example": "BankId,From Currency,To Currency,Effective Date,Exchange Rate,Unit\r\nNOCB,CHF,NOK,2020-09-24,1030.66,100\r\nNOCB,CNY,NOK,2020-09-24,139.6,100\r\nNOCB,EUR,NOK,2020-09-24,11.1023,1\r\nNOCB,USD,NOK,2020-09-24,9.534,1\r\n"
+              },
+              "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": {
+                "schema": {
+                  "type": "file"
+                }
+              },
+              "application/x-sap-flat-file": {
+                "schema": {
+                  "type": "file"
+                },
+                "example": "NOCB;CHF;NOK;20200924;1030.66;100;1\r\nNOCB;CNY;NOK;20200924;139.6;100;1\r\nNOCB;EUR;NOK;20200924;11.1023;1;1\r\nNOCB;USD;NOK;20200924;9.534;1;1\r\n"
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                },
+                "example": {
+                  "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+                  "title": "One or more validation errors occurred.",
+                  "status": 400,
+                  "traceId": "00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00",
+                  "errors": {
+                    "bankId": "Daily rates are not supported for the specified bank."
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": ["fx_api"]
+          }
+        ]
+      }
+    },
+    "/v1/Banks/{bankId}/BiweeklyRates/Latest": {
+      "get": {
+        "tags": ["BiweeklyRates"],
+        "summary": "Returns the latest available exchange rates. (Auth policies: RequireBankSubscription)",
+        "operationId": "GetLatestBiweeklyRates",
+        "parameters": [
+          {
+            "name": "bankId",
+            "in": "path",
+            "description": "The bank identifier.",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/BankId"
+            }
+          },
+          {
+            "name": "currencies",
+            "in": "query",
+            "description": "The currencies to return.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/CurrencyCode"
+              }
+            }
+          },
+          {
+            "name": "priceType",
+            "in": "query",
+            "description": "The requested price type. Defaults to mid.",
+            "schema": {
+              "$ref": "#/components/schemas/PriceType"
+            }
+          },
+          {
+            "name": "format",
+            "in": "query",
+            "description": "The response format.",
+            "schema": {
+              "$ref": "#/components/schemas/Format"
+            }
+          }
+        ],
+        "responses": {
+          "429": {
+            "description": "Too Many Requests",
+            "headers": {
+              "Retry-After": {
+                "description": "Indicates how long to wait before making a new request",
+                "schema": {
+                  "type": "integer",
+                  "description": "Indicates how long to wait before making a new request",
+                  "format": "int32"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Returns the exchange rates.",
+            "headers": {
+              "X-Rate-Limit-Limit": {
+                "description": "The rate limit period that is applicable for the current request (eg. 1m, 12h, 1d)",
+                "schema": {
+                  "type": "string",
+                  "description": "The rate limit period that is applicable for the current request (eg. 1m, 12h, 1d)",
+                  "format": ""
+                }
+              },
+              "X-Rate-Limit-Remaining": {
+                "description": "The number of requests left for the current rate-limit window",
+                "schema": {
+                  "type": "integer",
+                  "description": "The number of requests left for the current rate-limit window",
+                  "format": "int32"
+                }
+              },
+              "X-Rate-Limit-Reset": {
+                "description": "UTC date time (ISO 8601) when the rate limit resets",
+                "schema": {
+                  "type": "string",
+                  "description": "UTC date time (ISO 8601) when the rate limit resets",
+                  "format": "date-time"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExchangeRatesModel"
+                },
+                "example": {
+                  "bankId": "NOCB",
+                  "baseCurrency": "NOK",
+                  "quoteType": "Direct",
+                  "rates": {
+                    "2020-09-24": {
+                      "CHF": { "rate": 1030.66, "unitMultiplier": 2 },
+                      "CNY": { "rate": 139.6, "unitMultiplier": 2 },
+                      "EUR": { "rate": 11.1023, "unitMultiplier": null },
+                      "USD": { "rate": 9.534, "unitMultiplier": null }
+                    },
+                    "2020-09-25": {
+                      "CHF": { "rate": 1032.09, "unitMultiplier": 2 },
+                      "CNY": { "rate": 140.27, "unitMultiplier": 2 },
+                      "EUR": { "rate": 11.1445, "unitMultiplier": null },
+                      "USD": { "rate": 9.5793, "unitMultiplier": null }
+                    }
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExchangeRatesModel"
+                },
+                "example": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<ExchangeRates xmlns=\"http://schemas.fluentax.com/ExchangeRates/1.0/ExchangeRates\">\r\n   <BankId>NOCB</BankId>\r\n   <BaseCurrency>NOK</BaseCurrency>\r\n   <QuoteType>Direct</QuoteType>\r\n   <Rates effectiveDate=\"2020-09-24\">\r\n      <Rate currency=\"CHF\" value=\"1030.66\" unitMultiplier=\"2\" />\r\n      <Rate currency=\"CNY\" value=\"139.6\" unitMultiplier=\"2\" />\r\n      <Rate currency=\"EUR\" value=\"11.1023\" />\r\n      <Rate currency=\"USD\" value=\"9.534\" />\r\n   </Rates>\r\n</ExchangeRates>"
+              },
+              "text/csv": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExchangeRatesModel"
+                },
+                "example": "BankId,From Currency,To Currency,Effective Date,Exchange Rate,Unit\r\nNOCB,CHF,NOK,2020-09-24,1030.66,100\r\nNOCB,CNY,NOK,2020-09-24,139.6,100\r\nNOCB,EUR,NOK,2020-09-24,11.1023,1\r\nNOCB,USD,NOK,2020-09-24,9.534,1\r\n"
+              },
+              "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExchangeRatesModel"
+                },
+                "example": "<ExchangeRatesModel xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">\n  <BankId>NOCB</BankId>\n  <BaseCurrency>NOK</BaseCurrency>\n  <QuoteType>Direct</QuoteType>\n</ExchangeRatesModel>"
+              },
+              "application/x-sap-flat-file": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExchangeRatesModel"
+                },
+                "example": "NOCB;CHF;NOK;20200924;1030.66;100;1\r\nNOCB;CNY;NOK;20200924;139.6;100;1\r\nNOCB;EUR;NOK;20200924;11.1023;1;1\r\nNOCB;USD;NOK;20200924;9.534;1;1\r\n"
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                },
+                "example": {
+                  "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+                  "title": "One or more validation errors occurred.",
+                  "status": 400,
+                  "traceId": "00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00",
+                  "errors": {
+                    "bankId": "Daily rates are not supported for the specified bank."
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": ["fx_api"]
+          }
+        ]
+      }
+    },
+    "/v1/Banks/{bankId}/BiweeklyRates/Latest.{format}": {
+      "get": {
+        "tags": ["BiweeklyRates"],
+        "summary": "Returns the latest available exchange rates exported into the given file format. (Auth policies: RequireBankSubscription)",
+        "operationId": "GetLatestBiweeklyRatesBinary",
+        "parameters": [
+          {
+            "name": "bankId",
+            "in": "path",
+            "description": "The bank identifier.",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/BankId"
+            }
+          },
+          {
+            "name": "currencies",
+            "in": "query",
+            "description": "The currencies to return.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/CurrencyCode"
+              }
+            }
+          },
+          {
+            "name": "priceType",
+            "in": "query",
+            "description": "The requested price type. Defaults to mid.",
+            "schema": {
+              "$ref": "#/components/schemas/PriceType"
+            }
+          },
+          {
+            "name": "format",
+            "in": "path",
+            "description": "The response format.",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Format"
+            }
+          }
+        ],
+        "responses": {
+          "429": {
+            "description": "Too Many Requests",
+            "headers": {
+              "Retry-After": {
+                "description": "Indicates how long to wait before making a new request",
+                "schema": {
+                  "type": "integer",
+                  "description": "Indicates how long to wait before making a new request",
+                  "format": "int32"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Returns the exchange rates.",
+            "headers": {
+              "X-Rate-Limit-Limit": {
+                "description": "The rate limit period that is applicable for the current request (eg. 1m, 12h, 1d)",
+                "schema": {
+                  "type": "string",
+                  "description": "The rate limit period that is applicable for the current request (eg. 1m, 12h, 1d)",
+                  "format": ""
+                }
+              },
+              "X-Rate-Limit-Remaining": {
+                "description": "The number of requests left for the current rate-limit window",
+                "schema": {
+                  "type": "integer",
+                  "description": "The number of requests left for the current rate-limit window",
+                  "format": "int32"
+                }
+              },
+              "X-Rate-Limit-Reset": {
+                "description": "UTC date time (ISO 8601) when the rate limit resets",
+                "schema": {
+                  "type": "string",
+                  "description": "UTC date time (ISO 8601) when the rate limit resets",
+                  "format": "date-time"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "file"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "file"
+                },
+                "example": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<ExchangeRates xmlns=\"http://schemas.fluentax.com/ExchangeRates/1.0/ExchangeRates\">\r\n   <BankId>NOCB</BankId>\r\n   <BaseCurrency>NOK</BaseCurrency>\r\n   <QuoteType>Direct</QuoteType>\r\n   <Rates effectiveDate=\"2020-09-24\">\r\n      <Rate currency=\"CHF\" value=\"1030.66\" unitMultiplier=\"2\" />\r\n      <Rate currency=\"CNY\" value=\"139.6\" unitMultiplier=\"2\" />\r\n      <Rate currency=\"EUR\" value=\"11.1023\" />\r\n      <Rate currency=\"USD\" value=\"9.534\" />\r\n   </Rates>\r\n</ExchangeRates>"
+              },
+              "text/csv": {
+                "schema": {
+                  "type": "file"
+                },
+                "example": "BankId,From Currency,To Currency,Effective Date,Exchange Rate,Unit\r\nNOCB,CHF,NOK,2020-09-24,1030.66,100\r\nNOCB,CNY,NOK,2020-09-24,139.6,100\r\nNOCB,EUR,NOK,2020-09-24,11.1023,1\r\nNOCB,USD,NOK,2020-09-24,9.534,1\r\n"
+              },
+              "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": {
+                "schema": {
+                  "type": "file"
+                }
+              },
+              "application/x-sap-flat-file": {
+                "schema": {
+                  "type": "file"
+                },
+                "example": "NOCB;CHF;NOK;20200924;1030.66;100;1\r\nNOCB;CNY;NOK;20200924;139.6;100;1\r\nNOCB;EUR;NOK;20200924;11.1023;1;1\r\nNOCB;USD;NOK;20200924;9.534;1;1\r\n"
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                },
+                "example": {
+                  "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+                  "title": "One or more validation errors occurred.",
+                  "status": 400,
+                  "traceId": "00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00",
+                  "errors": {
+                    "bankId": "Daily rates are not supported for the specified bank."
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": ["fx_api"]
+          }
+        ]
+      }
+    },
+    "/v1/Banks/{bankId}/BiweeklyRates/ThisMonth": {
+      "get": {
+        "tags": ["BiweeklyRates"],
+        "summary": "Returns the exchange rates for the current month (in UTC time). (Auth policies: RequireBankSubscription)",
+        "operationId": "GetThisMonthBiweeklyRates",
+        "parameters": [
+          {
+            "name": "bankId",
+            "in": "path",
+            "description": "The bank identifier.",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/BankId"
+            }
+          },
+          {
+            "name": "currencies",
+            "in": "query",
+            "description": "The currencies to return.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/CurrencyCode"
+              }
+            }
+          },
+          {
+            "name": "priceType",
+            "in": "query",
+            "description": "The requested price type. Defaults to mid.",
+            "schema": {
+              "$ref": "#/components/schemas/PriceType"
+            }
+          },
+          {
+            "name": "format",
+            "in": "query",
+            "description": "The response format.",
+            "schema": {
+              "$ref": "#/components/schemas/Format"
+            }
+          }
+        ],
+        "responses": {
+          "429": {
+            "description": "Too Many Requests",
+            "headers": {
+              "Retry-After": {
+                "description": "Indicates how long to wait before making a new request",
+                "schema": {
+                  "type": "integer",
+                  "description": "Indicates how long to wait before making a new request",
+                  "format": "int32"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Returns the exchange rates.",
+            "headers": {
+              "X-Rate-Limit-Limit": {
+                "description": "The rate limit period that is applicable for the current request (eg. 1m, 12h, 1d)",
+                "schema": {
+                  "type": "string",
+                  "description": "The rate limit period that is applicable for the current request (eg. 1m, 12h, 1d)",
+                  "format": ""
+                }
+              },
+              "X-Rate-Limit-Remaining": {
+                "description": "The number of requests left for the current rate-limit window",
+                "schema": {
+                  "type": "integer",
+                  "description": "The number of requests left for the current rate-limit window",
+                  "format": "int32"
+                }
+              },
+              "X-Rate-Limit-Reset": {
+                "description": "UTC date time (ISO 8601) when the rate limit resets",
+                "schema": {
+                  "type": "string",
+                  "description": "UTC date time (ISO 8601) when the rate limit resets",
+                  "format": "date-time"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExchangeRatesModel"
+                },
+                "example": {
+                  "bankId": "NOCB",
+                  "baseCurrency": "NOK",
+                  "quoteType": "Direct",
+                  "rates": {
+                    "2020-09-24": {
+                      "CHF": { "rate": 1030.66, "unitMultiplier": 2 },
+                      "CNY": { "rate": 139.6, "unitMultiplier": 2 },
+                      "EUR": { "rate": 11.1023, "unitMultiplier": null },
+                      "USD": { "rate": 9.534, "unitMultiplier": null }
+                    },
+                    "2020-09-25": {
+                      "CHF": { "rate": 1032.09, "unitMultiplier": 2 },
+                      "CNY": { "rate": 140.27, "unitMultiplier": 2 },
+                      "EUR": { "rate": 11.1445, "unitMultiplier": null },
+                      "USD": { "rate": 9.5793, "unitMultiplier": null }
+                    }
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExchangeRatesModel"
+                },
+                "example": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<ExchangeRates xmlns=\"http://schemas.fluentax.com/ExchangeRates/1.0/ExchangeRates\">\r\n   <BankId>NOCB</BankId>\r\n   <BaseCurrency>NOK</BaseCurrency>\r\n   <QuoteType>Direct</QuoteType>\r\n   <Rates effectiveDate=\"2020-09-24\">\r\n      <Rate currency=\"CHF\" value=\"1030.66\" unitMultiplier=\"2\" />\r\n      <Rate currency=\"CNY\" value=\"139.6\" unitMultiplier=\"2\" />\r\n      <Rate currency=\"EUR\" value=\"11.1023\" />\r\n      <Rate currency=\"USD\" value=\"9.534\" />\r\n   </Rates>\r\n</ExchangeRates>"
+              },
+              "text/csv": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExchangeRatesModel"
+                },
+                "example": "BankId,From Currency,To Currency,Effective Date,Exchange Rate,Unit\r\nNOCB,CHF,NOK,2020-09-24,1030.66,100\r\nNOCB,CNY,NOK,2020-09-24,139.6,100\r\nNOCB,EUR,NOK,2020-09-24,11.1023,1\r\nNOCB,USD,NOK,2020-09-24,9.534,1\r\n"
+              },
+              "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExchangeRatesModel"
+                },
+                "example": "<ExchangeRatesModel xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\" xmlns:xsd=\"http://www.w3.org/2001/XMLSchema\">\n  <BankId>NOCB</BankId>\n  <BaseCurrency>NOK</BaseCurrency>\n  <QuoteType>Direct</QuoteType>\n</ExchangeRatesModel>"
+              },
+              "application/x-sap-flat-file": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExchangeRatesModel"
+                },
+                "example": "NOCB;CHF;NOK;20200924;1030.66;100;1\r\nNOCB;CNY;NOK;20200924;139.6;100;1\r\nNOCB;EUR;NOK;20200924;11.1023;1;1\r\nNOCB;USD;NOK;20200924;9.534;1;1\r\n"
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                },
+                "example": {
+                  "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+                  "title": "One or more validation errors occurred.",
+                  "status": 400,
+                  "traceId": "00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00",
+                  "errors": {
+                    "bankId": "Daily rates are not supported for the specified bank."
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "oauth2": ["fx_api"]
+          }
+        ]
+      }
+    },
+    "/v1/Banks/{bankId}/BiweeklyRates/ThisMonth.{format}": {
+      "get": {
+        "tags": ["BiweeklyRates"],
+        "summary": "Returns the exchange rates for the current month (in UTC time) exported into the given file format. (Auth policies: RequireBankSubscription)",
+        "operationId": "GetThisMonthBiweeklyRatesBinary",
+        "parameters": [
+          {
+            "name": "bankId",
+            "in": "path",
+            "description": "The bank identifier.",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/BankId"
+            }
+          },
+          {
+            "name": "currencies",
+            "in": "query",
+            "description": "The currencies to return.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/CurrencyCode"
+              }
+            }
+          },
+          {
+            "name": "priceType",
+            "in": "query",
+            "description": "The requested price type. Defaults to mid.",
+            "schema": {
+              "$ref": "#/components/schemas/PriceType"
+            }
+          },
+          {
+            "name": "format",
+            "in": "path",
+            "description": "The response format.",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Format"
+            }
+          }
+        ],
+        "responses": {
+          "429": {
+            "description": "Too Many Requests",
+            "headers": {
+              "Retry-After": {
+                "description": "Indicates how long to wait before making a new request",
+                "schema": {
+                  "type": "integer",
+                  "description": "Indicates how long to wait before making a new request",
+                  "format": "int32"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "200": {
+            "description": "Returns the exchange rates.",
+            "headers": {
+              "X-Rate-Limit-Limit": {
+                "description": "The rate limit period that is applicable for the current request (eg. 1m, 12h, 1d)",
+                "schema": {
+                  "type": "string",
+                  "description": "The rate limit period that is applicable for the current request (eg. 1m, 12h, 1d)",
+                  "format": ""
+                }
+              },
+              "X-Rate-Limit-Remaining": {
+                "description": "The number of requests left for the current rate-limit window",
+                "schema": {
+                  "type": "integer",
+                  "description": "The number of requests left for the current rate-limit window",
+                  "format": "int32"
+                }
+              },
+              "X-Rate-Limit-Reset": {
+                "description": "UTC date time (ISO 8601) when the rate limit resets",
+                "schema": {
+                  "type": "string",
+                  "description": "UTC date time (ISO 8601) when the rate limit resets",
+                  "format": "date-time"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "file"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "file"
+                },
+                "example": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<ExchangeRates xmlns=\"http://schemas.fluentax.com/ExchangeRates/1.0/ExchangeRates\">\r\n   <BankId>NOCB</BankId>\r\n   <BaseCurrency>NOK</BaseCurrency>\r\n   <QuoteType>Direct</QuoteType>\r\n   <Rates effectiveDate=\"2020-09-24\">\r\n      <Rate currency=\"CHF\" value=\"1030.66\" unitMultiplier=\"2\" />\r\n      <Rate currency=\"CNY\" value=\"139.6\" unitMultiplier=\"2\" />\r\n      <Rate currency=\"EUR\" value=\"11.1023\" />\r\n      <Rate currency=\"USD\" value=\"9.534\" />\r\n   </Rates>\r\n</ExchangeRates>"
+              },
+              "text/csv": {
+                "schema": {
+                  "type": "file"
+                },
+                "example": "BankId,From Currency,To Currency,Effective Date,Exchange Rate,Unit\r\nNOCB,CHF,NOK,2020-09-24,1030.66,100\r\nNOCB,CNY,NOK,2020-09-24,139.6,100\r\nNOCB,EUR,NOK,2020-09-24,11.1023,1\r\nNOCB,USD,NOK,2020-09-24,9.534,1\r\n"
+              },
+              "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet": {
+                "schema": {
+                  "type": "file"
+                }
+              },
+              "application/x-sap-flat-file": {
+                "schema": {
+                  "type": "file"
+                },
+                "example": "NOCB;CHF;NOK;20200924;1030.66;100;1\r\nNOCB;CNY;NOK;20200924;139.6;100;1\r\nNOCB;EUR;NOK;20200924;11.1023;1;1\r\nNOCB;USD;NOK;20200924;9.534;1;1\r\n"
+              }
+            }
+          },
+          "default": {
+            "description": "Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProblemDetails"
+                },
+                "example": {
+                  "type": "https://tools.ietf.org/html/rfc7231#section-6.5.1",
+                  "title": "One or more validation errors occurred.",
+                  "status": 400,
+                  "traceId": "00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00",
+                  "errors": {
+                    "bankId": "Daily rates are not supported for the specified bank."
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
           }
         },
         "security": [
@@ -6099,7 +7438,15 @@
           "IDMOF",
           "KRSMBS",
           "JPMUFG",
-          "CRCB"
+          "CRCB",
+          "BRCB",
+          "UNTR",
+          "MACB",
+          "MDCB",
+          "UACB",
+          "BACB",
+          "MKCB",
+          "ALCB"
         ],
         "type": "string"
       },
@@ -6755,7 +8102,7 @@
         "type": "string"
       },
       "Frequency": {
-        "enum": ["Daily", "Monthly", "Weekly"],
+        "enum": ["Daily", "Monthly", "Weekly", "Biweekly"],
         "type": "string"
       },
       "HolidayFormat": {
