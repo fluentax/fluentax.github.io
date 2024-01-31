@@ -7446,7 +7446,11 @@
           "UACB",
           "BACB",
           "MKCB",
-          "ALCB"
+          "ALCB",
+          "AZCB",
+          "KZCB",
+          "GECB",
+          "AMCB"
         ],
         "type": "string"
       },

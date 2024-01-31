@@ -5692,6 +5692,10 @@ components:
         - BACB
         - MKCB
         - ALCB
+        - AZCB
+        - KZCB
+        - GECB
+        - AMCB
       type: string
     BankModel:
       required:
