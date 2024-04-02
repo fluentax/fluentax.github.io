@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified" targetNamespace="http://schemas.fluentax.com/ExchangeRates/1.0/ExchangeRates"
+    xmlns:tns="http://schemas.fluentax.com/ExchangeRates/1.0/ExchangeRates">
+    <xs:simpleType name="BankIdType">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[A-Z]{4,6}"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="CurrencyType">
+        <xs:annotation>
+            <xs:documentation>The ISO 4217 alpha-3 currency code</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[A-Z]{3}"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="QuoteType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Direct"/>
+            <xs:enumeration value="Indirect"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:element name="ExchangeRates">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="BankId" type="tns:BankIdType">
+                    <xs:annotation>
+                        <xs:documentation>The bank identifier</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="BaseCurrency" type="tns:CurrencyType">
+                    <xs:annotation>
+                        <xs:documentation>The base currency</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="QuoteType" type="tns:QuoteType">
+                    <xs:annotation>
+                        <xs:documentation>The quote type</xs:documentation>
+                    </xs:annotation>
+                </xs:element>
+                <xs:element name="Rates" minOccurs="0" maxOccurs="unbounded">
+                    <xs:annotation>
+                        <xs:documentation>The exchange rates</xs:documentation>
+                    </xs:annotation>
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Rate" minOccurs="0" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:attribute name="currency" type="tns:CurrencyType" use="required">
+                                        <xs:annotation>
+                                            <xs:documentation>The quote currency</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                    <xs:attribute name="value" use="required">
+                                        <xs:annotation>
+                                            <xs:documentation>The exchange rate between the base currency and the quote currency</xs:documentation>
+                                        </xs:annotation>
+                                        <xs:simpleType>
+                                            <xs:restriction base="xs:decimal">
+                                                <xs:minExclusive value="0"/>
+                                            </xs:restriction>
+                                        </xs:simpleType>
+                                    </xs:attribute>
+                                    <xs:attribute name="unitMultiplier" type="xs:unsignedByte">
+                                        <xs:annotation>
+                                            <xs:documentation>Exponent in base 10 specified so that multiplying the exchange rate by 10^unitMultiplier gives a value expressed in the unit of measure. A unitMultiplier of 2, for example, indicates that the BaseCurrency is stated in terms of 100 units. By default this attribute is omitted, for stating the BaseCurrency in terms of 1 unit.</xs:documentation>
+                                        </xs:annotation>
+                                    </xs:attribute>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                        <xs:attribute name="effectiveDate" type="xs:date" use="required">
+                            <xs:annotation>
+                                <xs:documentation>The date to which the rate refers to</xs:documentation>
+                            </xs:annotation>
+                        </xs:attribute>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
