@@ -145,9 +145,6 @@ paths:
                 traceId: 00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00
                 errors:
                   bankId: Daily rates are not supported for the specified bank.
-      security:
-        - oauth2:
-            - fx_api
   /v1/Banks/{bankId}/BankHolidays/{year}.{format}:
     get:
       tags:
@@ -280,9 +277,6 @@ paths:
                 traceId: 00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00
                 errors:
                   bankId: Daily rates are not supported for the specified bank.
-      security:
-        - oauth2:
-            - fx_api
   /v1/Banks/{bankId}/BankHolidays:
     get:
       tags:
@@ -423,9 +417,6 @@ paths:
                 traceId: 00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00
                 errors:
                   bankId: Daily rates are not supported for the specified bank.
-      security:
-        - oauth2:
-            - fx_api
   /v1/Banks/{bankId}/BankHolidays.{format}:
     get:
       tags:
@@ -526,9 +517,6 @@ paths:
                 traceId: 00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00
                 errors:
                   bankId: Daily rates are not supported for the specified bank.
-      security:
-        - oauth2:
-            - fx_api
   /v1/Banks/{bankId}/BankHolidays/Next:
     get:
       tags:
@@ -631,9 +619,6 @@ paths:
                 traceId: 00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00
                 errors:
                   bankId: Daily rates are not supported for the specified bank.
-      security:
-        - oauth2:
-            - fx_api
   /v1/Banks:
     get:
       tags:
@@ -693,8 +678,9 @@ paths:
                     ianaTimeZoneName: Europe/Oslo
                   supportedFrequencies:
                     - Daily
-                  supportedPriceTypes: null
-                  website: null
+                  supportedPriceTypes:
+                    - Mid
+                  website: https://www.norges-bank.no
                   peggedRate: null
         '401':
           description: Unauthorized
@@ -726,9 +712,6 @@ paths:
                 traceId: 00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00
                 errors:
                   bankId: Daily rates are not supported for the specified bank.
-      security:
-        - oauth2:
-            - fx_api
   /v1/Banks/{bankId}:
     get:
       tags:
@@ -793,8 +776,9 @@ paths:
                   ianaTimeZoneName: Europe/Oslo
                 supportedFrequencies:
                   - Daily
-                supportedPriceTypes: null
-                website: null
+                supportedPriceTypes:
+                  - Mid
+                website: https://www.norges-bank.no
                 peggedRate: null
         '400':
           description: Invalid bankId specified.
@@ -828,9 +812,6 @@ paths:
                 traceId: 00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00
                 errors:
                   bankId: Daily rates are not supported for the specified bank.
-      security:
-        - oauth2:
-            - fx_api
   /v1/Banks/{bankId}/BiweeklyRates/Availability:
     get:
       tags:
@@ -931,9 +912,6 @@ paths:
                 traceId: 00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00
                 errors:
                   bankId: Daily rates are not supported for the specified bank.
-      security:
-        - oauth2:
-            - fx_api
   /v1/Banks/{bankId}/BiweeklyRates/Availability/{startDate}/{endDate}:
     get:
       tags:
@@ -1051,9 +1029,6 @@ paths:
                 traceId: 00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00
                 errors:
                   bankId: Daily rates are not supported for the specified bank.
-      security:
-        - oauth2:
-            - fx_api
   /v1/Banks/{bankId}/BiweeklyRates/Latest:
     get:
       tags:
@@ -1071,7 +1046,9 @@ paths:
             $ref: '#/components/schemas/BankId'
         - name: currencies
           in: query
-          description: The currencies to return.
+          description: >-
+            The currencies to return. If no currencies are provided, all
+            available currencies will be included in the results.
           schema:
             type: array
             items:
@@ -1081,6 +1058,13 @@ paths:
           description: The requested price type. Defaults to mid.
           schema:
             $ref: '#/components/schemas/PriceType'
+        - name: includeObsoleteCurrencies
+          in: query
+          description: >-
+            A flag indicating whether obsolete currencies should be included in
+            the results. Defaults to false.
+          schema:
+            type: boolean
         - name: format
           in: query
           description: The response format.
@@ -1215,9 +1199,6 @@ paths:
                 traceId: 00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00
                 errors:
                   bankId: Daily rates are not supported for the specified bank.
-      security:
-        - oauth2:
-            - fx_api
   /v1/Banks/{bankId}/BiweeklyRates/Latest.{format}:
     get:
       tags:
@@ -1235,7 +1216,9 @@ paths:
             $ref: '#/components/schemas/BankId'
         - name: currencies
           in: query
-          description: The currencies to return.
+          description: >-
+            The currencies to return. If no currencies are provided, all
+            available currencies will be included in the results.
           schema:
             type: array
             items:
@@ -1245,6 +1228,13 @@ paths:
           description: The requested price type. Defaults to mid.
           schema:
             $ref: '#/components/schemas/PriceType'
+        - name: includeObsoleteCurrencies
+          in: query
+          description: >-
+            A flag indicating whether obsolete currencies should be included in
+            the results. Defaults to false.
+          schema:
+            type: boolean
         - name: format
           in: path
           description: The response format.
@@ -1353,9 +1343,6 @@ paths:
                 traceId: 00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00
                 errors:
                   bankId: Daily rates are not supported for the specified bank.
-      security:
-        - oauth2:
-            - fx_api
   /v1/Banks/{bankId}/BiweeklyRates/{year}/{month}:
     get:
       tags:
@@ -1390,7 +1377,9 @@ paths:
             format: int32
         - name: currencies
           in: query
-          description: The currencies to return.
+          description: >-
+            The currencies to return. If no currencies are provided, all
+            available currencies will be included in the results.
           schema:
             type: array
             items:
@@ -1400,6 +1389,13 @@ paths:
           description: The requested price type. Defaults to mid.
           schema:
             $ref: '#/components/schemas/PriceType'
+        - name: includeObsoleteCurrencies
+          in: query
+          description: >-
+            A flag indicating whether obsolete currencies should be included in
+            the results. Defaults to false.
+          schema:
+            type: boolean
         - name: format
           in: query
           description: The response format.
@@ -1534,9 +1530,6 @@ paths:
                 traceId: 00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00
                 errors:
                   bankId: Daily rates are not supported for the specified bank.
-      security:
-        - oauth2:
-            - fx_api
   /v1/Banks/{bankId}/BiweeklyRates/{year}/{month}.{format}:
     get:
       tags:
@@ -1571,7 +1564,9 @@ paths:
             format: int32
         - name: currencies
           in: query
-          description: The currencies to return.
+          description: >-
+            The currencies to return. If no currencies are provided, all
+            available currencies will be included in the results.
           schema:
             type: array
             items:
@@ -1581,6 +1576,13 @@ paths:
           description: The requested price type. Defaults to mid.
           schema:
             $ref: '#/components/schemas/PriceType'
+        - name: includeObsoleteCurrencies
+          in: query
+          description: >-
+            A flag indicating whether obsolete currencies should be included in
+            the results. Defaults to false.
+          schema:
+            type: boolean
         - name: format
           in: path
           description: The response format.
@@ -1689,9 +1691,6 @@ paths:
                 traceId: 00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00
                 errors:
                   bankId: Daily rates are not supported for the specified bank.
-      security:
-        - oauth2:
-            - fx_api
   /v1/Banks/{bankId}/BiweeklyRates/ThisMonth:
     get:
       tags:
@@ -1709,7 +1708,9 @@ paths:
             $ref: '#/components/schemas/BankId'
         - name: currencies
           in: query
-          description: The currencies to return.
+          description: >-
+            The currencies to return. If no currencies are provided, all
+            available currencies will be included in the results.
           schema:
             type: array
             items:
@@ -1719,6 +1720,13 @@ paths:
           description: The requested price type. Defaults to mid.
           schema:
             $ref: '#/components/schemas/PriceType'
+        - name: includeObsoleteCurrencies
+          in: query
+          description: >-
+            A flag indicating whether obsolete currencies should be included in
+            the results. Defaults to false.
+          schema:
+            type: boolean
         - name: format
           in: query
           description: The response format.
@@ -1853,9 +1861,6 @@ paths:
                 traceId: 00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00
                 errors:
                   bankId: Daily rates are not supported for the specified bank.
-      security:
-        - oauth2:
-            - fx_api
   /v1/Banks/{bankId}/BiweeklyRates/ThisMonth.{format}:
     get:
       tags:
@@ -1873,7 +1878,9 @@ paths:
             $ref: '#/components/schemas/BankId'
         - name: currencies
           in: query
-          description: The currencies to return.
+          description: >-
+            The currencies to return. If no currencies are provided, all
+            available currencies will be included in the results.
           schema:
             type: array
             items:
@@ -1883,6 +1890,13 @@ paths:
           description: The requested price type. Defaults to mid.
           schema:
             $ref: '#/components/schemas/PriceType'
+        - name: includeObsoleteCurrencies
+          in: query
+          description: >-
+            A flag indicating whether obsolete currencies should be included in
+            the results. Defaults to false.
+          schema:
+            type: boolean
         - name: format
           in: path
           description: The response format.
@@ -1991,9 +2005,6 @@ paths:
                 traceId: 00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00
                 errors:
                   bankId: Daily rates are not supported for the specified bank.
-      security:
-        - oauth2:
-            - fx_api
   /v1/Convert:
     get:
       tags:
@@ -2006,6 +2017,8 @@ paths:
           description: The source currency.
           required: true
           schema:
+            maxLength: 3
+            minLength: 3
             type: string
           example: EUR
         - name: to
@@ -2013,6 +2026,8 @@ paths:
           description: The target currency.
           required: true
           schema:
+            maxLength: 3
+            minLength: 3
             type: string
           example: NOK
         - name: amount
@@ -2117,9 +2132,7 @@ paths:
                 traceId: 00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00
                 errors:
                   bankId: Daily rates are not supported for the specified bank.
-      security:
-        - oauth2:
-            - fx_api
+      deprecated: true
   /v1/Currencies:
     get:
       tags:
@@ -2129,12 +2142,16 @@ paths:
       parameters:
         - name: countryCode
           in: query
-          description: ''
+          description: >-
+            The optional country code to filter the currencies by the specific
+            country.
           schema:
             $ref: '#/components/schemas/CountryCode'
         - name: isObsolete
           in: query
-          description: ''
+          description: >-
+            The optional flag to filter currencies based on whether they are
+            obsolete (true) or still in circulation (false).
           schema:
             type: boolean
       responses:
@@ -2199,9 +2216,6 @@ paths:
                 traceId: 00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00
                 errors:
                   bankId: Daily rates are not supported for the specified bank.
-      security:
-        - oauth2:
-            - fx_api
   /v1/Currencies/{currencyCode}:
     get:
       tags:
@@ -2277,9 +2291,6 @@ paths:
                 traceId: 00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00
                 errors:
                   bankId: Daily rates are not supported for the specified bank.
-      security:
-        - oauth2:
-            - fx_api
   /v1/Banks/{bankId}/DailyRates/Availability:
     get:
       tags:
@@ -2380,9 +2391,6 @@ paths:
                 traceId: 00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00
                 errors:
                   bankId: Daily rates are not supported for the specified bank.
-      security:
-        - oauth2:
-            - fx_api
   /v1/Banks/{bankId}/DailyRates/Availability/{startDate}/{endDate}:
     get:
       tags:
@@ -2500,9 +2508,6 @@ paths:
                 traceId: 00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00
                 errors:
                   bankId: Daily rates are not supported for the specified bank.
-      security:
-        - oauth2:
-            - fx_api
   /v1/Banks/{bankId}/DailyRates/Latest:
     get:
       tags:
@@ -2520,7 +2525,9 @@ paths:
             $ref: '#/components/schemas/BankId'
         - name: currencies
           in: query
-          description: The currencies to return.
+          description: >-
+            The currencies to return. If no currencies are provided, all
+            available currencies will be included in the results.
           schema:
             type: array
             items:
@@ -2530,6 +2537,13 @@ paths:
           description: The requested price type. Defaults to mid.
           schema:
             $ref: '#/components/schemas/PriceType'
+        - name: includeObsoleteCurrencies
+          in: query
+          description: >-
+            A flag indicating whether obsolete currencies should be included in
+            the results. Defaults to false.
+          schema:
+            type: boolean
         - name: format
           in: query
           description: The response format.
@@ -2664,9 +2678,6 @@ paths:
                 traceId: 00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00
                 errors:
                   bankId: Daily rates are not supported for the specified bank.
-      security:
-        - oauth2:
-            - fx_api
   /v1/Banks/{bankId}/DailyRates/Latest.{format}:
     get:
       tags:
@@ -2684,7 +2695,9 @@ paths:
             $ref: '#/components/schemas/BankId'
         - name: currencies
           in: query
-          description: The currencies to return.
+          description: >-
+            The currencies to return. If no currencies are provided, all
+            available currencies will be included in the results.
           schema:
             type: array
             items:
@@ -2694,6 +2707,13 @@ paths:
           description: The requested price type. Defaults to mid.
           schema:
             $ref: '#/components/schemas/PriceType'
+        - name: includeObsoleteCurrencies
+          in: query
+          description: >-
+            A flag indicating whether obsolete currencies should be included in
+            the results. Defaults to false.
+          schema:
+            type: boolean
         - name: format
           in: path
           description: The response format.
@@ -2802,9 +2822,6 @@ paths:
                 traceId: 00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00
                 errors:
                   bankId: Daily rates are not supported for the specified bank.
-      security:
-        - oauth2:
-            - fx_api
   /v1/Banks/{bankId}/DailyRates/TimeSeries:
     get:
       tags:
@@ -2836,7 +2853,9 @@ paths:
             format: date
         - name: currencies
           in: query
-          description: The currencies to return.
+          description: >-
+            The currencies to return. If no currencies are provided, all
+            available currencies will be included in the results.
           schema:
             type: array
             items:
@@ -2846,6 +2865,13 @@ paths:
           description: The requested price type. Defaults to mid.
           schema:
             $ref: '#/components/schemas/PriceType'
+        - name: includeObsoleteCurrencies
+          in: query
+          description: >-
+            A flag indicating whether obsolete currencies should be included in
+            the results. Defaults to false.
+          schema:
+            type: boolean
         - name: format
           in: query
           description: The response format.
@@ -2980,9 +3006,6 @@ paths:
                 traceId: 00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00
                 errors:
                   bankId: Daily rates are not supported for the specified bank.
-      security:
-        - oauth2:
-            - fx_api
   /v1/Banks/{bankId}/DailyRates/TimeSeries.{format}:
     get:
       tags:
@@ -3014,7 +3037,9 @@ paths:
             format: date
         - name: currencies
           in: query
-          description: The currencies to return.
+          description: >-
+            The currencies to return. If no currencies are provided, all
+            available currencies will be included in the results.
           schema:
             type: array
             items:
@@ -3024,6 +3049,13 @@ paths:
           description: The requested price type. Defaults to mid.
           schema:
             $ref: '#/components/schemas/PriceType'
+        - name: includeObsoleteCurrencies
+          in: query
+          description: >-
+            A flag indicating whether obsolete currencies should be included in
+            the results. Defaults to false.
+          schema:
+            type: boolean
         - name: format
           in: path
           description: The response format.
@@ -3132,9 +3164,6 @@ paths:
                 traceId: 00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00
                 errors:
                   bankId: Daily rates are not supported for the specified bank.
-      security:
-        - oauth2:
-            - fx_api
   /v1/Banks/{bankId}/DailyRates/{date}:
     get:
       tags:
@@ -3159,7 +3188,9 @@ paths:
             format: date
         - name: currencies
           in: query
-          description: The currencies to return.
+          description: >-
+            The currencies to return. If no currencies are provided, all
+            available currencies will be included in the results.
           schema:
             type: array
             items:
@@ -3169,6 +3200,13 @@ paths:
           description: The requested price type. Defaults to mid.
           schema:
             $ref: '#/components/schemas/PriceType'
+        - name: includeObsoleteCurrencies
+          in: query
+          description: >-
+            A flag indicating whether obsolete currencies should be included in
+            the results. Defaults to false.
+          schema:
+            type: boolean
         - name: format
           in: query
           description: The response format.
@@ -3303,9 +3341,6 @@ paths:
                 traceId: 00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00
                 errors:
                   bankId: Daily rates are not supported for the specified bank.
-      security:
-        - oauth2:
-            - fx_api
   /v1/Banks/{bankId}/DailyRates/{date}.{format}:
     get:
       tags:
@@ -3330,7 +3365,9 @@ paths:
             format: date
         - name: currencies
           in: query
-          description: The currencies to return.
+          description: >-
+            The currencies to return. If no currencies are provided, all
+            available currencies will be included in the results.
           schema:
             type: array
             items:
@@ -3340,6 +3377,13 @@ paths:
           description: The requested price type. Defaults to mid.
           schema:
             $ref: '#/components/schemas/PriceType'
+        - name: includeObsoleteCurrencies
+          in: query
+          description: >-
+            A flag indicating whether obsolete currencies should be included in
+            the results. Defaults to false.
+          schema:
+            type: boolean
         - name: format
           in: path
           description: The response format.
@@ -3448,9 +3492,6 @@ paths:
                 traceId: 00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00
                 errors:
                   bankId: Daily rates are not supported for the specified bank.
-      security:
-        - oauth2:
-            - fx_api
   /v1/Banks/{bankId}/DailyRates/Today:
     get:
       tags:
@@ -3468,7 +3509,9 @@ paths:
             $ref: '#/components/schemas/BankId'
         - name: currencies
           in: query
-          description: The currencies to return.
+          description: >-
+            The currencies to return. If no currencies are provided, all
+            available currencies will be included in the results.
           schema:
             type: array
             items:
@@ -3478,6 +3521,13 @@ paths:
           description: The requested price type. Defaults to mid.
           schema:
             $ref: '#/components/schemas/PriceType'
+        - name: includeObsoleteCurrencies
+          in: query
+          description: >-
+            A flag indicating whether obsolete currencies should be included in
+            the results. Defaults to false.
+          schema:
+            type: boolean
         - name: format
           in: query
           description: The response format.
@@ -3608,7 +3658,7 @@ paths:
                 description: UTC date time (ISO 8601) when the rate limit resets
                 format: date-time
         '302':
-          description: Redirect
+          description: Found
         '401':
           description: Unauthorized
         '403':
@@ -3639,9 +3689,6 @@ paths:
                 traceId: 00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00
                 errors:
                   bankId: Daily rates are not supported for the specified bank.
-      security:
-        - oauth2:
-            - fx_api
   /v1/Banks/{bankId}/DailyRates/Today.{format}:
     get:
       tags:
@@ -3659,7 +3706,9 @@ paths:
             $ref: '#/components/schemas/BankId'
         - name: currencies
           in: query
-          description: The currencies to return.
+          description: >-
+            The currencies to return. If no currencies are provided, all
+            available currencies will be included in the results.
           schema:
             type: array
             items:
@@ -3669,6 +3718,13 @@ paths:
           description: The requested price type. Defaults to mid.
           schema:
             $ref: '#/components/schemas/PriceType'
+        - name: includeObsoleteCurrencies
+          in: query
+          description: >-
+            A flag indicating whether obsolete currencies should be included in
+            the results. Defaults to false.
+          schema:
+            type: boolean
         - name: format
           in: path
           description: The response format.
@@ -3804,9 +3860,6 @@ paths:
                 traceId: 00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00
                 errors:
                   bankId: Daily rates are not supported for the specified bank.
-      security:
-        - oauth2:
-            - fx_api
   /v1/Banks/{bankId}/MonthlyRates/Availability:
     get:
       tags:
@@ -3907,9 +3960,6 @@ paths:
                 traceId: 00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00
                 errors:
                   bankId: Daily rates are not supported for the specified bank.
-      security:
-        - oauth2:
-            - fx_api
   /v1/Banks/{bankId}/MonthlyRates/Availability/{startDate}/{endDate}:
     get:
       tags:
@@ -4027,9 +4077,6 @@ paths:
                 traceId: 00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00
                 errors:
                   bankId: Daily rates are not supported for the specified bank.
-      security:
-        - oauth2:
-            - fx_api
   /v1/Banks/{bankId}/MonthlyRates/Latest:
     get:
       tags:
@@ -4047,7 +4094,9 @@ paths:
             $ref: '#/components/schemas/BankId'
         - name: currencies
           in: query
-          description: The currencies to return.
+          description: >-
+            The currencies to return. If no currencies are provided, all
+            available currencies will be included in the results.
           schema:
             type: array
             items:
@@ -4057,6 +4106,13 @@ paths:
           description: The requested price type. Defaults to mid.
           schema:
             $ref: '#/components/schemas/PriceType'
+        - name: includeObsoleteCurrencies
+          in: query
+          description: >-
+            A flag indicating whether obsolete currencies should be included in
+            the results. Defaults to false.
+          schema:
+            type: boolean
         - name: format
           in: query
           description: The response format.
@@ -4191,9 +4247,6 @@ paths:
                 traceId: 00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00
                 errors:
                   bankId: Daily rates are not supported for the specified bank.
-      security:
-        - oauth2:
-            - fx_api
   /v1/Banks/{bankId}/MonthlyRates/Latest.{format}:
     get:
       tags:
@@ -4211,7 +4264,9 @@ paths:
             $ref: '#/components/schemas/BankId'
         - name: currencies
           in: query
-          description: The currencies to return.
+          description: >-
+            The currencies to return. If no currencies are provided, all
+            available currencies will be included in the results.
           schema:
             type: array
             items:
@@ -4221,6 +4276,13 @@ paths:
           description: The requested price type. Defaults to mid.
           schema:
             $ref: '#/components/schemas/PriceType'
+        - name: includeObsoleteCurrencies
+          in: query
+          description: >-
+            A flag indicating whether obsolete currencies should be included in
+            the results. Defaults to false.
+          schema:
+            type: boolean
         - name: format
           in: path
           description: The response format.
@@ -4329,9 +4391,6 @@ paths:
                 traceId: 00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00
                 errors:
                   bankId: Daily rates are not supported for the specified bank.
-      security:
-        - oauth2:
-            - fx_api
   /v1/Banks/{bankId}/MonthlyRates/{year}/{month}:
     get:
       tags:
@@ -4366,7 +4425,9 @@ paths:
             format: int32
         - name: currencies
           in: query
-          description: The currencies to return.
+          description: >-
+            The currencies to return. If no currencies are provided, all
+            available currencies will be included in the results.
           schema:
             type: array
             items:
@@ -4376,6 +4437,13 @@ paths:
           description: The requested price type. Defaults to mid.
           schema:
             $ref: '#/components/schemas/PriceType'
+        - name: includeObsoleteCurrencies
+          in: query
+          description: >-
+            A flag indicating whether obsolete currencies should be included in
+            the results. Defaults to false.
+          schema:
+            type: boolean
         - name: format
           in: query
           description: The response format.
@@ -4510,9 +4578,6 @@ paths:
                 traceId: 00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00
                 errors:
                   bankId: Daily rates are not supported for the specified bank.
-      security:
-        - oauth2:
-            - fx_api
   /v1/Banks/{bankId}/MonthlyRates/{year}/{month}.{format}:
     get:
       tags:
@@ -4547,7 +4612,9 @@ paths:
             format: int32
         - name: currencies
           in: query
-          description: The currencies to return.
+          description: >-
+            The currencies to return. If no currencies are provided, all
+            available currencies will be included in the results.
           schema:
             type: array
             items:
@@ -4557,6 +4624,13 @@ paths:
           description: The requested price type. Defaults to mid.
           schema:
             $ref: '#/components/schemas/PriceType'
+        - name: includeObsoleteCurrencies
+          in: query
+          description: >-
+            A flag indicating whether obsolete currencies should be included in
+            the results. Defaults to false.
+          schema:
+            type: boolean
         - name: format
           in: path
           description: The response format.
@@ -4665,9 +4739,6 @@ paths:
                 traceId: 00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00
                 errors:
                   bankId: Daily rates are not supported for the specified bank.
-      security:
-        - oauth2:
-            - fx_api
   /v1/Banks/{bankId}/MonthlyRates/ThisMonth:
     get:
       tags:
@@ -4685,7 +4756,9 @@ paths:
             $ref: '#/components/schemas/BankId'
         - name: currencies
           in: query
-          description: The currencies to return.
+          description: >-
+            The currencies to return. If no currencies are provided, all
+            available currencies will be included in the results.
           schema:
             type: array
             items:
@@ -4695,6 +4768,13 @@ paths:
           description: The requested price type. Defaults to mid.
           schema:
             $ref: '#/components/schemas/PriceType'
+        - name: includeObsoleteCurrencies
+          in: query
+          description: >-
+            A flag indicating whether obsolete currencies should be included in
+            the results. Defaults to false.
+          schema:
+            type: boolean
         - name: format
           in: query
           description: The response format.
@@ -4829,9 +4909,6 @@ paths:
                 traceId: 00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00
                 errors:
                   bankId: Daily rates are not supported for the specified bank.
-      security:
-        - oauth2:
-            - fx_api
   /v1/Banks/{bankId}/MonthlyRates/ThisMonth.{format}:
     get:
       tags:
@@ -4849,7 +4926,9 @@ paths:
             $ref: '#/components/schemas/BankId'
         - name: currencies
           in: query
-          description: The currencies to return.
+          description: >-
+            The currencies to return. If no currencies are provided, all
+            available currencies will be included in the results.
           schema:
             type: array
             items:
@@ -4859,6 +4938,13 @@ paths:
           description: The requested price type. Defaults to mid.
           schema:
             $ref: '#/components/schemas/PriceType'
+        - name: includeObsoleteCurrencies
+          in: query
+          description: >-
+            A flag indicating whether obsolete currencies should be included in
+            the results. Defaults to false.
+          schema:
+            type: boolean
         - name: format
           in: path
           description: The response format.
@@ -4967,9 +5053,6 @@ paths:
                 traceId: 00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00
                 errors:
                   bankId: Daily rates are not supported for the specified bank.
-      security:
-        - oauth2:
-            - fx_api
   /v1/Banks/{bankId}/WeeklyRates/Availability:
     get:
       tags:
@@ -5070,9 +5153,6 @@ paths:
                 traceId: 00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00
                 errors:
                   bankId: Daily rates are not supported for the specified bank.
-      security:
-        - oauth2:
-            - fx_api
   /v1/Banks/{bankId}/WeeklyRates/Availability/{startDate}/{endDate}:
     get:
       tags:
@@ -5190,9 +5270,6 @@ paths:
                 traceId: 00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00
                 errors:
                   bankId: Daily rates are not supported for the specified bank.
-      security:
-        - oauth2:
-            - fx_api
   /v1/Banks/{bankId}/WeeklyRates/Latest:
     get:
       tags:
@@ -5210,7 +5287,9 @@ paths:
             $ref: '#/components/schemas/BankId'
         - name: currencies
           in: query
-          description: The currencies to return.
+          description: >-
+            The currencies to return. If no currencies are provided, all
+            available currencies will be included in the results.
           schema:
             type: array
             items:
@@ -5220,6 +5299,13 @@ paths:
           description: The requested price type. Defaults to mid.
           schema:
             $ref: '#/components/schemas/PriceType'
+        - name: includeObsoleteCurrencies
+          in: query
+          description: >-
+            A flag indicating whether obsolete currencies should be included in
+            the results. Defaults to false.
+          schema:
+            type: boolean
         - name: format
           in: query
           description: The response format.
@@ -5354,9 +5440,6 @@ paths:
                 traceId: 00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00
                 errors:
                   bankId: Daily rates are not supported for the specified bank.
-      security:
-        - oauth2:
-            - fx_api
   /v1/Banks/{bankId}/WeeklyRates/Latest.{format}:
     get:
       tags:
@@ -5374,7 +5457,9 @@ paths:
             $ref: '#/components/schemas/BankId'
         - name: currencies
           in: query
-          description: The currencies to return.
+          description: >-
+            The currencies to return. If no currencies are provided, all
+            available currencies will be included in the results.
           schema:
             type: array
             items:
@@ -5384,6 +5469,13 @@ paths:
           description: The requested price type. Defaults to mid.
           schema:
             $ref: '#/components/schemas/PriceType'
+        - name: includeObsoleteCurrencies
+          in: query
+          description: >-
+            A flag indicating whether obsolete currencies should be included in
+            the results. Defaults to false.
+          schema:
+            type: boolean
         - name: format
           in: path
           description: The response format.
@@ -5489,9 +5581,6 @@ paths:
                 traceId: 00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00
                 errors:
                   bankId: Daily rates are not supported for the specified bank.
-      security:
-        - oauth2:
-            - fx_api
   /v1/Banks/{bankId}/WeeklyRates/{year}/{month}:
     get:
       tags:
@@ -5526,7 +5615,9 @@ paths:
             format: int32
         - name: currencies
           in: query
-          description: The currencies to return.
+          description: >-
+            The currencies to return. If no currencies are provided, all
+            available currencies will be included in the results.
           schema:
             type: array
             items:
@@ -5536,6 +5627,13 @@ paths:
           description: The requested price type. Defaults to mid.
           schema:
             $ref: '#/components/schemas/PriceType'
+        - name: includeObsoleteCurrencies
+          in: query
+          description: >-
+            A flag indicating whether obsolete currencies should be included in
+            the results. Defaults to false.
+          schema:
+            type: boolean
         - name: format
           in: query
           description: The response format.
@@ -5670,9 +5768,6 @@ paths:
                 traceId: 00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00
                 errors:
                   bankId: Daily rates are not supported for the specified bank.
-      security:
-        - oauth2:
-            - fx_api
   /v1/Banks/{bankId}/WeeklyRates/{year}/{month}.{format}:
     get:
       tags:
@@ -5707,7 +5802,9 @@ paths:
             format: int32
         - name: currencies
           in: query
-          description: The currencies to return.
+          description: >-
+            The currencies to return. If no currencies are provided, all
+            available currencies will be included in the results.
           schema:
             type: array
             items:
@@ -5717,6 +5814,13 @@ paths:
           description: The requested price type. Defaults to mid.
           schema:
             $ref: '#/components/schemas/PriceType'
+        - name: includeObsoleteCurrencies
+          in: query
+          description: >-
+            A flag indicating whether obsolete currencies should be included in
+            the results. Defaults to false.
+          schema:
+            type: boolean
         - name: format
           in: path
           description: The response format.
@@ -5825,9 +5929,6 @@ paths:
                 traceId: 00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00
                 errors:
                   bankId: Daily rates are not supported for the specified bank.
-      security:
-        - oauth2:
-            - fx_api
   /v1/Banks/{bankId}/WeeklyRates/ThisMonth:
     get:
       tags:
@@ -5845,7 +5946,9 @@ paths:
             $ref: '#/components/schemas/BankId'
         - name: currencies
           in: query
-          description: The currencies to return.
+          description: >-
+            The currencies to return. If no currencies are provided, all
+            available currencies will be included in the results.
           schema:
             type: array
             items:
@@ -5855,6 +5958,13 @@ paths:
           description: The requested price type. Defaults to mid.
           schema:
             $ref: '#/components/schemas/PriceType'
+        - name: includeObsoleteCurrencies
+          in: query
+          description: >-
+            A flag indicating whether obsolete currencies should be included in
+            the results. Defaults to false.
+          schema:
+            type: boolean
         - name: format
           in: query
           description: The response format.
@@ -5989,9 +6099,6 @@ paths:
                 traceId: 00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00
                 errors:
                   bankId: Daily rates are not supported for the specified bank.
-      security:
-        - oauth2:
-            - fx_api
   /v1/Banks/{bankId}/WeeklyRates/ThisMonth.{format}:
     get:
       tags:
@@ -6009,7 +6116,9 @@ paths:
             $ref: '#/components/schemas/BankId'
         - name: currencies
           in: query
-          description: The currencies to return.
+          description: >-
+            The currencies to return. If no currencies are provided, all
+            available currencies will be included in the results.
           schema:
             type: array
             items:
@@ -6019,6 +6128,13 @@ paths:
           description: The requested price type. Defaults to mid.
           schema:
             $ref: '#/components/schemas/PriceType'
+        - name: includeObsoleteCurrencies
+          in: query
+          description: >-
+            A flag indicating whether obsolete currencies should be included in
+            the results. Defaults to false.
+          schema:
+            type: boolean
         - name: format
           in: path
           description: The response format.
@@ -6127,12 +6243,14 @@ paths:
                 traceId: 00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00
                 errors:
                   bankId: Daily rates are not supported for the specified bank.
-      security:
-        - oauth2:
-            - fx_api
 components:
   schemas:
     BankDataAvailabilityModel:
+      required:
+        - availableCurrencies
+        - availablePriceTypes
+        - firstEffectiveDate
+        - lastEffectiveDate
       type: object
       properties:
         firstEffectiveDate:
@@ -6149,16 +6267,18 @@ components:
           items:
             type: string
           description: The list of available currency codes.
-          nullable: true
         availablePriceTypes:
           uniqueItems: true
           type: array
           items:
             $ref: '#/components/schemas/PriceType'
           description: The list of available price types.
-          nullable: true
       additionalProperties: false
     BankHolidayModel:
+      required:
+        - date
+        - localName
+        - name
       type: object
       properties:
         date:
@@ -6167,14 +6287,14 @@ components:
           format: date
           example: '2020-12-24'
         name:
+          minLength: 1
           type: string
           description: The English name of the holiday.
-          nullable: true
           example: Christmas Eve
         localName:
+          minLength: 1
           type: string
           description: The local name of the holiday.
-          nullable: true
           example: Julaften
       additionalProperties: false
     BankId:
@@ -6243,6 +6363,24 @@ components:
         - GECB
         - AMCB
         - SCCB
+        - DOCB
+        - HNCB
+        - INCB
+        - KECB
+        - NGCB
+        - BBCB
+        - XCCB
+        - GHCB
+        - VNCB
+        - DZCB
+        - ETCB
+        - XOCB
+        - THCBS
+        - THCBT
+        - GTCB
+        - NICB
+        - MNCB
+        - NPCB
       type: string
     BankModel:
       required:
@@ -6279,7 +6417,9 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/CountryCode'
-          description: The country (or countries) for which the bank acts as a
+          description: >-
+            The country (or countries) for which the bank provides exchange
+            rates.
         region:
           type: array
           items:
@@ -6569,12 +6709,14 @@ components:
         - ANG
         - AOA
         - ARS
+        - ATS
         - AUD
         - AWG
         - AZN
         - BAM
         - BBD
         - BDT
+        - BEF
         - BGN
         - BHD
         - BIF
@@ -6596,6 +6738,7 @@ components:
         - CHW
         - CLF
         - CLP
+        - CNH
         - CNY
         - COP
         - COU
@@ -6603,23 +6746,31 @@ components:
         - CUC
         - CUP
         - CVE
+        - CYP
         - CZK
+        - DEM
         - DJF
         - DKK
         - DOP
         - DZD
+        - ECS
+        - EEK
         - EGP
         - ERN
+        - ESP
         - ETB
         - EUR
+        - FIM
         - FJD
         - FKP
+        - FRF
         - GBP
         - GEL
         - GHS
         - GIP
         - GMD
         - GNF
+        - GRD
         - GTQ
         - GYD
         - HKD
@@ -6628,11 +6779,13 @@ components:
         - HTG
         - HUF
         - IDR
+        - IEP
         - ILS
         - INR
         - IQD
         - IRR
         - ISK
+        - ITL
         - JMD
         - JOD
         - JPY
@@ -6651,6 +6804,7 @@ components:
         - LRD
         - LSL
         - LTL
+        - LUF
         - LVL
         - LYD
         - MAD
@@ -6662,6 +6816,7 @@ components:
         - MOP
         - MRO
         - MRU
+        - MTL
         - MUR
         - MVR
         - MWK
@@ -6672,6 +6827,7 @@ components:
         - NAD
         - NGN
         - NIO
+        - NLG
         - NOK
         - NPR
         - NZD
@@ -6682,6 +6838,7 @@ components:
         - PHP
         - PKR
         - PLN
+        - PTE
         - PYG
         - QAR
         - RON
@@ -6695,6 +6852,8 @@ components:
         - SEK
         - SGD
         - SHP
+        - SIT
+        - SKK
         - SLE
         - SLL
         - SOS
@@ -6723,6 +6882,8 @@ components:
         - UYU
         - UYW
         - UZS
+        - VEB
+        - VED
         - VEF
         - VES
         - VND
@@ -6748,12 +6909,19 @@ components:
         - YER
         - ZAR
         - ZMW
+        - ZWG
         - ZWL
       type: string
       additionalProperties: false
     CurrencyConversionRateModel:
       required:
+        - bankId
+        - effectiveDate
+        - frequency
+        - fromCurrency
+        - quoteType
         - rate
+        - toCurrency
       type: object
       properties:
         rate:
@@ -6770,51 +6938,71 @@ components:
           nullable: true
           example: 2
         fromCurrency:
+          maxLength: 3
+          minLength: 3
           type: string
-          nullable: true
+          description: The source currency.
         toCurrency:
+          maxLength: 3
+          minLength: 3
           type: string
-          nullable: true
+          description: The target currency.
         bankId:
           $ref: '#/components/schemas/BankId'
         frequency:
           $ref: '#/components/schemas/Frequency'
         effectiveDate:
           type: string
+          description: ''
           format: date
         quoteType:
           $ref: '#/components/schemas/ExchangeRateQuoteType'
       additionalProperties: false
     CurrencyConversionResponse:
+      required:
+        - rate
+        - result
       type: object
       properties:
         result:
           type: number
+          description: The converted amount.
           format: decimal
         rate:
           type: array
           items:
             $ref: '#/components/schemas/CurrencyConversionRateModel'
-          nullable: true
+          description: The list of exchange rates used for the conversion.
       additionalProperties: false
     CurrencyModel:
+      required:
+        - code
+        - countryCodes
+        - isObsolete
+        - name
       type: object
       properties:
         code:
           $ref: '#/components/schemas/CurrencyCode'
         name:
+          minLength: 1
           type: string
           description: The English name of the currency.
-          nullable: true
         isObsolete:
           type: boolean
-          description: Indicates whether the currency is no longer in use.
+          description: Indicates if the currency is no longer in use.
+        withdrawalDate:
+          type: string
+          description: The date when the currency was withdrawn from circulation.
+          format: date
+          nullable: true
+        replacedBy:
+          $ref: '#/components/schemas/CurrencyCode'
         countryCodes:
           type: array
           items:
             $ref: '#/components/schemas/CountryCode'
-          description: The countries where the currency is in use.
-          nullable: true
+          description: The countries in which the currency is used.
       additionalProperties: false
     ExchangeRateQuoteType:
       enum:
@@ -6844,7 +7032,6 @@ components:
             type: object
             additionalProperties:
               $ref: '#/components/schemas/RateModel'
-            nullable: true
           description: The exchange rates.
       additionalProperties: false
     Format:
@@ -6975,19 +7162,23 @@ components:
         - LATAM
         - MENA
         - Africa
+        - Caribbean
       type: string
     TimeZone:
+      required:
+        - ianaTimeZoneName
+        - windowsTimeZoneId
       type: object
       properties:
         windowsTimeZoneId:
+          minLength: 1
           type: string
           description: The time zone identifier on Windows platforms.
-          nullable: true
           example: W. Europe Standard Time
         ianaTimeZoneName:
+          minLength: 1
           type: string
           description: The IANA time zone name.
-          nullable: true
           example: Europe/Oslo
       additionalProperties: false
   securitySchemes:
@@ -7010,6 +7201,21 @@ components:
             https://sso.fluentax.com/auth/realms/fluentax/protocol/openid-connect/token
           scopes:
             fx_api: Exchange Rates API
+    apiKey:
+      type: apiKey
+      description: API key supplied in header
+      name: X-API-Key
+      in: header
+    apiKeyQuery:
+      type: apiKey
+      description: API key supplied as a query parameter
+      name: apiKey
+      in: query
+security:
+  - oauth2:
+      - fx_api
+  - apiKey: []
+  - apiKeyQuery: []
 tags:
   - name: BankHolidays
     description: Bank holidays.

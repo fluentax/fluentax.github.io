@@ -133,14 +133,7 @@
           "403": {
             "description": "Forbidden"
           }
-        },
-        "security": [
-          {
-            "oauth2": [
-              "fx_api"
-            ]
-          }
-        ]
+        }
       }
     },
     "/v1/Banks/{bankId}/BankHolidays/{year}.{format}": {
@@ -261,14 +254,7 @@
           "403": {
             "description": "Forbidden"
           }
-        },
-        "security": [
-          {
-            "oauth2": [
-              "fx_api"
-            ]
-          }
-        ]
+        }
       }
     },
     "/v1/Banks/{bankId}/BankHolidays": {
@@ -398,14 +384,7 @@
           "403": {
             "description": "Forbidden"
           }
-        },
-        "security": [
-          {
-            "oauth2": [
-              "fx_api"
-            ]
-          }
-        ]
+        }
       }
     },
     "/v1/Banks/{bankId}/BankHolidays.{format}": {
@@ -533,14 +512,7 @@
           "403": {
             "description": "Forbidden"
           }
-        },
-        "security": [
-          {
-            "oauth2": [
-              "fx_api"
-            ]
-          }
-        ]
+        }
       }
     },
     "/v1/Banks/{bankId}/BankHolidays/Next": {
@@ -667,14 +639,7 @@
           "403": {
             "description": "Forbidden"
           }
-        },
-        "security": [
-          {
-            "oauth2": [
-              "fx_api"
-            ]
-          }
-        ]
+        }
       }
     },
     "/v1/Banks": {
@@ -741,7 +706,7 @@
                     "$ref": "#/components/schemas/BankModel"
                   }
                 },
-                "example": [{"id":"NOCB","name":[{"languageCode":"en","name":"Norges Bank","abbreviatedName":"Norgesbank"},{"languageCode":"no","name":"Norges Bank","abbreviatedName":"Norgesbank"}],"publishedDays":null,"dailyUpdateTime":"16:00:00","bankCurrency":"NOK","countryCode":["NO"],"region":["EuropeNonEU"],"timeZone":{"windowsTimeZoneId":"W. Europe Standard Time","ianaTimeZoneName":"Europe/Oslo"},"supportedFrequencies":["Daily"],"supportedPriceTypes":null,"website":null,"peggedRate":null}]
+                "example": [{"id":"NOCB","name":[{"languageCode":"en","name":"Norges Bank","abbreviatedName":"Norgesbank"},{"languageCode":"no","name":"Norges Bank","abbreviatedName":"Norgesbank"}],"publishedDays":null,"dailyUpdateTime":"16:00:00","bankCurrency":"NOK","countryCode":["NO"],"region":["EuropeNonEU"],"timeZone":{"windowsTimeZoneId":"W. Europe Standard Time","ianaTimeZoneName":"Europe/Oslo"},"supportedFrequencies":["Daily"],"supportedPriceTypes":["Mid"],"website":"https://www.norges-bank.no","peggedRate":null}]
               }
             }
           },
@@ -762,14 +727,7 @@
           "403": {
             "description": "Forbidden"
           }
-        },
-        "security": [
-          {
-            "oauth2": [
-              "fx_api"
-            ]
-          }
-        ]
+        }
       }
     },
     "/v1/Banks/{bankId}": {
@@ -844,7 +802,7 @@
                 "schema": {
                   "$ref": "#/components/schemas/BankModel"
                 },
-                "example": {"id":"NOCB","name":[{"languageCode":"en","name":"Norges Bank","abbreviatedName":"Norgesbank"},{"languageCode":"no","name":"Norges Bank","abbreviatedName":"Norgesbank"}],"publishedDays":null,"dailyUpdateTime":"16:00:00","bankCurrency":"NOK","countryCode":["NO"],"region":["EuropeNonEU"],"timeZone":{"windowsTimeZoneId":"W. Europe Standard Time","ianaTimeZoneName":"Europe/Oslo"},"supportedFrequencies":["Daily"],"supportedPriceTypes":null,"website":null,"peggedRate":null}
+                "example": {"id":"NOCB","name":[{"languageCode":"en","name":"Norges Bank","abbreviatedName":"Norgesbank"},{"languageCode":"no","name":"Norges Bank","abbreviatedName":"Norgesbank"}],"publishedDays":null,"dailyUpdateTime":"16:00:00","bankCurrency":"NOK","countryCode":["NO"],"region":["EuropeNonEU"],"timeZone":{"windowsTimeZoneId":"W. Europe Standard Time","ianaTimeZoneName":"Europe/Oslo"},"supportedFrequencies":["Daily"],"supportedPriceTypes":["Mid"],"website":"https://www.norges-bank.no","peggedRate":null}
               }
             }
           },
@@ -868,14 +826,7 @@
           "401": {
             "description": "Unauthorized"
           }
-        },
-        "security": [
-          {
-            "oauth2": [
-              "fx_api"
-            ]
-          }
-        ]
+        }
       }
     },
     "/v1/Banks/{bankId}/BiweeklyRates/Availability": {
@@ -999,14 +950,7 @@
           "403": {
             "description": "Forbidden"
           }
-        },
-        "security": [
-          {
-            "oauth2": [
-              "fx_api"
-            ]
-          }
-        ]
+        }
       }
     },
     "/v1/Banks/{bankId}/BiweeklyRates/Availability/{startDate}/{endDate}": {
@@ -1154,14 +1098,7 @@
           "403": {
             "description": "Forbidden"
           }
-        },
-        "security": [
-          {
-            "oauth2": [
-              "fx_api"
-            ]
-          }
-        ]
+        }
       }
     },
     "/v1/Banks/{bankId}/BiweeklyRates/Latest": {
@@ -1184,7 +1121,7 @@
           {
             "name": "currencies",
             "in": "query",
-            "description": "The currencies to return.",
+            "description": "The currencies to return. If no currencies are provided, all available currencies will be included in the results.",
             "schema": {
               "type": "array",
               "items": {
@@ -1198,6 +1135,14 @@
             "description": "The requested price type. Defaults to mid.",
             "schema": {
               "$ref": "#/components/schemas/PriceType"
+            }
+          },
+          {
+            "name": "includeObsoleteCurrencies",
+            "in": "query",
+            "description": "A flag indicating whether obsolete currencies should be included in the results. Defaults to false.",
+            "schema": {
+              "type": "boolean"
             }
           },
           {
@@ -1341,14 +1286,7 @@
           "403": {
             "description": "Forbidden"
           }
-        },
-        "security": [
-          {
-            "oauth2": [
-              "fx_api"
-            ]
-          }
-        ]
+        }
       }
     },
     "/v1/Banks/{bankId}/BiweeklyRates/Latest.{format}": {
@@ -1371,7 +1309,7 @@
           {
             "name": "currencies",
             "in": "query",
-            "description": "The currencies to return.",
+            "description": "The currencies to return. If no currencies are provided, all available currencies will be included in the results.",
             "schema": {
               "type": "array",
               "items": {
@@ -1385,6 +1323,14 @@
             "description": "The requested price type. Defaults to mid.",
             "schema": {
               "$ref": "#/components/schemas/PriceType"
+            }
+          },
+          {
+            "name": "includeObsoleteCurrencies",
+            "in": "query",
+            "description": "A flag indicating whether obsolete currencies should be included in the results. Defaults to false.",
+            "schema": {
+              "type": "boolean"
             }
           },
           {
@@ -1532,14 +1478,7 @@
           "403": {
             "description": "Forbidden"
           }
-        },
-        "security": [
-          {
-            "oauth2": [
-              "fx_api"
-            ]
-          }
-        ]
+        }
       }
     },
     "/v1/Banks/{bankId}/BiweeklyRates/{year}/{month}": {
@@ -1585,7 +1524,7 @@
           {
             "name": "currencies",
             "in": "query",
-            "description": "The currencies to return.",
+            "description": "The currencies to return. If no currencies are provided, all available currencies will be included in the results.",
             "schema": {
               "type": "array",
               "items": {
@@ -1599,6 +1538,14 @@
             "description": "The requested price type. Defaults to mid.",
             "schema": {
               "$ref": "#/components/schemas/PriceType"
+            }
+          },
+          {
+            "name": "includeObsoleteCurrencies",
+            "in": "query",
+            "description": "A flag indicating whether obsolete currencies should be included in the results. Defaults to false.",
+            "schema": {
+              "type": "boolean"
             }
           },
           {
@@ -1742,14 +1689,7 @@
           "403": {
             "description": "Forbidden"
           }
-        },
-        "security": [
-          {
-            "oauth2": [
-              "fx_api"
-            ]
-          }
-        ]
+        }
       }
     },
     "/v1/Banks/{bankId}/BiweeklyRates/{year}/{month}.{format}": {
@@ -1795,7 +1735,7 @@
           {
             "name": "currencies",
             "in": "query",
-            "description": "The currencies to return.",
+            "description": "The currencies to return. If no currencies are provided, all available currencies will be included in the results.",
             "schema": {
               "type": "array",
               "items": {
@@ -1809,6 +1749,14 @@
             "description": "The requested price type. Defaults to mid.",
             "schema": {
               "$ref": "#/components/schemas/PriceType"
+            }
+          },
+          {
+            "name": "includeObsoleteCurrencies",
+            "in": "query",
+            "description": "A flag indicating whether obsolete currencies should be included in the results. Defaults to false.",
+            "schema": {
+              "type": "boolean"
             }
           },
           {
@@ -1956,14 +1904,7 @@
           "403": {
             "description": "Forbidden"
           }
-        },
-        "security": [
-          {
-            "oauth2": [
-              "fx_api"
-            ]
-          }
-        ]
+        }
       }
     },
     "/v1/Banks/{bankId}/BiweeklyRates/ThisMonth": {
@@ -1986,7 +1927,7 @@
           {
             "name": "currencies",
             "in": "query",
-            "description": "The currencies to return.",
+            "description": "The currencies to return. If no currencies are provided, all available currencies will be included in the results.",
             "schema": {
               "type": "array",
               "items": {
@@ -2000,6 +1941,14 @@
             "description": "The requested price type. Defaults to mid.",
             "schema": {
               "$ref": "#/components/schemas/PriceType"
+            }
+          },
+          {
+            "name": "includeObsoleteCurrencies",
+            "in": "query",
+            "description": "A flag indicating whether obsolete currencies should be included in the results. Defaults to false.",
+            "schema": {
+              "type": "boolean"
             }
           },
           {
@@ -2143,14 +2092,7 @@
           "403": {
             "description": "Forbidden"
           }
-        },
-        "security": [
-          {
-            "oauth2": [
-              "fx_api"
-            ]
-          }
-        ]
+        }
       }
     },
     "/v1/Banks/{bankId}/BiweeklyRates/ThisMonth.{format}": {
@@ -2173,7 +2115,7 @@
           {
             "name": "currencies",
             "in": "query",
-            "description": "The currencies to return.",
+            "description": "The currencies to return. If no currencies are provided, all available currencies will be included in the results.",
             "schema": {
               "type": "array",
               "items": {
@@ -2187,6 +2129,14 @@
             "description": "The requested price type. Defaults to mid.",
             "schema": {
               "$ref": "#/components/schemas/PriceType"
+            }
+          },
+          {
+            "name": "includeObsoleteCurrencies",
+            "in": "query",
+            "description": "A flag indicating whether obsolete currencies should be included in the results. Defaults to false.",
+            "schema": {
+              "type": "boolean"
             }
           },
           {
@@ -2334,14 +2284,7 @@
           "403": {
             "description": "Forbidden"
           }
-        },
-        "security": [
-          {
-            "oauth2": [
-              "fx_api"
-            ]
-          }
-        ]
+        }
       }
     },
     "/v1/Convert": {
@@ -2358,6 +2301,8 @@
             "description": "The source currency.",
             "required": true,
             "schema": {
+              "maxLength": 3,
+              "minLength": 3,
               "type": "string"
             },
             "example": "EUR"
@@ -2368,6 +2313,8 @@
             "description": "The target currency.",
             "required": true,
             "schema": {
+              "maxLength": 3,
+              "minLength": 3,
               "type": "string"
             },
             "example": "NOK"
@@ -2501,13 +2448,7 @@
             "description": "Forbidden"
           }
         },
-        "security": [
-          {
-            "oauth2": [
-              "fx_api"
-            ]
-          }
-        ]
+        "deprecated": true
       }
     },
     "/v1/Currencies": {
@@ -2521,7 +2462,7 @@
           {
             "name": "countryCode",
             "in": "query",
-            "description": "",
+            "description": "The optional country code to filter the currencies by the specific country.",
             "schema": {
               "$ref": "#/components/schemas/CountryCode"
             }
@@ -2529,7 +2470,7 @@
           {
             "name": "isObsolete",
             "in": "query",
-            "description": "",
+            "description": "The optional flag to filter currencies based on whether they are obsolete (true) or still in circulation (false).",
             "schema": {
               "type": "boolean"
             }
@@ -2612,14 +2553,7 @@
           "403": {
             "description": "Forbidden"
           }
-        },
-        "security": [
-          {
-            "oauth2": [
-              "fx_api"
-            ]
-          }
-        ]
+        }
       }
     },
     "/v1/Currencies/{currencyCode}": {
@@ -2717,14 +2651,7 @@
           "403": {
             "description": "Forbidden"
           }
-        },
-        "security": [
-          {
-            "oauth2": [
-              "fx_api"
-            ]
-          }
-        ]
+        }
       }
     },
     "/v1/Banks/{bankId}/DailyRates/Availability": {
@@ -2848,14 +2775,7 @@
           "403": {
             "description": "Forbidden"
           }
-        },
-        "security": [
-          {
-            "oauth2": [
-              "fx_api"
-            ]
-          }
-        ]
+        }
       }
     },
     "/v1/Banks/{bankId}/DailyRates/Availability/{startDate}/{endDate}": {
@@ -3003,14 +2923,7 @@
           "403": {
             "description": "Forbidden"
           }
-        },
-        "security": [
-          {
-            "oauth2": [
-              "fx_api"
-            ]
-          }
-        ]
+        }
       }
     },
     "/v1/Banks/{bankId}/DailyRates/Latest": {
@@ -3033,7 +2946,7 @@
           {
             "name": "currencies",
             "in": "query",
-            "description": "The currencies to return.",
+            "description": "The currencies to return. If no currencies are provided, all available currencies will be included in the results.",
             "schema": {
               "type": "array",
               "items": {
@@ -3047,6 +2960,14 @@
             "description": "The requested price type. Defaults to mid.",
             "schema": {
               "$ref": "#/components/schemas/PriceType"
+            }
+          },
+          {
+            "name": "includeObsoleteCurrencies",
+            "in": "query",
+            "description": "A flag indicating whether obsolete currencies should be included in the results. Defaults to false.",
+            "schema": {
+              "type": "boolean"
             }
           },
           {
@@ -3190,14 +3111,7 @@
           "403": {
             "description": "Forbidden"
           }
-        },
-        "security": [
-          {
-            "oauth2": [
-              "fx_api"
-            ]
-          }
-        ]
+        }
       }
     },
     "/v1/Banks/{bankId}/DailyRates/Latest.{format}": {
@@ -3220,7 +3134,7 @@
           {
             "name": "currencies",
             "in": "query",
-            "description": "The currencies to return.",
+            "description": "The currencies to return. If no currencies are provided, all available currencies will be included in the results.",
             "schema": {
               "type": "array",
               "items": {
@@ -3234,6 +3148,14 @@
             "description": "The requested price type. Defaults to mid.",
             "schema": {
               "$ref": "#/components/schemas/PriceType"
+            }
+          },
+          {
+            "name": "includeObsoleteCurrencies",
+            "in": "query",
+            "description": "A flag indicating whether obsolete currencies should be included in the results. Defaults to false.",
+            "schema": {
+              "type": "boolean"
             }
           },
           {
@@ -3381,14 +3303,7 @@
           "403": {
             "description": "Forbidden"
           }
-        },
-        "security": [
-          {
-            "oauth2": [
-              "fx_api"
-            ]
-          }
-        ]
+        }
       }
     },
     "/v1/Banks/{bankId}/DailyRates/TimeSeries": {
@@ -3431,7 +3346,7 @@
           {
             "name": "currencies",
             "in": "query",
-            "description": "The currencies to return.",
+            "description": "The currencies to return. If no currencies are provided, all available currencies will be included in the results.",
             "schema": {
               "type": "array",
               "items": {
@@ -3445,6 +3360,14 @@
             "description": "The requested price type. Defaults to mid.",
             "schema": {
               "$ref": "#/components/schemas/PriceType"
+            }
+          },
+          {
+            "name": "includeObsoleteCurrencies",
+            "in": "query",
+            "description": "A flag indicating whether obsolete currencies should be included in the results. Defaults to false.",
+            "schema": {
+              "type": "boolean"
             }
           },
           {
@@ -3588,14 +3511,7 @@
           "403": {
             "description": "Forbidden"
           }
-        },
-        "security": [
-          {
-            "oauth2": [
-              "fx_api"
-            ]
-          }
-        ]
+        }
       }
     },
     "/v1/Banks/{bankId}/DailyRates/TimeSeries.{format}": {
@@ -3638,7 +3554,7 @@
           {
             "name": "currencies",
             "in": "query",
-            "description": "The currencies to return.",
+            "description": "The currencies to return. If no currencies are provided, all available currencies will be included in the results.",
             "schema": {
               "type": "array",
               "items": {
@@ -3652,6 +3568,14 @@
             "description": "The requested price type. Defaults to mid.",
             "schema": {
               "$ref": "#/components/schemas/PriceType"
+            }
+          },
+          {
+            "name": "includeObsoleteCurrencies",
+            "in": "query",
+            "description": "A flag indicating whether obsolete currencies should be included in the results. Defaults to false.",
+            "schema": {
+              "type": "boolean"
             }
           },
           {
@@ -3799,14 +3723,7 @@
           "403": {
             "description": "Forbidden"
           }
-        },
-        "security": [
-          {
-            "oauth2": [
-              "fx_api"
-            ]
-          }
-        ]
+        }
       }
     },
     "/v1/Banks/{bankId}/DailyRates/{date}": {
@@ -3839,7 +3756,7 @@
           {
             "name": "currencies",
             "in": "query",
-            "description": "The currencies to return.",
+            "description": "The currencies to return. If no currencies are provided, all available currencies will be included in the results.",
             "schema": {
               "type": "array",
               "items": {
@@ -3853,6 +3770,14 @@
             "description": "The requested price type. Defaults to mid.",
             "schema": {
               "$ref": "#/components/schemas/PriceType"
+            }
+          },
+          {
+            "name": "includeObsoleteCurrencies",
+            "in": "query",
+            "description": "A flag indicating whether obsolete currencies should be included in the results. Defaults to false.",
+            "schema": {
+              "type": "boolean"
             }
           },
           {
@@ -3996,14 +3921,7 @@
           "403": {
             "description": "Forbidden"
           }
-        },
-        "security": [
-          {
-            "oauth2": [
-              "fx_api"
-            ]
-          }
-        ]
+        }
       }
     },
     "/v1/Banks/{bankId}/DailyRates/{date}.{format}": {
@@ -4036,7 +3954,7 @@
           {
             "name": "currencies",
             "in": "query",
-            "description": "The currencies to return.",
+            "description": "The currencies to return. If no currencies are provided, all available currencies will be included in the results.",
             "schema": {
               "type": "array",
               "items": {
@@ -4050,6 +3968,14 @@
             "description": "The requested price type. Defaults to mid.",
             "schema": {
               "$ref": "#/components/schemas/PriceType"
+            }
+          },
+          {
+            "name": "includeObsoleteCurrencies",
+            "in": "query",
+            "description": "A flag indicating whether obsolete currencies should be included in the results. Defaults to false.",
+            "schema": {
+              "type": "boolean"
             }
           },
           {
@@ -4197,14 +4123,7 @@
           "403": {
             "description": "Forbidden"
           }
-        },
-        "security": [
-          {
-            "oauth2": [
-              "fx_api"
-            ]
-          }
-        ]
+        }
       }
     },
     "/v1/Banks/{bankId}/DailyRates/Today": {
@@ -4227,7 +4146,7 @@
           {
             "name": "currencies",
             "in": "query",
-            "description": "The currencies to return.",
+            "description": "The currencies to return. If no currencies are provided, all available currencies will be included in the results.",
             "schema": {
               "type": "array",
               "items": {
@@ -4241,6 +4160,14 @@
             "description": "The requested price type. Defaults to mid.",
             "schema": {
               "$ref": "#/components/schemas/PriceType"
+            }
+          },
+          {
+            "name": "includeObsoleteCurrencies",
+            "in": "query",
+            "description": "A flag indicating whether obsolete currencies should be included in the results. Defaults to false.",
+            "schema": {
+              "type": "boolean"
             }
           },
           {
@@ -4397,7 +4324,7 @@
             }
           },
           "302": {
-            "description": "Redirect"
+            "description": "Found"
           },
           "default": {
             "description": "Error",
@@ -4416,14 +4343,7 @@
           "403": {
             "description": "Forbidden"
           }
-        },
-        "security": [
-          {
-            "oauth2": [
-              "fx_api"
-            ]
-          }
-        ]
+        }
       }
     },
     "/v1/Banks/{bankId}/DailyRates/Today.{format}": {
@@ -4446,7 +4366,7 @@
           {
             "name": "currencies",
             "in": "query",
-            "description": "The currencies to return.",
+            "description": "The currencies to return. If no currencies are provided, all available currencies will be included in the results.",
             "schema": {
               "type": "array",
               "items": {
@@ -4460,6 +4380,14 @@
             "description": "The requested price type. Defaults to mid.",
             "schema": {
               "$ref": "#/components/schemas/PriceType"
+            }
+          },
+          {
+            "name": "includeObsoleteCurrencies",
+            "in": "query",
+            "description": "A flag indicating whether obsolete currencies should be included in the results. Defaults to false.",
+            "schema": {
+              "type": "boolean"
             }
           },
           {
@@ -4636,14 +4564,7 @@
           "403": {
             "description": "Forbidden"
           }
-        },
-        "security": [
-          {
-            "oauth2": [
-              "fx_api"
-            ]
-          }
-        ]
+        }
       }
     },
     "/v1/Banks/{bankId}/MonthlyRates/Availability": {
@@ -4767,14 +4688,7 @@
           "403": {
             "description": "Forbidden"
           }
-        },
-        "security": [
-          {
-            "oauth2": [
-              "fx_api"
-            ]
-          }
-        ]
+        }
       }
     },
     "/v1/Banks/{bankId}/MonthlyRates/Availability/{startDate}/{endDate}": {
@@ -4922,14 +4836,7 @@
           "403": {
             "description": "Forbidden"
           }
-        },
-        "security": [
-          {
-            "oauth2": [
-              "fx_api"
-            ]
-          }
-        ]
+        }
       }
     },
     "/v1/Banks/{bankId}/MonthlyRates/Latest": {
@@ -4952,7 +4859,7 @@
           {
             "name": "currencies",
             "in": "query",
-            "description": "The currencies to return.",
+            "description": "The currencies to return. If no currencies are provided, all available currencies will be included in the results.",
             "schema": {
               "type": "array",
               "items": {
@@ -4966,6 +4873,14 @@
             "description": "The requested price type. Defaults to mid.",
             "schema": {
               "$ref": "#/components/schemas/PriceType"
+            }
+          },
+          {
+            "name": "includeObsoleteCurrencies",
+            "in": "query",
+            "description": "A flag indicating whether obsolete currencies should be included in the results. Defaults to false.",
+            "schema": {
+              "type": "boolean"
             }
           },
           {
@@ -5109,14 +5024,7 @@
           "403": {
             "description": "Forbidden"
           }
-        },
-        "security": [
-          {
-            "oauth2": [
-              "fx_api"
-            ]
-          }
-        ]
+        }
       }
     },
     "/v1/Banks/{bankId}/MonthlyRates/Latest.{format}": {
@@ -5139,7 +5047,7 @@
           {
             "name": "currencies",
             "in": "query",
-            "description": "The currencies to return.",
+            "description": "The currencies to return. If no currencies are provided, all available currencies will be included in the results.",
             "schema": {
               "type": "array",
               "items": {
@@ -5153,6 +5061,14 @@
             "description": "The requested price type. Defaults to mid.",
             "schema": {
               "$ref": "#/components/schemas/PriceType"
+            }
+          },
+          {
+            "name": "includeObsoleteCurrencies",
+            "in": "query",
+            "description": "A flag indicating whether obsolete currencies should be included in the results. Defaults to false.",
+            "schema": {
+              "type": "boolean"
             }
           },
           {
@@ -5300,14 +5216,7 @@
           "403": {
             "description": "Forbidden"
           }
-        },
-        "security": [
-          {
-            "oauth2": [
-              "fx_api"
-            ]
-          }
-        ]
+        }
       }
     },
     "/v1/Banks/{bankId}/MonthlyRates/{year}/{month}": {
@@ -5353,7 +5262,7 @@
           {
             "name": "currencies",
             "in": "query",
-            "description": "The currencies to return.",
+            "description": "The currencies to return. If no currencies are provided, all available currencies will be included in the results.",
             "schema": {
               "type": "array",
               "items": {
@@ -5367,6 +5276,14 @@
             "description": "The requested price type. Defaults to mid.",
             "schema": {
               "$ref": "#/components/schemas/PriceType"
+            }
+          },
+          {
+            "name": "includeObsoleteCurrencies",
+            "in": "query",
+            "description": "A flag indicating whether obsolete currencies should be included in the results. Defaults to false.",
+            "schema": {
+              "type": "boolean"
             }
           },
           {
@@ -5510,14 +5427,7 @@
           "403": {
             "description": "Forbidden"
           }
-        },
-        "security": [
-          {
-            "oauth2": [
-              "fx_api"
-            ]
-          }
-        ]
+        }
       }
     },
     "/v1/Banks/{bankId}/MonthlyRates/{year}/{month}.{format}": {
@@ -5563,7 +5473,7 @@
           {
             "name": "currencies",
             "in": "query",
-            "description": "The currencies to return.",
+            "description": "The currencies to return. If no currencies are provided, all available currencies will be included in the results.",
             "schema": {
               "type": "array",
               "items": {
@@ -5577,6 +5487,14 @@
             "description": "The requested price type. Defaults to mid.",
             "schema": {
               "$ref": "#/components/schemas/PriceType"
+            }
+          },
+          {
+            "name": "includeObsoleteCurrencies",
+            "in": "query",
+            "description": "A flag indicating whether obsolete currencies should be included in the results. Defaults to false.",
+            "schema": {
+              "type": "boolean"
             }
           },
           {
@@ -5724,14 +5642,7 @@
           "403": {
             "description": "Forbidden"
           }
-        },
-        "security": [
-          {
-            "oauth2": [
-              "fx_api"
-            ]
-          }
-        ]
+        }
       }
     },
     "/v1/Banks/{bankId}/MonthlyRates/ThisMonth": {
@@ -5754,7 +5665,7 @@
           {
             "name": "currencies",
             "in": "query",
-            "description": "The currencies to return.",
+            "description": "The currencies to return. If no currencies are provided, all available currencies will be included in the results.",
             "schema": {
               "type": "array",
               "items": {
@@ -5768,6 +5679,14 @@
             "description": "The requested price type. Defaults to mid.",
             "schema": {
               "$ref": "#/components/schemas/PriceType"
+            }
+          },
+          {
+            "name": "includeObsoleteCurrencies",
+            "in": "query",
+            "description": "A flag indicating whether obsolete currencies should be included in the results. Defaults to false.",
+            "schema": {
+              "type": "boolean"
             }
           },
           {
@@ -5911,14 +5830,7 @@
           "403": {
             "description": "Forbidden"
           }
-        },
-        "security": [
-          {
-            "oauth2": [
-              "fx_api"
-            ]
-          }
-        ]
+        }
       }
     },
     "/v1/Banks/{bankId}/MonthlyRates/ThisMonth.{format}": {
@@ -5941,7 +5853,7 @@
           {
             "name": "currencies",
             "in": "query",
-            "description": "The currencies to return.",
+            "description": "The currencies to return. If no currencies are provided, all available currencies will be included in the results.",
             "schema": {
               "type": "array",
               "items": {
@@ -5955,6 +5867,14 @@
             "description": "The requested price type. Defaults to mid.",
             "schema": {
               "$ref": "#/components/schemas/PriceType"
+            }
+          },
+          {
+            "name": "includeObsoleteCurrencies",
+            "in": "query",
+            "description": "A flag indicating whether obsolete currencies should be included in the results. Defaults to false.",
+            "schema": {
+              "type": "boolean"
             }
           },
           {
@@ -6102,14 +6022,7 @@
           "403": {
             "description": "Forbidden"
           }
-        },
-        "security": [
-          {
-            "oauth2": [
-              "fx_api"
-            ]
-          }
-        ]
+        }
       }
     },
     "/v1/Banks/{bankId}/WeeklyRates/Availability": {
@@ -6233,14 +6146,7 @@
           "403": {
             "description": "Forbidden"
           }
-        },
-        "security": [
-          {
-            "oauth2": [
-              "fx_api"
-            ]
-          }
-        ]
+        }
       }
     },
     "/v1/Banks/{bankId}/WeeklyRates/Availability/{startDate}/{endDate}": {
@@ -6388,14 +6294,7 @@
           "403": {
             "description": "Forbidden"
           }
-        },
-        "security": [
-          {
-            "oauth2": [
-              "fx_api"
-            ]
-          }
-        ]
+        }
       }
     },
     "/v1/Banks/{bankId}/WeeklyRates/Latest": {
@@ -6418,7 +6317,7 @@
           {
             "name": "currencies",
             "in": "query",
-            "description": "The currencies to return.",
+            "description": "The currencies to return. If no currencies are provided, all available currencies will be included in the results.",
             "schema": {
               "type": "array",
               "items": {
@@ -6432,6 +6331,14 @@
             "description": "The requested price type. Defaults to mid.",
             "schema": {
               "$ref": "#/components/schemas/PriceType"
+            }
+          },
+          {
+            "name": "includeObsoleteCurrencies",
+            "in": "query",
+            "description": "A flag indicating whether obsolete currencies should be included in the results. Defaults to false.",
+            "schema": {
+              "type": "boolean"
             }
           },
           {
@@ -6575,14 +6482,7 @@
           "403": {
             "description": "Forbidden"
           }
-        },
-        "security": [
-          {
-            "oauth2": [
-              "fx_api"
-            ]
-          }
-        ]
+        }
       }
     },
     "/v1/Banks/{bankId}/WeeklyRates/Latest.{format}": {
@@ -6605,7 +6505,7 @@
           {
             "name": "currencies",
             "in": "query",
-            "description": "The currencies to return.",
+            "description": "The currencies to return. If no currencies are provided, all available currencies will be included in the results.",
             "schema": {
               "type": "array",
               "items": {
@@ -6619,6 +6519,14 @@
             "description": "The requested price type. Defaults to mid.",
             "schema": {
               "$ref": "#/components/schemas/PriceType"
+            }
+          },
+          {
+            "name": "includeObsoleteCurrencies",
+            "in": "query",
+            "description": "A flag indicating whether obsolete currencies should be included in the results. Defaults to false.",
+            "schema": {
+              "type": "boolean"
             }
           },
           {
@@ -6763,14 +6671,7 @@
           "403": {
             "description": "Forbidden"
           }
-        },
-        "security": [
-          {
-            "oauth2": [
-              "fx_api"
-            ]
-          }
-        ]
+        }
       }
     },
     "/v1/Banks/{bankId}/WeeklyRates/{year}/{month}": {
@@ -6816,7 +6717,7 @@
           {
             "name": "currencies",
             "in": "query",
-            "description": "The currencies to return.",
+            "description": "The currencies to return. If no currencies are provided, all available currencies will be included in the results.",
             "schema": {
               "type": "array",
               "items": {
@@ -6830,6 +6731,14 @@
             "description": "The requested price type. Defaults to mid.",
             "schema": {
               "$ref": "#/components/schemas/PriceType"
+            }
+          },
+          {
+            "name": "includeObsoleteCurrencies",
+            "in": "query",
+            "description": "A flag indicating whether obsolete currencies should be included in the results. Defaults to false.",
+            "schema": {
+              "type": "boolean"
             }
           },
           {
@@ -6973,14 +6882,7 @@
           "403": {
             "description": "Forbidden"
           }
-        },
-        "security": [
-          {
-            "oauth2": [
-              "fx_api"
-            ]
-          }
-        ]
+        }
       }
     },
     "/v1/Banks/{bankId}/WeeklyRates/{year}/{month}.{format}": {
@@ -7026,7 +6928,7 @@
           {
             "name": "currencies",
             "in": "query",
-            "description": "The currencies to return.",
+            "description": "The currencies to return. If no currencies are provided, all available currencies will be included in the results.",
             "schema": {
               "type": "array",
               "items": {
@@ -7040,6 +6942,14 @@
             "description": "The requested price type. Defaults to mid.",
             "schema": {
               "$ref": "#/components/schemas/PriceType"
+            }
+          },
+          {
+            "name": "includeObsoleteCurrencies",
+            "in": "query",
+            "description": "A flag indicating whether obsolete currencies should be included in the results. Defaults to false.",
+            "schema": {
+              "type": "boolean"
             }
           },
           {
@@ -7187,14 +7097,7 @@
           "403": {
             "description": "Forbidden"
           }
-        },
-        "security": [
-          {
-            "oauth2": [
-              "fx_api"
-            ]
-          }
-        ]
+        }
       }
     },
     "/v1/Banks/{bankId}/WeeklyRates/ThisMonth": {
@@ -7217,7 +7120,7 @@
           {
             "name": "currencies",
             "in": "query",
-            "description": "The currencies to return.",
+            "description": "The currencies to return. If no currencies are provided, all available currencies will be included in the results.",
             "schema": {
               "type": "array",
               "items": {
@@ -7231,6 +7134,14 @@
             "description": "The requested price type. Defaults to mid.",
             "schema": {
               "$ref": "#/components/schemas/PriceType"
+            }
+          },
+          {
+            "name": "includeObsoleteCurrencies",
+            "in": "query",
+            "description": "A flag indicating whether obsolete currencies should be included in the results. Defaults to false.",
+            "schema": {
+              "type": "boolean"
             }
           },
           {
@@ -7374,14 +7285,7 @@
           "403": {
             "description": "Forbidden"
           }
-        },
-        "security": [
-          {
-            "oauth2": [
-              "fx_api"
-            ]
-          }
-        ]
+        }
       }
     },
     "/v1/Banks/{bankId}/WeeklyRates/ThisMonth.{format}": {
@@ -7404,7 +7308,7 @@
           {
             "name": "currencies",
             "in": "query",
-            "description": "The currencies to return.",
+            "description": "The currencies to return. If no currencies are provided, all available currencies will be included in the results.",
             "schema": {
               "type": "array",
               "items": {
@@ -7418,6 +7322,14 @@
             "description": "The requested price type. Defaults to mid.",
             "schema": {
               "$ref": "#/components/schemas/PriceType"
+            }
+          },
+          {
+            "name": "includeObsoleteCurrencies",
+            "in": "query",
+            "description": "A flag indicating whether obsolete currencies should be included in the results. Defaults to false.",
+            "schema": {
+              "type": "boolean"
             }
           },
           {
@@ -7565,20 +7477,19 @@
           "403": {
             "description": "Forbidden"
           }
-        },
-        "security": [
-          {
-            "oauth2": [
-              "fx_api"
-            ]
-          }
-        ]
+        }
       }
     }
   },
   "components": {
     "schemas": {
       "BankDataAvailabilityModel": {
+        "required": [
+          "availableCurrencies",
+          "availablePriceTypes",
+          "firstEffectiveDate",
+          "lastEffectiveDate"
+        ],
         "type": "object",
         "properties": {
           "firstEffectiveDate": {
@@ -7597,8 +7508,7 @@
             "items": {
               "type": "string"
             },
-            "description": "The list of available currency codes.",
-            "nullable": true
+            "description": "The list of available currency codes."
           },
           "availablePriceTypes": {
             "uniqueItems": true,
@@ -7606,13 +7516,17 @@
             "items": {
               "$ref": "#/components/schemas/PriceType"
             },
-            "description": "The list of available price types.",
-            "nullable": true
+            "description": "The list of available price types."
           }
         },
         "additionalProperties": false
       },
       "BankHolidayModel": {
+        "required": [
+          "date",
+          "localName",
+          "name"
+        ],
         "type": "object",
         "properties": {
           "date": {
@@ -7622,15 +7536,15 @@
             "example": "2020-12-24"
           },
           "name": {
+            "minLength": 1,
             "type": "string",
             "description": "The English name of the holiday.",
-            "nullable": true,
             "example": "Christmas Eve"
           },
           "localName": {
+            "minLength": 1,
             "type": "string",
             "description": "The local name of the holiday.",
-            "nullable": true,
             "example": "Julaften"
           }
         },
@@ -7701,7 +7615,25 @@
           "KZCB",
           "GECB",
           "AMCB",
-          "SCCB"
+          "SCCB",
+          "DOCB",
+          "HNCB",
+          "INCB",
+          "KECB",
+          "NGCB",
+          "BBCB",
+          "XCCB",
+          "GHCB",
+          "VNCB",
+          "DZCB",
+          "ETCB",
+          "XOCB",
+          "THCBS",
+          "THCBT",
+          "GTCB",
+          "NICB",
+          "MNCB",
+          "NPCB"
         ],
         "type": "string"
       },
@@ -7746,7 +7678,7 @@
             "items": {
               "$ref": "#/components/schemas/CountryCode"
             },
-            "description": "The country (or countries) for which the bank acts as a"
+            "description": "The country (or countries) for which the bank provides exchange rates."
           },
           "region": {
             "type": "array",
@@ -8050,12 +7982,14 @@
           "ANG",
           "AOA",
           "ARS",
+          "ATS",
           "AUD",
           "AWG",
           "AZN",
           "BAM",
           "BBD",
           "BDT",
+          "BEF",
           "BGN",
           "BHD",
           "BIF",
@@ -8077,6 +8011,7 @@
           "CHW",
           "CLF",
           "CLP",
+          "CNH",
           "CNY",
           "COP",
           "COU",
@@ -8084,23 +8019,31 @@
           "CUC",
           "CUP",
           "CVE",
+          "CYP",
           "CZK",
+          "DEM",
           "DJF",
           "DKK",
           "DOP",
           "DZD",
+          "ECS",
+          "EEK",
           "EGP",
           "ERN",
+          "ESP",
           "ETB",
           "EUR",
+          "FIM",
           "FJD",
           "FKP",
+          "FRF",
           "GBP",
           "GEL",
           "GHS",
           "GIP",
           "GMD",
           "GNF",
+          "GRD",
           "GTQ",
           "GYD",
           "HKD",
@@ -8109,11 +8052,13 @@
           "HTG",
           "HUF",
           "IDR",
+          "IEP",
           "ILS",
           "INR",
           "IQD",
           "IRR",
           "ISK",
+          "ITL",
           "JMD",
           "JOD",
           "JPY",
@@ -8132,6 +8077,7 @@
           "LRD",
           "LSL",
           "LTL",
+          "LUF",
           "LVL",
           "LYD",
           "MAD",
@@ -8143,6 +8089,7 @@
           "MOP",
           "MRO",
           "MRU",
+          "MTL",
           "MUR",
           "MVR",
           "MWK",
@@ -8153,6 +8100,7 @@
           "NAD",
           "NGN",
           "NIO",
+          "NLG",
           "NOK",
           "NPR",
           "NZD",
@@ -8163,6 +8111,7 @@
           "PHP",
           "PKR",
           "PLN",
+          "PTE",
           "PYG",
           "QAR",
           "RON",
@@ -8176,6 +8125,8 @@
           "SEK",
           "SGD",
           "SHP",
+          "SIT",
+          "SKK",
           "SLE",
           "SLL",
           "SOS",
@@ -8204,6 +8155,8 @@
           "UYU",
           "UYW",
           "UZS",
+          "VEB",
+          "VED",
           "VEF",
           "VES",
           "VND",
@@ -8229,6 +8182,7 @@
           "YER",
           "ZAR",
           "ZMW",
+          "ZWG",
           "ZWL"
         ],
         "type": "string",
@@ -8236,7 +8190,13 @@
       },
       "CurrencyConversionRateModel": {
         "required": [
-          "rate"
+          "bankId",
+          "effectiveDate",
+          "frequency",
+          "fromCurrency",
+          "quoteType",
+          "rate",
+          "toCurrency"
         ],
         "type": "object",
         "properties": {
@@ -8254,12 +8214,16 @@
             "example": 2
           },
           "fromCurrency": {
+            "maxLength": 3,
+            "minLength": 3,
             "type": "string",
-            "nullable": true
+            "description": "The source currency."
           },
           "toCurrency": {
+            "maxLength": 3,
+            "minLength": 3,
             "type": "string",
-            "nullable": true
+            "description": "The target currency."
           },
           "bankId": {
             "$ref": "#/components/schemas/BankId"
@@ -8269,6 +8233,7 @@
           },
           "effectiveDate": {
             "type": "string",
+            "description": "",
             "format": "date"
           },
           "quoteType": {
@@ -8278,10 +8243,15 @@
         "additionalProperties": false
       },
       "CurrencyConversionResponse": {
+        "required": [
+          "rate",
+          "result"
+        ],
         "type": "object",
         "properties": {
           "result": {
             "type": "number",
+            "description": "The converted amount.",
             "format": "decimal"
           },
           "rate": {
@@ -8289,33 +8259,47 @@
             "items": {
               "$ref": "#/components/schemas/CurrencyConversionRateModel"
             },
-            "nullable": true
+            "description": "The list of exchange rates used for the conversion."
           }
         },
         "additionalProperties": false
       },
       "CurrencyModel": {
+        "required": [
+          "code",
+          "countryCodes",
+          "isObsolete",
+          "name"
+        ],
         "type": "object",
         "properties": {
           "code": {
             "$ref": "#/components/schemas/CurrencyCode"
           },
           "name": {
+            "minLength": 1,
             "type": "string",
-            "description": "The English name of the currency.",
-            "nullable": true
+            "description": "The English name of the currency."
           },
           "isObsolete": {
             "type": "boolean",
-            "description": "Indicates whether the currency is no longer in use."
+            "description": "Indicates if the currency is no longer in use."
+          },
+          "withdrawalDate": {
+            "type": "string",
+            "description": "The date when the currency was withdrawn from circulation.",
+            "format": "date",
+            "nullable": true
+          },
+          "replacedBy": {
+            "$ref": "#/components/schemas/CurrencyCode"
           },
           "countryCodes": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/CountryCode"
             },
-            "description": "The countries where the currency is in use.",
-            "nullable": true
+            "description": "The countries in which the currency is used."
           }
         },
         "additionalProperties": false
@@ -8354,8 +8338,7 @@
               "type": "object",
               "additionalProperties": {
                 "$ref": "#/components/schemas/RateModel"
-              },
-              "nullable": true
+              }
             },
             "description": "The exchange rates."
           }
@@ -8521,23 +8504,28 @@
           "NorthAmerica",
           "LATAM",
           "MENA",
-          "Africa"
+          "Africa",
+          "Caribbean"
         ],
         "type": "string"
       },
       "TimeZone": {
+        "required": [
+          "ianaTimeZoneName",
+          "windowsTimeZoneId"
+        ],
         "type": "object",
         "properties": {
           "windowsTimeZoneId": {
+            "minLength": 1,
             "type": "string",
             "description": "The time zone identifier on Windows platforms.",
-            "nullable": true,
             "example": "W. Europe Standard Time"
           },
           "ianaTimeZoneName": {
+            "minLength": 1,
             "type": "string",
             "description": "The IANA time zone name.",
-            "nullable": true,
             "example": "Europe/Oslo"
           }
         },
@@ -8563,9 +8551,34 @@
             }
           }
         }
+      },
+      "apiKey": {
+        "type": "apiKey",
+        "description": "API key supplied in header",
+        "name": "X-API-Key",
+        "in": "header"
+      },
+      "apiKeyQuery": {
+        "type": "apiKey",
+        "description": "API key supplied as a query parameter",
+        "name": "apiKey",
+        "in": "query"
       }
     }
   },
+  "security": [
+    {
+      "oauth2": [
+        "fx_api"
+      ]
+    },
+    {
+      "apiKey": [ ]
+    },
+    {
+      "apiKeyQuery": [ ]
+    }
+  ],
   "tags": [
     {
       "name": "BankHolidays",
