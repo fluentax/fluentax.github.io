@@ -76,12 +76,12 @@
  */
 
 /*!
- * perfect-scrollbar v1.5.3
- * Copyright 2021 Hyunje Jun, MDBootstrap and Contributors
+ * perfect-scrollbar v1.5.6
+ * Copyright 2024 Hyunje Jun, MDBootstrap and Contributors
  * Licensed under MIT
  */
 
-/*! @license DOMPurify 3.1.7 | (c) Cure53 and other contributors | Released under the Apache license 2.0 and Mozilla Public License 2.0 | github.com/cure53/DOMPurify/blob/3.1.7/LICENSE */
+/*! @license DOMPurify 3.2.3 | (c) Cure53 and other contributors | Released under the Apache license 2.0 and Mozilla Public License 2.0 | github.com/cure53/DOMPurify/blob/3.2.3/LICENSE */
 
 /*! For license information please see redoc.browser.lib.js.LICENSE.txt */
 
@@ -94,9 +94,9 @@
 
 /**
  * @license React
- * use-sync-external-store-shim.production.min.js
+ * use-sync-external-store-shim.production.js
  *
- * Copyright (c) Facebook, Inc. and its affiliates.
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.

@@ -6927,6 +6927,16 @@ components:
         - NICB
         - MNCB
         - NPCB
+        - USCB
+        - COSFC
+        - UZCB
+        - BDCB
+        - GYCB
+        - ITCB
+        - ITCBUSD
+        - KWCB
+        - QACB
+        - TNCB
       type: string
     BankModel:
       required:
