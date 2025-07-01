@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+  Description: Dynamics 365 Business Central Data Exchange Definition file for the Fluentax Exchange Rates API integration setup through the Currency Exchange Rate Service.
+  Version: 1.0.1
+  Last modified date: 2024-05-21
+  Sample XML file (Service URL) for testing the integration: https://developer.fluentax.com/sample-files/v1/Sample.xml
+-->
+<root>
+  <DataExchDef Code="FLUENTAX-EXCH-RATES" Name="Fluentax Currency Exchange Rates" Type="3" FileType="0" ReadingWritingCodeunit="1203">
+    <DataExchLineDef LineType="0" Code="CURREXCHANGE" Name="Parent Node for Currency Code" ColumnCount="0" DataLineTag="/ExchangeRates/Rates/Rate">
+      <DataExchColumnDef ColumnNo="20000" Name="currency" Show="false" DataType="0" Path="/ExchangeRates/Rates/Rate/@currency" TextPaddingRequired="false" Justification="0" UseNodeNameAsValue="false" BlankZero="false" ExportIfNotBlank="false" />
+      <DataExchColumnDef ColumnNo="30000" Name="effectiveDate" Show="false" DataType="0" Path="/ExchangeRates/Rates/@effectiveDate" TextPaddingRequired="false" Justification="0" UseNodeNameAsValue="false" BlankZero="false" ExportIfNotBlank="false" />
+      <DataExchColumnDef ColumnNo="40000" Name="unitMultiplier" Show="false" DataType="2" Path="/ExchangeRates/Rates/Rate/@unitMultiplier" TextPaddingRequired="false" Justification="0" UseNodeNameAsValue="false" BlankZero="false" ExportIfNotBlank="false" />
+      <DataExchColumnDef ColumnNo="50000" Name="rate" Show="false" DataType="2" Path="/ExchangeRates/Rates/Rate/@value" TextPaddingRequired="false" Justification="0" UseNodeNameAsValue="false" BlankZero="false" ExportIfNotBlank="false" />
+      <DataExchMapping TableId="330" Name="Mapping for Currency Exchange" MappingCodeunit="1280">
+        <!-- currency - Currency Code -->
+        <DataExchFieldMapping ColumnNo="20000" FieldID="1" UseDefaultValue="true" />
+        <!-- effectiveDate - Starting date -->
+        <DataExchFieldMapping ColumnNo="30000" FieldID="2" UseDefaultValue="true" />
+        <!-- unitMultiplier - Exchange Rate Amount -->
+        <DataExchFieldMapping ColumnNo="40000" FieldID="3" UseDefaultValue="true" DefaultValue="" TransformationRule="UNIT_MULT_1">
+          <!--
+            Fluentax uses the SDMX Unit Multiplier notation (power of 10). The following transformation rules convert this notation into the actual units (one, then, hundred, etc.).
+            More details can be found at https://developer.fluentax.com/docs/exchange-rates-api/terminology#unit-multiplier
+          -->
+          <TransformationRules>
+            <Code>UNIT_MULT_1</Code>
+            <Description>Convert unit multiplier 1 to unit 10</Description>
+            <TransformationType>5</TransformationType>
+            <FindValue>1</FindValue>
+            <ReplaceValue>10</ReplaceValue>
+            <StartPosition>0</StartPosition>
+            <Length>0</Length>
+            <DataFormat />
+            <DataFormattingCulture />
+            <NextTransformationRule>UNIT_MULT_2</NextTransformationRule>
+            <TableID>0</TableID>
+            <SourceFieldID>0</SourceFieldID>
+            <TargetFieldID>0</TargetFieldID>
+            <FieldLookupRule>0</FieldLookupRule>
+            <Precision>0</Precision>
+            <Direction />
+            <ExportFromDateType>0</ExportFromDateType>
+          </TransformationRules>
+          <TransformationRules>
+            <Code>UNIT_MULT_2</Code>
+            <Description>Convert unit multiplier 2 to unit 100</Description>
+            <TransformationType>5</TransformationType>
+            <FindValue>2</FindValue>
+            <ReplaceValue>100</ReplaceValue>
+            <StartPosition>0</StartPosition>
+            <Length>0</Length>
+            <DataFormat />
+            <DataFormattingCulture />
+            <NextTransformationRule>UNIT_MULT_3</NextTransformationRule>
+            <TableID>0</TableID>
+            <SourceFieldID>0</SourceFieldID>
+            <TargetFieldID>0</TargetFieldID>
+            <FieldLookupRule>0</FieldLookupRule>
+            <Precision>0</Precision>
+            <Direction />
+            <ExportFromDateType>0</ExportFromDateType>
+          </TransformationRules>
+          <TransformationRules>
+            <Code>UNIT_MULT_3</Code>
+            <Description>Convert unit multiplier 3 to unit 1.000</Description>
+            <TransformationType>5</TransformationType>
+            <FindValue>3</FindValue>
+            <ReplaceValue>1000</ReplaceValue>
+            <StartPosition>0</StartPosition>
+            <Length>0</Length>
+            <DataFormat />
+            <DataFormattingCulture />
+            <NextTransformationRule>UNIT_MULT_4</NextTransformationRule>
+            <TableID>0</TableID>
+            <SourceFieldID>0</SourceFieldID>
+            <TargetFieldID>0</TargetFieldID>
+            <FieldLookupRule>0</FieldLookupRule>
+            <Precision>0</Precision>
+            <Direction />
+            <ExportFromDateType>0</ExportFromDateType>
+          </TransformationRules>
+          <TransformationRules>
+            <Code>UNIT_MULT_4</Code>
+            <Description>Convert unit multiplier 4 to unit 10.000</Description>
+            <TransformationType>5</TransformationType>
+            <FindValue>4</FindValue>
+            <ReplaceValue>10000</ReplaceValue>
+            <StartPosition>0</StartPosition>
+            <Length>0</Length>
+            <DataFormat />
+            <DataFormattingCulture />
+            <NextTransformationRule>UNIT_MULT_5</NextTransformationRule>
+            <TableID>0</TableID>
+            <SourceFieldID>0</SourceFieldID>
+            <TargetFieldID>0</TargetFieldID>
+            <FieldLookupRule>0</FieldLookupRule>
+            <Precision>0</Precision>
+            <Direction />
+            <ExportFromDateType>0</ExportFromDateType>
+          </TransformationRules>
+          <TransformationRules>
+            <Code>UNIT_MULT_5</Code>
+            <Description>Convert unit multiplier 5 to unit 100.000</Description>
+            <TransformationType>5</TransformationType>
+            <FindValue>5</FindValue>
+            <ReplaceValue>100000</ReplaceValue>
+            <StartPosition>0</StartPosition>
+            <Length>0</Length>
+            <DataFormat />
+            <DataFormattingCulture />
+            <NextTransformationRule>UNIT_MULT_0</NextTransformationRule>
+            <TableID>0</TableID>
+            <SourceFieldID>0</SourceFieldID>
+            <TargetFieldID>0</TargetFieldID>
+            <FieldLookupRule>0</FieldLookupRule>
+            <Precision>0</Precision>
+            <Direction />
+            <ExportFromDateType>0</ExportFromDateType>
+          </TransformationRules>
+          <TransformationRules>
+            <Code>UNIT_MULT_0</Code>
+            <Description>Convert unit multiplier 0 to unit 1</Description>
+            <TransformationType>5</TransformationType>
+            <FindValue></FindValue>
+            <ReplaceValue>1</ReplaceValue>
+            <StartPosition>0</StartPosition>
+            <Length>0</Length>
+            <DataFormat />
+            <DataFormattingCulture />
+            <NextTransformationRule />
+            <TableID>0</TableID>
+            <SourceFieldID>0</SourceFieldID>
+            <TargetFieldID>0</TargetFieldID>
+            <FieldLookupRule>0</FieldLookupRule>
+            <Precision>0</Precision>
+            <Direction />
+            <ExportFromDateType>0</ExportFromDateType>
+          </TransformationRules>
+        </DataExchFieldMapping>
+        <!-- rate - Relational Exch. Rate Amount	 -->
+        <DataExchFieldMapping ColumnNo="50000" FieldID="6" UseDefaultValue="true" />
+      </DataExchMapping>
+    </DataExchLineDef>
+  </DataExchDef>
+</root>
