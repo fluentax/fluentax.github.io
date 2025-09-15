@@ -1,4 +1,4 @@
-openapi: 3.0.1
+openapi: 3.0.4
 info:
   title: Exchange Rates API
   description: >-
@@ -6937,6 +6937,25 @@ components:
         - KWCB
         - QACB
         - TNCB
+        - TZCB
+        - BYCB
+        - KHCB
+        - LKCB
+        - LACB
+        - TJCB
+        - MRCB
+        - CDCB
+        - AWCB
+        - UGURA
+        - SRCB
+        - ZMCB
+        - GNCB
+        - AOCB
+        - GBCB
+        - KGCB
+        - XACB
+        - MVCB
+        - MZCB
       type: string
     BankModel:
       required:
@@ -7379,6 +7398,7 @@ components:
         - MXN
         - MXV
         - MYR
+        - MZM
         - MZN
         - NAD
         - NGN
@@ -7453,6 +7473,7 @@ components:
         - XBC
         - XBD
         - XCD
+        - XCG
         - XDR
         - XFU
         - XOF
@@ -7464,9 +7485,13 @@ components:
         - XXX
         - YER
         - ZAR
+        - ZMK
         - ZMW
+        - ZWD
         - ZWG
         - ZWL
+        - ZWN
+        - ZWR
       type: string
       additionalProperties: false
     CurrencyConversionRateModel:
@@ -7687,6 +7712,7 @@ components:
         - MondayToSunday
         - SundayToThursday
         - TuesdayToSaturday
+        - MondayToThursday
       type: string
     RateModel:
       required:
