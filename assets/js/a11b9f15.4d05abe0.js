@@ -1,1 +1,0 @@
-"use strict";(self.webpackChunkfluentax_developer=self.webpackChunkfluentax_developer||[]).push([[15],{7058:e=>{e.exports=JSON.parse('{"name":"docusaurus-plugin-redoc","id":"exchange-rates-api"}')}}]);
