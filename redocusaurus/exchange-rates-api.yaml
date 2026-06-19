@@ -1,267 +1,23 @@
-openapi: 3.0.4
+openapi: 3.1.1
 info:
   title: Exchange Rates API
-  description: >-
-    Exchange Rates API for retrieving daily, weekly, biweekly, and monthly
-    currency exchange rates from official sources (central banks, tax
-    authorities). Visit our website to find up-to-date information on the
-    supported data sources and detailed API features.
+  description: "Exchange Rates API for retrieving daily, weekly, biweekly, and monthly currency exchange rates from official sources (central banks, tax authorities). Visit our website to find up-to-date information on the supported data sources and detailed API features.\r\n\r\nAuthentication is required for all endpoints.\r\nAccess requires an active bank subscription."
   contact:
     name: Fluentax
     url: https://www.fluentax.com/contact-us
     email: hello@fluentax.com
+  license:
+    name: Proprietary License - Subject to Individual Service Contract
+    url: https://www.fluentax.com/contact-us
   version: '1.0'
 servers:
   - url: https://fx-api.fluentax.com
 paths:
-  /v1/Banks/{bankId}/BankHolidays/{year}:
-    get:
-      tags:
-        - BankHolidays
-      summary: >-
-        Returns the bank holidays for the specified bank and year. (Auth
-        policies: RequireBankSubscription)
-      operationId: GetBankHolidaysForYear
-      parameters:
-        - name: bankId
-          in: path
-          description: The bank identifier.
-          required: true
-          schema:
-            $ref: '#/components/schemas/BankId'
-        - name: year
-          in: path
-          description: The year.
-          required: true
-          schema:
-            type: integer
-            format: int32
-        - name: format
-          in: query
-          description: The requested format.
-          schema:
-            $ref: '#/components/schemas/HolidayFormat'
-      responses:
-        '200':
-          description: Returns the bank holidays.
-          headers:
-            X-Rate-Limit-Limit:
-              $ref: '#/components/headers/XRateLimitLimit'
-            X-Rate-Limit-Remaining:
-              $ref: '#/components/headers/XRateLimitRemaining'
-            X-Rate-Limit-Reset:
-              $ref: '#/components/headers/XRateLimitReset'
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/BankHolidayModel'
-              example:
-                - date: '2020-01-01'
-                  name: New Year's Day
-                  localName: Første nyttårsdag
-                - date: '2020-04-09'
-                  name: Maundy Thursday
-                  localName: Skjærtorsdag
-                - date: '2020-04-10'
-                  name: Good Friday
-                  localName: Langfredag
-                - date: '2020-04-12'
-                  name: Easter Sunday
-                  localName: Første påskedag
-                - date: '2020-04-13'
-                  name: Easter Monday
-                  localName: Andre påskedag
-                - date: '2020-05-01'
-                  name: Labour Day
-                  localName: Første mai
-                - date: '2020-05-17'
-                  name: Constitution Day
-                  localName: Syttende mai
-                - date: '2020-05-21'
-                  name: Ascension Day
-                  localName: Kristi himmelfartsdag
-                - date: '2020-05-31'
-                  name: Pentecost
-                  localName: Første pinsedag
-                - date: '2020-06-01'
-                  name: Whit Monday
-                  localName: Andre pinsedag
-                - date: '2020-12-24'
-                  name: Christmas Eve
-                  localName: Julaften
-                - date: '2020-12-25'
-                  name: Christmas Day
-                  localName: Første juledag
-                - date: '2020-12-26'
-                  name: St. Stephen's Day
-                  localName: Andre juledag
-        '400':
-          description: Invalid bankId or year specified.
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
-        default:
-          $ref: '#/components/responses/Error'
-  /v1/Banks/{bankId}/BankHolidays:
-    get:
-      tags:
-        - BankHolidays
-      summary: >-
-        Returns the bank holidays for the specified bank and date range. (Auth
-        policies: RequireBankSubscription)
-      operationId: GetBankHolidaysBetweenDates
-      parameters:
-        - name: bankId
-          in: path
-          description: The bank identifier.
-          required: true
-          schema:
-            $ref: '#/components/schemas/BankId'
-        - name: startDate
-          in: query
-          description: The start date of the range.
-          required: true
-          schema:
-            type: string
-            format: date
-        - name: endDate
-          in: query
-          description: >-
-            The end date of the range. The maximum interval is 3 years (1095
-            days).
-          required: true
-          schema:
-            type: string
-            format: date
-        - name: format
-          in: query
-          description: The requested format.
-          schema:
-            $ref: '#/components/schemas/HolidayFormat'
-      responses:
-        '200':
-          description: Returns the bank holidays.
-          headers:
-            X-Rate-Limit-Limit:
-              $ref: '#/components/headers/XRateLimitLimit'
-            X-Rate-Limit-Remaining:
-              $ref: '#/components/headers/XRateLimitRemaining'
-            X-Rate-Limit-Reset:
-              $ref: '#/components/headers/XRateLimitReset'
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/BankHolidayModel'
-              example:
-                - date: '2020-01-01'
-                  name: New Year's Day
-                  localName: Første nyttårsdag
-                - date: '2020-04-09'
-                  name: Maundy Thursday
-                  localName: Skjærtorsdag
-                - date: '2020-04-10'
-                  name: Good Friday
-                  localName: Langfredag
-                - date: '2020-04-12'
-                  name: Easter Sunday
-                  localName: Første påskedag
-                - date: '2020-04-13'
-                  name: Easter Monday
-                  localName: Andre påskedag
-                - date: '2020-05-01'
-                  name: Labour Day
-                  localName: Første mai
-                - date: '2020-05-17'
-                  name: Constitution Day
-                  localName: Syttende mai
-                - date: '2020-05-21'
-                  name: Ascension Day
-                  localName: Kristi himmelfartsdag
-                - date: '2020-05-31'
-                  name: Pentecost
-                  localName: Første pinsedag
-                - date: '2020-06-01'
-                  name: Whit Monday
-                  localName: Andre pinsedag
-                - date: '2020-12-24'
-                  name: Christmas Eve
-                  localName: Julaften
-                - date: '2020-12-25'
-                  name: Christmas Day
-                  localName: Første juledag
-                - date: '2020-12-26'
-                  name: St. Stephen's Day
-                  localName: Andre juledag
-        '400':
-          description: Invalid bankId or date range specified.
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
-        default:
-          $ref: '#/components/responses/Error'
-  /v1/Banks/{bankId}/BankHolidays/Next:
-    get:
-      tags:
-        - BankHolidays
-      summary: >-
-        Returns the next upcoming bank holiday for the specified bank. (Auth
-        policies: RequireBankSubscription)
-      operationId: GetNextBankHoliday
-      parameters:
-        - name: bankId
-          in: path
-          description: The bank identifier.
-          required: true
-          schema:
-            $ref: '#/components/schemas/BankId'
-      responses:
-        '200':
-          description: Returns the bank holiday.
-          headers:
-            X-Rate-Limit-Limit:
-              $ref: '#/components/headers/XRateLimitLimit'
-            X-Rate-Limit-Remaining:
-              $ref: '#/components/headers/XRateLimitRemaining'
-            X-Rate-Limit-Reset:
-              $ref: '#/components/headers/XRateLimitReset'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BankHolidayModel'
-        '204':
-          description: The bank holidays are not available for the given bank.
-          headers:
-            X-Rate-Limit-Limit:
-              $ref: '#/components/headers/XRateLimitLimit'
-            X-Rate-Limit-Remaining:
-              $ref: '#/components/headers/XRateLimitRemaining'
-            X-Rate-Limit-Reset:
-              $ref: '#/components/headers/XRateLimitReset'
-        '400':
-          description: Invalid bankId specified.
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
-        default:
-          $ref: '#/components/responses/Error'
   /v1/Banks:
     get:
       tags:
         - Banks
-      summary: Returns the bank details for all available banks. (Auth)
+      summary: Returns the bank details for your subscribed banks.
       operationId: GetBanks
       responses:
         '200':
@@ -278,6 +34,7 @@ paths:
               schema:
                 type: array
                 items:
+                  description: Details of a supported bank or exchange rate provider.
                   $ref: '#/components/schemas/BankModel'
               example:
                 - id: NOCB
@@ -288,7 +45,7 @@ paths:
                     - languageCode: 'no'
                       name: Norges Bank
                       abbreviatedName: Norgesbank
-                  publishedDays: null
+                  publishedDays: MondayToFriday
                   dailyUpdateTime: '16:00:00'
                   bankCurrency: NOK
                   countryCode:
@@ -304,19 +61,21 @@ paths:
                     - Mid
                   website: https://www.norges-bank.no
                   peggedRate: null
+        '400':
+          $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '403':
           $ref: '#/components/responses/Forbidden'
         '429':
           $ref: '#/components/responses/TooManyRequests'
-        default:
-          $ref: '#/components/responses/Error'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
   /v1/Banks/{bankId}:
     get:
       tags:
         - Banks
-      summary: Returns the bank details for the specified bank. (Auth)
+      summary: Returns the bank details for the specified bank.
       operationId: GetBank
       parameters:
         - name: bankId
@@ -338,6 +97,7 @@ paths:
           content:
             application/json:
               schema:
+                description: Details of a supported bank or exchange rate provider.
                 $ref: '#/components/schemas/BankModel'
               example:
                 id: NOCB
@@ -348,7 +108,7 @@ paths:
                   - languageCode: 'no'
                     name: Norges Bank
                     abbreviatedName: Norgesbank
-                publishedDays: null
+                publishedDays: MondayToFriday
                 dailyUpdateTime: '16:00:00'
                 bankCurrency: NOK
                 countryCode:
@@ -365,474 +125,20 @@ paths:
                 website: https://www.norges-bank.no
                 peggedRate: null
         '400':
-          description: Invalid bankId specified.
+          $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '403':
           $ref: '#/components/responses/Forbidden'
         '429':
           $ref: '#/components/responses/TooManyRequests'
-        default:
-          $ref: '#/components/responses/Error'
-  /v1/Banks/{bankId}/BiweeklyRates/Availability:
-    get:
-      tags:
-        - BiweeklyRates
-      summary: >-
-        Returns the data availability information. (Auth policies:
-        RequireBankSubscription)
-      operationId: GetBiweeklyRatesAvailability
-      parameters:
-        - name: bankId
-          in: path
-          description: The bank identifier.
-          required: true
-          schema:
-            $ref: '#/components/schemas/BankId'
-      responses:
-        '200':
-          description: Returns the data availability information.
-          headers:
-            X-Rate-Limit-Limit:
-              $ref: '#/components/headers/XRateLimitLimit'
-            X-Rate-Limit-Remaining:
-              $ref: '#/components/headers/XRateLimitRemaining'
-            X-Rate-Limit-Reset:
-              $ref: '#/components/headers/XRateLimitReset'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BankDataAvailabilityModel'
-        '204':
-          description: The data availability information is not available.
-          headers:
-            X-Rate-Limit-Limit:
-              $ref: '#/components/headers/XRateLimitLimit'
-            X-Rate-Limit-Remaining:
-              $ref: '#/components/headers/XRateLimitRemaining'
-            X-Rate-Limit-Reset:
-              $ref: '#/components/headers/XRateLimitReset'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
-        default:
-          $ref: '#/components/responses/Error'
-  /v1/Banks/{bankId}/BiweeklyRates/Availability/{startDate}/{endDate}:
-    get:
-      tags:
-        - BiweeklyRates
-      summary: >-
-        Returns the data availability information for the specified period.
-        (Auth policies: RequireBankSubscription)
-      operationId: GetBiweeklyRatesAvailabilityBetweenDates
-      parameters:
-        - name: bankId
-          in: path
-          description: The bank identifier.
-          required: true
-          schema:
-            $ref: '#/components/schemas/BankId'
-        - name: startDate
-          in: path
-          description: The start date.
-          required: true
-          schema:
-            type: string
-            format: date
-        - name: endDate
-          in: path
-          description: The end date.
-          required: true
-          schema:
-            type: string
-            format: date
-      responses:
-        '200':
-          description: Returns the data availability information.
-          headers:
-            X-Rate-Limit-Limit:
-              $ref: '#/components/headers/XRateLimitLimit'
-            X-Rate-Limit-Remaining:
-              $ref: '#/components/headers/XRateLimitRemaining'
-            X-Rate-Limit-Reset:
-              $ref: '#/components/headers/XRateLimitReset'
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: string
-                  format: date-time
-        '204':
-          description: The data availability information is not available.
-          headers:
-            X-Rate-Limit-Limit:
-              $ref: '#/components/headers/XRateLimitLimit'
-            X-Rate-Limit-Remaining:
-              $ref: '#/components/headers/XRateLimitRemaining'
-            X-Rate-Limit-Reset:
-              $ref: '#/components/headers/XRateLimitReset'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
-        default:
-          $ref: '#/components/responses/Error'
-  /v1/Banks/{bankId}/BiweeklyRates/Latest:
-    get:
-      tags:
-        - BiweeklyRates
-      summary: >-
-        Returns the latest available exchange rates. (Auth policies:
-        RequireBankSubscription)
-      operationId: GetLatestBiweeklyRates
-      parameters:
-        - name: bankId
-          in: path
-          description: The bank identifier.
-          required: true
-          schema:
-            $ref: '#/components/schemas/BankId'
-        - name: currencies
-          in: query
-          description: >-
-            The currencies to return. If no currencies are provided, all
-            available currencies will be included in the results.
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/CurrencyCode'
-        - name: priceType
-          in: query
-          description: The requested price type. Defaults to mid.
-          schema:
-            $ref: '#/components/schemas/PriceType'
-        - name: includeObsoleteCurrencies
-          in: query
-          description: >-
-            A flag indicating whether obsolete currencies should be included in
-            the results. Defaults to false.
-          schema:
-            type: boolean
-        - name: format
-          in: query
-          description: The response format.
-          schema:
-            $ref: '#/components/schemas/Format'
-      responses:
-        '200':
-          $ref: '#/components/responses/ExchangeRates'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
-        default:
-          $ref: '#/components/responses/Error'
-  /v1/Banks/{bankId}/BiweeklyRates/{year}/{month}:
-    get:
-      tags:
-        - BiweeklyRates
-      summary: >-
-        Returns the exchange rates for the given month. (Auth policies:
-        RequireBankSubscription)
-      operationId: GetBiweeklyRates
-      parameters:
-        - name: bankId
-          in: path
-          description: The bank identifier.
-          required: true
-          schema:
-            $ref: '#/components/schemas/BankId'
-        - name: year
-          in: path
-          description: The requested year.
-          required: true
-          schema:
-            minimum: 1900
-            type: integer
-            format: int32
-        - name: month
-          in: path
-          description: The requested month.
-          required: true
-          schema:
-            maximum: 12
-            minimum: 1
-            type: integer
-            format: int32
-        - name: currencies
-          in: query
-          description: >-
-            The currencies to return. If no currencies are provided, all
-            available currencies will be included in the results.
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/CurrencyCode'
-        - name: priceType
-          in: query
-          description: The requested price type. Defaults to mid.
-          schema:
-            $ref: '#/components/schemas/PriceType'
-        - name: includeObsoleteCurrencies
-          in: query
-          description: >-
-            A flag indicating whether obsolete currencies should be included in
-            the results. Defaults to false.
-          schema:
-            type: boolean
-        - name: format
-          in: query
-          description: The response format.
-          schema:
-            $ref: '#/components/schemas/Format'
-      responses:
-        '200':
-          $ref: '#/components/responses/ExchangeRates'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
-        default:
-          $ref: '#/components/responses/Error'
-  /v1/Banks/{bankId}/BiweeklyRates/ThisMonth:
-    get:
-      tags:
-        - BiweeklyRates
-      summary: >-
-        Returns the exchange rates for the current month (in UTC time). (Auth
-        policies: RequireBankSubscription)
-      operationId: GetThisMonthBiweeklyRates
-      parameters:
-        - name: bankId
-          in: path
-          description: The bank identifier.
-          required: true
-          schema:
-            $ref: '#/components/schemas/BankId'
-        - name: currencies
-          in: query
-          description: >-
-            The currencies to return. If no currencies are provided, all
-            available currencies will be included in the results.
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/CurrencyCode'
-        - name: priceType
-          in: query
-          description: The requested price type. Defaults to mid.
-          schema:
-            $ref: '#/components/schemas/PriceType'
-        - name: includeObsoleteCurrencies
-          in: query
-          description: >-
-            A flag indicating whether obsolete currencies should be included in
-            the results. Defaults to false.
-          schema:
-            type: boolean
-        - name: format
-          in: query
-          description: The response format.
-          schema:
-            $ref: '#/components/schemas/Format'
-      responses:
-        '200':
-          $ref: '#/components/responses/ExchangeRates'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
-        default:
-          $ref: '#/components/responses/Error'
-  /v1/Convert:
-    get:
-      tags:
-        - Convert
-      summary: Convert an amount from one currency to another. (Auth)
-      operationId: Convert
-      parameters:
-        - name: from
-          in: query
-          description: The source currency.
-          required: true
-          schema:
-            maxLength: 3
-            minLength: 3
-            type: string
-          example: EUR
-        - name: to
-          in: query
-          description: The target currency.
-          required: true
-          schema:
-            maxLength: 3
-            minLength: 3
-            type: string
-          example: NOK
-        - name: amount
-          in: query
-          description: The amount to be converted.
-          required: true
-          schema:
-            type: number
-            format: decimal
-          example: 152.47
-        - name: date
-          in: query
-          description: The conversion date.
-          schema:
-            type: string
-            format: date
-          example: '2020-09-24'
-        - name: bankId
-          in: query
-          description: The bank identifier.
-          schema:
-            $ref: '#/components/schemas/BankId'
-          example: NOCB
-        - name: frequency
-          in: query
-          description: The exchange rate frequency.
-          schema:
-            $ref: '#/components/schemas/Frequency'
-          example: Daily
-      responses:
-        '200':
-          description: Returns the conversion result.
-          headers:
-            X-Rate-Limit-Limit:
-              $ref: '#/components/headers/XRateLimitLimit'
-            X-Rate-Limit-Remaining:
-              $ref: '#/components/headers/XRateLimitRemaining'
-            X-Rate-Limit-Reset:
-              $ref: '#/components/headers/XRateLimitReset'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CurrencyConversionResponse'
-        '400':
-          description: Invalid bankId specified.
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '404':
-          description: Not Found
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetails'
-              example:
-                type: https://tools.ietf.org/html/rfc7231#section-6.5.1
-                title: One or more validation errors occurred.
-                status: 400
-                traceId: 00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00
-                errors:
-                  bankId: Daily rates are not supported for the specified bank.
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
-        default:
-          $ref: '#/components/responses/Error'
-      deprecated: true
-  /v1/Currencies:
-    get:
-      tags:
-        - Currencies
-      summary: Returns the currency details for all available currencies. (Auth)
-      operationId: GetCurrencies
-      parameters:
-        - name: countryCode
-          in: query
-          description: >-
-            The optional country code to filter the currencies by the specific
-            country.
-          schema:
-            $ref: '#/components/schemas/CountryCode'
-        - name: isObsolete
-          in: query
-          description: >-
-            The optional flag to filter currencies based on whether they are
-            obsolete (true) or still in circulation (false).
-          schema:
-            type: boolean
-      responses:
-        '200':
-          description: Returns the currency details.
-          headers:
-            X-Rate-Limit-Limit:
-              $ref: '#/components/headers/XRateLimitLimit'
-            X-Rate-Limit-Remaining:
-              $ref: '#/components/headers/XRateLimitRemaining'
-            X-Rate-Limit-Reset:
-              $ref: '#/components/headers/XRateLimitReset'
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/CurrencyModel'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
-        default:
-          $ref: '#/components/responses/Error'
-  /v1/Currencies/{currencyCode}:
-    get:
-      tags:
-        - Currencies
-      summary: Returns the currency details for the specified currency code. (Auth)
-      operationId: GetCurrency
-      parameters:
-        - name: currencyCode
-          in: path
-          description: The currency code.
-          required: true
-          schema:
-            $ref: '#/components/schemas/CurrencyCode'
-      responses:
-        '200':
-          description: Returns the currency details.
-          headers:
-            X-Rate-Limit-Limit:
-              $ref: '#/components/headers/XRateLimitLimit'
-            X-Rate-Limit-Remaining:
-              $ref: '#/components/headers/XRateLimitRemaining'
-            X-Rate-Limit-Reset:
-              $ref: '#/components/headers/XRateLimitReset'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CurrencyModel'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
-        default:
-          $ref: '#/components/responses/Error'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
   /v1/Banks/{bankId}/DailyRates/Availability:
     get:
       tags:
         - DailyRates
-      summary: >-
-        Returns the data availability information. (Auth policies:
-        RequireBankSubscription)
+      summary: Returns the data availability information.
       operationId: GetDailyRatesAvailability
       parameters:
         - name: bankId
@@ -854,7 +160,55 @@ paths:
           content:
             application/json:
               schema:
+                description: >-
+                  Date range and publication availability information for
+                  exchange rate data provided by a bank.
                 $ref: '#/components/schemas/BankDataAvailabilityModel'
+              example:
+                firstEffectiveDate: '2015-01-02'
+                lastEffectiveDate: '2026-06-05'
+                availableCurrencies:
+                  - AUD
+                  - BDT
+                  - BGN
+                  - BRL
+                  - BYN
+                  - CAD
+                  - CHF
+                  - CNY
+                  - CZK
+                  - DKK
+                  - EUR
+                  - GBP
+                  - HKD
+                  - HRK
+                  - HUF
+                  - IDR
+                  - ILS
+                  - INR
+                  - ISK
+                  - JPY
+                  - KRW
+                  - MMK
+                  - MXN
+                  - MYR
+                  - NZD
+                  - PHP
+                  - PKR
+                  - PLN
+                  - RON
+                  - RUB
+                  - SEK
+                  - SGD
+                  - THB
+                  - TRY
+                  - TWD
+                  - USD
+                  - VND
+                  - XDR
+                  - ZAR
+                availablePriceTypes:
+                  - Mid
         '204':
           description: The data availability information is not available.
           headers:
@@ -864,21 +218,21 @@ paths:
               $ref: '#/components/headers/XRateLimitRemaining'
             X-Rate-Limit-Reset:
               $ref: '#/components/headers/XRateLimitReset'
+        '400':
+          $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '403':
           $ref: '#/components/responses/Forbidden'
         '429':
           $ref: '#/components/responses/TooManyRequests'
-        default:
-          $ref: '#/components/responses/Error'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
   /v1/Banks/{bankId}/DailyRates/Availability/{startDate}/{endDate}:
     get:
       tags:
         - DailyRates
-      summary: >-
-        Returns the data availability information for the specified period.
-        (Auth policies: RequireBankSubscription)
+      summary: Returns the data availability information for the specified period.
       operationId: GetDailyRatesAvailabilityBetweenDates
       parameters:
         - name: bankId
@@ -917,7 +271,7 @@ paths:
                 type: array
                 items:
                   type: string
-                  format: date-time
+                  format: date
         '204':
           description: The data availability information is not available.
           headers:
@@ -927,21 +281,21 @@ paths:
               $ref: '#/components/headers/XRateLimitRemaining'
             X-Rate-Limit-Reset:
               $ref: '#/components/headers/XRateLimitReset'
+        '400':
+          $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '403':
           $ref: '#/components/responses/Forbidden'
         '429':
           $ref: '#/components/responses/TooManyRequests'
-        default:
-          $ref: '#/components/responses/Error'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
   /v1/Banks/{bankId}/DailyRates/Latest:
     get:
       tags:
         - DailyRates
-      summary: >-
-        Returns the latest available exchange rates. (Auth policies:
-        RequireBankSubscription)
+      summary: Returns the latest available exchange rates.
       operationId: GetLatestDailyRates
       parameters:
         - name: bankId
@@ -961,39 +315,40 @@ paths:
               $ref: '#/components/schemas/CurrencyCode'
         - name: priceType
           in: query
-          description: The requested price type. Defaults to mid.
+          description: The requested price type. Defaults to `Mid`.
           schema:
             $ref: '#/components/schemas/PriceType'
         - name: includeObsoleteCurrencies
           in: query
           description: >-
             A flag indicating whether obsolete currencies should be included in
-            the results. Defaults to false.
+            the results. Defaults to `false`.
           schema:
             type: boolean
         - name: format
           in: query
-          description: The response format.
+          description: The response format. Defaults to `Json`.
           schema:
+            description: Defines the response format for exchange rates.
             $ref: '#/components/schemas/Format'
       responses:
         '200':
           $ref: '#/components/responses/ExchangeRates'
+        '400':
+          $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '403':
           $ref: '#/components/responses/Forbidden'
         '429':
           $ref: '#/components/responses/TooManyRequests'
-        default:
-          $ref: '#/components/responses/Error'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
   /v1/Banks/{bankId}/DailyRates/TimeSeries:
     get:
       tags:
         - DailyRates
-      summary: >-
-        Returns the exchange rates for the given date range. (Auth policies:
-        RequireBankSubscription)
+      summary: Returns the exchange rates for the given date range.
       operationId: GetDailyRateTimeSeries
       parameters:
         - name: bankId
@@ -1027,39 +382,40 @@ paths:
               $ref: '#/components/schemas/CurrencyCode'
         - name: priceType
           in: query
-          description: The requested price type. Defaults to mid.
+          description: The requested price type. Defaults to `Mid`.
           schema:
             $ref: '#/components/schemas/PriceType'
         - name: includeObsoleteCurrencies
           in: query
           description: >-
             A flag indicating whether obsolete currencies should be included in
-            the results. Defaults to false.
+            the results. Defaults to `false`.
           schema:
             type: boolean
         - name: format
           in: query
-          description: The response format.
+          description: The response format. Defaults to `Json`.
           schema:
+            description: Defines the response format for exchange rates.
             $ref: '#/components/schemas/Format'
       responses:
         '200':
           $ref: '#/components/responses/ExchangeRates'
+        '400':
+          $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '403':
           $ref: '#/components/responses/Forbidden'
         '429':
           $ref: '#/components/responses/TooManyRequests'
-        default:
-          $ref: '#/components/responses/Error'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
   /v1/Banks/{bankId}/DailyRates/{date}:
     get:
       tags:
         - DailyRates
-      summary: >-
-        Returns the exchange rates for the specified date. (Auth policies:
-        RequireBankSubscription)
+      summary: Returns the exchange rates for the specified date.
       operationId: GetDailyRates
       parameters:
         - name: bankId
@@ -1086,39 +442,40 @@ paths:
               $ref: '#/components/schemas/CurrencyCode'
         - name: priceType
           in: query
-          description: The requested price type. Defaults to mid.
+          description: The requested price type. Defaults to `Mid`.
           schema:
             $ref: '#/components/schemas/PriceType'
         - name: includeObsoleteCurrencies
           in: query
           description: >-
             A flag indicating whether obsolete currencies should be included in
-            the results. Defaults to false.
+            the results. Defaults to `false`.
           schema:
             type: boolean
         - name: format
           in: query
-          description: The response format.
+          description: The response format. Defaults to `Json`.
           schema:
+            description: Defines the response format for exchange rates.
             $ref: '#/components/schemas/Format'
       responses:
         '200':
           $ref: '#/components/responses/ExchangeRates'
+        '400':
+          $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '403':
           $ref: '#/components/responses/Forbidden'
         '429':
           $ref: '#/components/responses/TooManyRequests'
-        default:
-          $ref: '#/components/responses/Error'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
   /v1/Banks/{bankId}/DailyRates/Today:
     get:
       tags:
         - DailyRates
-      summary: >-
-        Returns the exchange rates for the current day (in UTC time). (Auth
-        policies: RequireBankSubscription)
+      summary: Returns the exchange rates for the current day (in UTC time).
       operationId: GetTodaysDailyRates
       parameters:
         - name: bankId
@@ -1138,20 +495,21 @@ paths:
               $ref: '#/components/schemas/CurrencyCode'
         - name: priceType
           in: query
-          description: The requested price type. Defaults to mid.
+          description: The requested price type. Defaults to `Mid`.
           schema:
             $ref: '#/components/schemas/PriceType'
         - name: includeObsoleteCurrencies
           in: query
           description: >-
             A flag indicating whether obsolete currencies should be included in
-            the results. Defaults to false.
+            the results. Defaults to `false`.
           schema:
             type: boolean
         - name: format
           in: query
-          description: The response format.
+          description: The response format. Defaults to `Json`.
           schema:
+            description: Defines the response format for exchange rates.
             $ref: '#/components/schemas/Format'
       responses:
         '200':
@@ -1165,305 +523,21 @@ paths:
               $ref: '#/components/headers/XRateLimitRemaining'
             X-Rate-Limit-Reset:
               $ref: '#/components/headers/XRateLimitReset'
-        '302':
-          description: Found
+        '400':
+          $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '403':
           $ref: '#/components/responses/Forbidden'
         '429':
           $ref: '#/components/responses/TooManyRequests'
-        default:
-          $ref: '#/components/responses/Error'
-  /v1/Banks/{bankId}/MonthlyRates/Availability:
-    get:
-      tags:
-        - MonthlyRates
-      summary: >-
-        Returns the data availability information. (Auth policies:
-        RequireBankSubscription)
-      operationId: GetMonthlyRatesAvailability
-      parameters:
-        - name: bankId
-          in: path
-          description: The bank identifier.
-          required: true
-          schema:
-            $ref: '#/components/schemas/BankId'
-      responses:
-        '200':
-          description: Returns the data availability information.
-          headers:
-            X-Rate-Limit-Limit:
-              $ref: '#/components/headers/XRateLimitLimit'
-            X-Rate-Limit-Remaining:
-              $ref: '#/components/headers/XRateLimitRemaining'
-            X-Rate-Limit-Reset:
-              $ref: '#/components/headers/XRateLimitReset'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BankDataAvailabilityModel'
-        '204':
-          description: The data availability information is not available.
-          headers:
-            X-Rate-Limit-Limit:
-              $ref: '#/components/headers/XRateLimitLimit'
-            X-Rate-Limit-Remaining:
-              $ref: '#/components/headers/XRateLimitRemaining'
-            X-Rate-Limit-Reset:
-              $ref: '#/components/headers/XRateLimitReset'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
-        default:
-          $ref: '#/components/responses/Error'
-  /v1/Banks/{bankId}/MonthlyRates/Availability/{startDate}/{endDate}:
-    get:
-      tags:
-        - MonthlyRates
-      summary: >-
-        Returns the data availability information for the specified period.
-        (Auth policies: RequireBankSubscription)
-      operationId: GetMonthlyRatesAvailabilityBetweenDates
-      parameters:
-        - name: bankId
-          in: path
-          description: The bank identifier.
-          required: true
-          schema:
-            $ref: '#/components/schemas/BankId'
-        - name: startDate
-          in: path
-          description: The start date.
-          required: true
-          schema:
-            type: string
-            format: date
-        - name: endDate
-          in: path
-          description: The end date.
-          required: true
-          schema:
-            type: string
-            format: date
-      responses:
-        '200':
-          description: Returns the data availability information.
-          headers:
-            X-Rate-Limit-Limit:
-              $ref: '#/components/headers/XRateLimitLimit'
-            X-Rate-Limit-Remaining:
-              $ref: '#/components/headers/XRateLimitRemaining'
-            X-Rate-Limit-Reset:
-              $ref: '#/components/headers/XRateLimitReset'
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  type: string
-                  format: date-time
-        '204':
-          description: The data availability information is not available.
-          headers:
-            X-Rate-Limit-Limit:
-              $ref: '#/components/headers/XRateLimitLimit'
-            X-Rate-Limit-Remaining:
-              $ref: '#/components/headers/XRateLimitRemaining'
-            X-Rate-Limit-Reset:
-              $ref: '#/components/headers/XRateLimitReset'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
-        default:
-          $ref: '#/components/responses/Error'
-  /v1/Banks/{bankId}/MonthlyRates/Latest:
-    get:
-      tags:
-        - MonthlyRates
-      summary: >-
-        Returns the latest available exchange rates. (Auth policies:
-        RequireBankSubscription)
-      operationId: GetLatestMonthlyRates
-      parameters:
-        - name: bankId
-          in: path
-          description: The bank identifier.
-          required: true
-          schema:
-            $ref: '#/components/schemas/BankId'
-        - name: currencies
-          in: query
-          description: >-
-            The currencies to return. If no currencies are provided, all
-            available currencies will be included in the results.
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/CurrencyCode'
-        - name: priceType
-          in: query
-          description: The requested price type. Defaults to mid.
-          schema:
-            $ref: '#/components/schemas/PriceType'
-        - name: includeObsoleteCurrencies
-          in: query
-          description: >-
-            A flag indicating whether obsolete currencies should be included in
-            the results. Defaults to false.
-          schema:
-            type: boolean
-        - name: format
-          in: query
-          description: The response format.
-          schema:
-            $ref: '#/components/schemas/Format'
-      responses:
-        '200':
-          $ref: '#/components/responses/ExchangeRates'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
-        default:
-          $ref: '#/components/responses/Error'
-  /v1/Banks/{bankId}/MonthlyRates/{year}/{month}:
-    get:
-      tags:
-        - MonthlyRates
-      summary: >-
-        Returns the exchange rates for the given month. (Auth policies:
-        RequireBankSubscription)
-      operationId: GetMonthlyRates
-      parameters:
-        - name: bankId
-          in: path
-          description: The bank identifier.
-          required: true
-          schema:
-            $ref: '#/components/schemas/BankId'
-        - name: year
-          in: path
-          description: The requested year.
-          required: true
-          schema:
-            minimum: 1900
-            type: integer
-            format: int32
-        - name: month
-          in: path
-          description: The requested month.
-          required: true
-          schema:
-            maximum: 12
-            minimum: 1
-            type: integer
-            format: int32
-        - name: currencies
-          in: query
-          description: >-
-            The currencies to return. If no currencies are provided, all
-            available currencies will be included in the results.
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/CurrencyCode'
-        - name: priceType
-          in: query
-          description: The requested price type. Defaults to mid.
-          schema:
-            $ref: '#/components/schemas/PriceType'
-        - name: includeObsoleteCurrencies
-          in: query
-          description: >-
-            A flag indicating whether obsolete currencies should be included in
-            the results. Defaults to false.
-          schema:
-            type: boolean
-        - name: format
-          in: query
-          description: The response format.
-          schema:
-            $ref: '#/components/schemas/Format'
-      responses:
-        '200':
-          $ref: '#/components/responses/ExchangeRates'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
-        default:
-          $ref: '#/components/responses/Error'
-  /v1/Banks/{bankId}/MonthlyRates/ThisMonth:
-    get:
-      tags:
-        - MonthlyRates
-      summary: >-
-        Returns the exchange rates for the current month (in UTC time). (Auth
-        policies: RequireBankSubscription)
-      operationId: GetThisMonthMonthlyRates
-      parameters:
-        - name: bankId
-          in: path
-          description: The bank identifier.
-          required: true
-          schema:
-            $ref: '#/components/schemas/BankId'
-        - name: currencies
-          in: query
-          description: >-
-            The currencies to return. If no currencies are provided, all
-            available currencies will be included in the results.
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/CurrencyCode'
-        - name: priceType
-          in: query
-          description: The requested price type. Defaults to mid.
-          schema:
-            $ref: '#/components/schemas/PriceType'
-        - name: includeObsoleteCurrencies
-          in: query
-          description: >-
-            A flag indicating whether obsolete currencies should be included in
-            the results. Defaults to false.
-          schema:
-            type: boolean
-        - name: format
-          in: query
-          description: The response format.
-          schema:
-            $ref: '#/components/schemas/Format'
-      responses:
-        '200':
-          $ref: '#/components/responses/ExchangeRates'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '403':
-          $ref: '#/components/responses/Forbidden'
-        '429':
-          $ref: '#/components/responses/TooManyRequests'
-        default:
-          $ref: '#/components/responses/Error'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
   /v1/Banks/{bankId}/WeeklyRates/Availability:
     get:
       tags:
         - WeeklyRates
-      summary: >-
-        Returns the data availability information. (Auth policies:
-        RequireBankSubscription)
+      summary: Returns the data availability information.
       operationId: GetWeeklyRatesAvailability
       parameters:
         - name: bankId
@@ -1485,7 +559,55 @@ paths:
           content:
             application/json:
               schema:
+                description: >-
+                  Date range and publication availability information for
+                  exchange rate data provided by a bank.
                 $ref: '#/components/schemas/BankDataAvailabilityModel'
+              example:
+                firstEffectiveDate: '2015-01-02'
+                lastEffectiveDate: '2026-06-05'
+                availableCurrencies:
+                  - AUD
+                  - BDT
+                  - BGN
+                  - BRL
+                  - BYN
+                  - CAD
+                  - CHF
+                  - CNY
+                  - CZK
+                  - DKK
+                  - EUR
+                  - GBP
+                  - HKD
+                  - HRK
+                  - HUF
+                  - IDR
+                  - ILS
+                  - INR
+                  - ISK
+                  - JPY
+                  - KRW
+                  - MMK
+                  - MXN
+                  - MYR
+                  - NZD
+                  - PHP
+                  - PKR
+                  - PLN
+                  - RON
+                  - RUB
+                  - SEK
+                  - SGD
+                  - THB
+                  - TRY
+                  - TWD
+                  - USD
+                  - VND
+                  - XDR
+                  - ZAR
+                availablePriceTypes:
+                  - Mid
         '204':
           description: The data availability information is not available.
           headers:
@@ -1495,21 +617,21 @@ paths:
               $ref: '#/components/headers/XRateLimitRemaining'
             X-Rate-Limit-Reset:
               $ref: '#/components/headers/XRateLimitReset'
+        '400':
+          $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '403':
           $ref: '#/components/responses/Forbidden'
         '429':
           $ref: '#/components/responses/TooManyRequests'
-        default:
-          $ref: '#/components/responses/Error'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
   /v1/Banks/{bankId}/WeeklyRates/Availability/{startDate}/{endDate}:
     get:
       tags:
         - WeeklyRates
-      summary: >-
-        Returns the data availability information for the specified period.
-        (Auth policies: RequireBankSubscription)
+      summary: Returns the data availability information for the specified period.
       operationId: GetWeeklyRatesAvailabilityBetweenDates
       parameters:
         - name: bankId
@@ -1548,7 +670,7 @@ paths:
                 type: array
                 items:
                   type: string
-                  format: date-time
+                  format: date
         '204':
           description: The data availability information is not available.
           headers:
@@ -1558,21 +680,21 @@ paths:
               $ref: '#/components/headers/XRateLimitRemaining'
             X-Rate-Limit-Reset:
               $ref: '#/components/headers/XRateLimitReset'
+        '400':
+          $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '403':
           $ref: '#/components/responses/Forbidden'
         '429':
           $ref: '#/components/responses/TooManyRequests'
-        default:
-          $ref: '#/components/responses/Error'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
   /v1/Banks/{bankId}/WeeklyRates/Latest:
     get:
       tags:
         - WeeklyRates
-      summary: >-
-        Returns the latest available exchange rates. (Auth policies:
-        RequireBankSubscription)
+      summary: Returns the latest available exchange rates.
       operationId: GetLatestWeeklyRates
       parameters:
         - name: bankId
@@ -1592,39 +714,40 @@ paths:
               $ref: '#/components/schemas/CurrencyCode'
         - name: priceType
           in: query
-          description: The requested price type. Defaults to mid.
+          description: The requested price type. Defaults to `Mid`.
           schema:
             $ref: '#/components/schemas/PriceType'
         - name: includeObsoleteCurrencies
           in: query
           description: >-
             A flag indicating whether obsolete currencies should be included in
-            the results. Defaults to false.
+            the results. Defaults to `false`.
           schema:
             type: boolean
         - name: format
           in: query
-          description: The response format.
+          description: The response format. Defaults to `Json`.
           schema:
+            description: Defines the response format for exchange rates.
             $ref: '#/components/schemas/Format'
       responses:
         '200':
           $ref: '#/components/responses/ExchangeRates'
+        '400':
+          $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '403':
           $ref: '#/components/responses/Forbidden'
         '429':
           $ref: '#/components/responses/TooManyRequests'
-        default:
-          $ref: '#/components/responses/Error'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
   /v1/Banks/{bankId}/WeeklyRates/{year}/{month}:
     get:
       tags:
         - WeeklyRates
-      summary: >-
-        Returns the exchange rates for the given month. (Auth policies:
-        RequireBankSubscription)
+      summary: Returns the exchange rates for the given month.
       operationId: GetWeeklyRates
       parameters:
         - name: bankId
@@ -1661,39 +784,40 @@ paths:
               $ref: '#/components/schemas/CurrencyCode'
         - name: priceType
           in: query
-          description: The requested price type. Defaults to mid.
+          description: The requested price type. Defaults to `Mid`.
           schema:
             $ref: '#/components/schemas/PriceType'
         - name: includeObsoleteCurrencies
           in: query
           description: >-
             A flag indicating whether obsolete currencies should be included in
-            the results. Defaults to false.
+            the results. Defaults to `false`.
           schema:
             type: boolean
         - name: format
           in: query
-          description: The response format.
+          description: The response format. Defaults to `Json`.
           schema:
+            description: Defines the response format for exchange rates.
             $ref: '#/components/schemas/Format'
       responses:
         '200':
           $ref: '#/components/responses/ExchangeRates'
+        '400':
+          $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '403':
           $ref: '#/components/responses/Forbidden'
         '429':
           $ref: '#/components/responses/TooManyRequests'
-        default:
-          $ref: '#/components/responses/Error'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
   /v1/Banks/{bankId}/WeeklyRates/ThisMonth:
     get:
       tags:
         - WeeklyRates
-      summary: >-
-        Returns the exchange rates for the current month (in UTC time). (Auth
-        policies: RequireBankSubscription)
+      summary: Returns the exchange rates for the current month (in UTC time).
       operationId: GetThisMonthWeeklyRates
       parameters:
         - name: bankId
@@ -1713,32 +837,1048 @@ paths:
               $ref: '#/components/schemas/CurrencyCode'
         - name: priceType
           in: query
-          description: The requested price type. Defaults to mid.
+          description: The requested price type. Defaults to `Mid`.
           schema:
             $ref: '#/components/schemas/PriceType'
         - name: includeObsoleteCurrencies
           in: query
           description: >-
             A flag indicating whether obsolete currencies should be included in
-            the results. Defaults to false.
+            the results. Defaults to `false`.
           schema:
             type: boolean
         - name: format
           in: query
-          description: The response format.
+          description: The response format. Defaults to `Json`.
           schema:
+            description: Defines the response format for exchange rates.
             $ref: '#/components/schemas/Format'
       responses:
         '200':
           $ref: '#/components/responses/ExchangeRates'
+        '400':
+          $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
         '403':
           $ref: '#/components/responses/Forbidden'
         '429':
           $ref: '#/components/responses/TooManyRequests'
-        default:
-          $ref: '#/components/responses/Error'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /v1/Banks/{bankId}/BiweeklyRates/Availability:
+    get:
+      tags:
+        - BiweeklyRates
+      summary: Returns the data availability information.
+      operationId: GetBiweeklyRatesAvailability
+      parameters:
+        - name: bankId
+          in: path
+          description: The bank identifier.
+          required: true
+          schema:
+            $ref: '#/components/schemas/BankId'
+      responses:
+        '200':
+          description: Returns the data availability information.
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/XRateLimitLimit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/XRateLimitRemaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/XRateLimitReset'
+          content:
+            application/json:
+              schema:
+                description: >-
+                  Date range and publication availability information for
+                  exchange rate data provided by a bank.
+                $ref: '#/components/schemas/BankDataAvailabilityModel'
+              example:
+                firstEffectiveDate: '2015-01-02'
+                lastEffectiveDate: '2026-06-05'
+                availableCurrencies:
+                  - AUD
+                  - BDT
+                  - BGN
+                  - BRL
+                  - BYN
+                  - CAD
+                  - CHF
+                  - CNY
+                  - CZK
+                  - DKK
+                  - EUR
+                  - GBP
+                  - HKD
+                  - HRK
+                  - HUF
+                  - IDR
+                  - ILS
+                  - INR
+                  - ISK
+                  - JPY
+                  - KRW
+                  - MMK
+                  - MXN
+                  - MYR
+                  - NZD
+                  - PHP
+                  - PKR
+                  - PLN
+                  - RON
+                  - RUB
+                  - SEK
+                  - SGD
+                  - THB
+                  - TRY
+                  - TWD
+                  - USD
+                  - VND
+                  - XDR
+                  - ZAR
+                availablePriceTypes:
+                  - Mid
+        '204':
+          description: The data availability information is not available.
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/XRateLimitLimit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/XRateLimitRemaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/XRateLimitReset'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /v1/Banks/{bankId}/BiweeklyRates/Availability/{startDate}/{endDate}:
+    get:
+      tags:
+        - BiweeklyRates
+      summary: Returns the data availability information for the specified period.
+      operationId: GetBiweeklyRatesAvailabilityBetweenDates
+      parameters:
+        - name: bankId
+          in: path
+          description: The bank identifier.
+          required: true
+          schema:
+            $ref: '#/components/schemas/BankId'
+        - name: startDate
+          in: path
+          description: The start date.
+          required: true
+          schema:
+            type: string
+            format: date
+        - name: endDate
+          in: path
+          description: The end date.
+          required: true
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Returns the data availability information.
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/XRateLimitLimit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/XRateLimitRemaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/XRateLimitReset'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                  format: date
+        '204':
+          description: The data availability information is not available.
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/XRateLimitLimit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/XRateLimitRemaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/XRateLimitReset'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /v1/Banks/{bankId}/BiweeklyRates/Latest:
+    get:
+      tags:
+        - BiweeklyRates
+      summary: Returns the latest available exchange rates.
+      operationId: GetLatestBiweeklyRates
+      parameters:
+        - name: bankId
+          in: path
+          description: The bank identifier.
+          required: true
+          schema:
+            $ref: '#/components/schemas/BankId'
+        - name: currencies
+          in: query
+          description: >-
+            The currencies to return. If no currencies are provided, all
+            available currencies will be included in the results.
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/CurrencyCode'
+        - name: priceType
+          in: query
+          description: The requested price type. Defaults to `Mid`.
+          schema:
+            $ref: '#/components/schemas/PriceType'
+        - name: includeObsoleteCurrencies
+          in: query
+          description: >-
+            A flag indicating whether obsolete currencies should be included in
+            the results. Defaults to `false`.
+          schema:
+            type: boolean
+        - name: format
+          in: query
+          description: The response format. Defaults to `Json`.
+          schema:
+            description: Defines the response format for exchange rates.
+            $ref: '#/components/schemas/Format'
+      responses:
+        '200':
+          $ref: '#/components/responses/ExchangeRates'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /v1/Banks/{bankId}/BiweeklyRates/{year}/{month}:
+    get:
+      tags:
+        - BiweeklyRates
+      summary: Returns the exchange rates for the given month.
+      operationId: GetBiweeklyRates
+      parameters:
+        - name: bankId
+          in: path
+          description: The bank identifier.
+          required: true
+          schema:
+            $ref: '#/components/schemas/BankId'
+        - name: year
+          in: path
+          description: The requested year.
+          required: true
+          schema:
+            minimum: 1900
+            type: integer
+            format: int32
+        - name: month
+          in: path
+          description: The requested month.
+          required: true
+          schema:
+            maximum: 12
+            minimum: 1
+            type: integer
+            format: int32
+        - name: currencies
+          in: query
+          description: >-
+            The currencies to return. If no currencies are provided, all
+            available currencies will be included in the results.
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/CurrencyCode'
+        - name: priceType
+          in: query
+          description: The requested price type. Defaults to `Mid`.
+          schema:
+            $ref: '#/components/schemas/PriceType'
+        - name: includeObsoleteCurrencies
+          in: query
+          description: >-
+            A flag indicating whether obsolete currencies should be included in
+            the results. Defaults to `false`.
+          schema:
+            type: boolean
+        - name: format
+          in: query
+          description: The response format. Defaults to `Json`.
+          schema:
+            description: Defines the response format for exchange rates.
+            $ref: '#/components/schemas/Format'
+      responses:
+        '200':
+          $ref: '#/components/responses/ExchangeRates'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /v1/Banks/{bankId}/BiweeklyRates/ThisMonth:
+    get:
+      tags:
+        - BiweeklyRates
+      summary: Returns the exchange rates for the current month (in UTC time).
+      operationId: GetThisMonthBiweeklyRates
+      parameters:
+        - name: bankId
+          in: path
+          description: The bank identifier.
+          required: true
+          schema:
+            $ref: '#/components/schemas/BankId'
+        - name: currencies
+          in: query
+          description: >-
+            The currencies to return. If no currencies are provided, all
+            available currencies will be included in the results.
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/CurrencyCode'
+        - name: priceType
+          in: query
+          description: The requested price type. Defaults to `Mid`.
+          schema:
+            $ref: '#/components/schemas/PriceType'
+        - name: includeObsoleteCurrencies
+          in: query
+          description: >-
+            A flag indicating whether obsolete currencies should be included in
+            the results. Defaults to `false`.
+          schema:
+            type: boolean
+        - name: format
+          in: query
+          description: The response format. Defaults to `Json`.
+          schema:
+            description: Defines the response format for exchange rates.
+            $ref: '#/components/schemas/Format'
+      responses:
+        '200':
+          $ref: '#/components/responses/ExchangeRates'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /v1/Banks/{bankId}/MonthlyRates/Availability:
+    get:
+      tags:
+        - MonthlyRates
+      summary: Returns the data availability information.
+      operationId: GetMonthlyRatesAvailability
+      parameters:
+        - name: bankId
+          in: path
+          description: The bank identifier.
+          required: true
+          schema:
+            $ref: '#/components/schemas/BankId'
+      responses:
+        '200':
+          description: Returns the data availability information.
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/XRateLimitLimit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/XRateLimitRemaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/XRateLimitReset'
+          content:
+            application/json:
+              schema:
+                description: >-
+                  Date range and publication availability information for
+                  exchange rate data provided by a bank.
+                $ref: '#/components/schemas/BankDataAvailabilityModel'
+              example:
+                firstEffectiveDate: '2015-01-02'
+                lastEffectiveDate: '2026-06-05'
+                availableCurrencies:
+                  - AUD
+                  - BDT
+                  - BGN
+                  - BRL
+                  - BYN
+                  - CAD
+                  - CHF
+                  - CNY
+                  - CZK
+                  - DKK
+                  - EUR
+                  - GBP
+                  - HKD
+                  - HRK
+                  - HUF
+                  - IDR
+                  - ILS
+                  - INR
+                  - ISK
+                  - JPY
+                  - KRW
+                  - MMK
+                  - MXN
+                  - MYR
+                  - NZD
+                  - PHP
+                  - PKR
+                  - PLN
+                  - RON
+                  - RUB
+                  - SEK
+                  - SGD
+                  - THB
+                  - TRY
+                  - TWD
+                  - USD
+                  - VND
+                  - XDR
+                  - ZAR
+                availablePriceTypes:
+                  - Mid
+        '204':
+          description: The data availability information is not available.
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/XRateLimitLimit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/XRateLimitRemaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/XRateLimitReset'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /v1/Banks/{bankId}/MonthlyRates/Availability/{startDate}/{endDate}:
+    get:
+      tags:
+        - MonthlyRates
+      summary: Returns the data availability information for the specified period.
+      operationId: GetMonthlyRatesAvailabilityBetweenDates
+      parameters:
+        - name: bankId
+          in: path
+          description: The bank identifier.
+          required: true
+          schema:
+            $ref: '#/components/schemas/BankId'
+        - name: startDate
+          in: path
+          description: The start date.
+          required: true
+          schema:
+            type: string
+            format: date
+        - name: endDate
+          in: path
+          description: The end date.
+          required: true
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Returns the data availability information.
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/XRateLimitLimit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/XRateLimitRemaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/XRateLimitReset'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                  format: date
+        '204':
+          description: The data availability information is not available.
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/XRateLimitLimit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/XRateLimitRemaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/XRateLimitReset'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /v1/Banks/{bankId}/MonthlyRates/Latest:
+    get:
+      tags:
+        - MonthlyRates
+      summary: Returns the latest available exchange rates.
+      operationId: GetLatestMonthlyRates
+      parameters:
+        - name: bankId
+          in: path
+          description: The bank identifier.
+          required: true
+          schema:
+            $ref: '#/components/schemas/BankId'
+        - name: currencies
+          in: query
+          description: >-
+            The currencies to return. If no currencies are provided, all
+            available currencies will be included in the results.
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/CurrencyCode'
+        - name: priceType
+          in: query
+          description: The requested price type. Defaults to `Mid`.
+          schema:
+            $ref: '#/components/schemas/PriceType'
+        - name: includeObsoleteCurrencies
+          in: query
+          description: >-
+            A flag indicating whether obsolete currencies should be included in
+            the results. Defaults to `false`.
+          schema:
+            type: boolean
+        - name: format
+          in: query
+          description: The response format. Defaults to `Json`.
+          schema:
+            description: Defines the response format for exchange rates.
+            $ref: '#/components/schemas/Format'
+      responses:
+        '200':
+          $ref: '#/components/responses/ExchangeRates'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /v1/Banks/{bankId}/MonthlyRates/{year}/{month}:
+    get:
+      tags:
+        - MonthlyRates
+      summary: Returns the exchange rates for the given month.
+      operationId: GetMonthlyRates
+      parameters:
+        - name: bankId
+          in: path
+          description: The bank identifier.
+          required: true
+          schema:
+            $ref: '#/components/schemas/BankId'
+        - name: year
+          in: path
+          description: The requested year.
+          required: true
+          schema:
+            minimum: 1900
+            type: integer
+            format: int32
+        - name: month
+          in: path
+          description: The requested month.
+          required: true
+          schema:
+            maximum: 12
+            minimum: 1
+            type: integer
+            format: int32
+        - name: currencies
+          in: query
+          description: >-
+            The currencies to return. If no currencies are provided, all
+            available currencies will be included in the results.
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/CurrencyCode'
+        - name: priceType
+          in: query
+          description: The requested price type. Defaults to `Mid`.
+          schema:
+            $ref: '#/components/schemas/PriceType'
+        - name: includeObsoleteCurrencies
+          in: query
+          description: >-
+            A flag indicating whether obsolete currencies should be included in
+            the results. Defaults to `false`.
+          schema:
+            type: boolean
+        - name: format
+          in: query
+          description: The response format. Defaults to `Json`.
+          schema:
+            description: Defines the response format for exchange rates.
+            $ref: '#/components/schemas/Format'
+      responses:
+        '200':
+          $ref: '#/components/responses/ExchangeRates'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /v1/Banks/{bankId}/MonthlyRates/ThisMonth:
+    get:
+      tags:
+        - MonthlyRates
+      summary: Returns the exchange rates for the current month (in UTC time).
+      operationId: GetThisMonthMonthlyRates
+      parameters:
+        - name: bankId
+          in: path
+          description: The bank identifier.
+          required: true
+          schema:
+            $ref: '#/components/schemas/BankId'
+        - name: currencies
+          in: query
+          description: >-
+            The currencies to return. If no currencies are provided, all
+            available currencies will be included in the results.
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/CurrencyCode'
+        - name: priceType
+          in: query
+          description: The requested price type. Defaults to `Mid`.
+          schema:
+            $ref: '#/components/schemas/PriceType'
+        - name: includeObsoleteCurrencies
+          in: query
+          description: >-
+            A flag indicating whether obsolete currencies should be included in
+            the results. Defaults to `false`.
+          schema:
+            type: boolean
+        - name: format
+          in: query
+          description: The response format. Defaults to `Json`.
+          schema:
+            description: Defines the response format for exchange rates.
+            $ref: '#/components/schemas/Format'
+      responses:
+        '200':
+          $ref: '#/components/responses/ExchangeRates'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /v1/Currencies:
+    get:
+      tags:
+        - Currencies
+      summary: Returns the currency details for all available currencies.
+      operationId: GetCurrencies
+      parameters:
+        - name: countryCode
+          in: query
+          description: >-
+            The optional country code to filter the currencies by the specific
+            country.
+          schema:
+            $ref: '#/components/schemas/CountryCode'
+        - name: isObsolete
+          in: query
+          description: >-
+            The optional flag to filter currencies based on whether they are
+            obsolete (true) or still in circulation (false).
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Returns the currency details.
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/XRateLimitLimit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/XRateLimitRemaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/XRateLimitReset'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  description: Information about a supported currency.
+                  $ref: '#/components/schemas/CurrencyModel'
+              example:
+                - code: AED
+                  name: UAE Dirham
+                  isObsolete: false
+                  withdrawalDate: null
+                  replacedBy: null
+                  countryCodes:
+                    - AE
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /v1/Currencies/{currencyCode}:
+    get:
+      tags:
+        - Currencies
+      summary: Returns the currency details for the specified currency code.
+      operationId: GetCurrency
+      parameters:
+        - name: currencyCode
+          in: path
+          description: The currency code.
+          required: true
+          schema:
+            $ref: '#/components/schemas/CurrencyCode'
+      responses:
+        '200':
+          description: Returns the currency details.
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/XRateLimitLimit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/XRateLimitRemaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/XRateLimitReset'
+          content:
+            application/json:
+              schema:
+                description: Information about a supported currency.
+                $ref: '#/components/schemas/CurrencyModel'
+              example:
+                code: AED
+                name: UAE Dirham
+                isObsolete: false
+                withdrawalDate: null
+                replacedBy: null
+                countryCodes:
+                  - AE
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /v1/Banks/{bankId}/BankHolidays/{year}:
+    get:
+      tags:
+        - BankHolidays
+      summary: Returns the bank holidays for the specified bank and year.
+      operationId: GetBankHolidaysForYear
+      parameters:
+        - name: bankId
+          in: path
+          description: The bank identifier.
+          required: true
+          schema:
+            $ref: '#/components/schemas/BankId'
+        - name: year
+          in: path
+          description: The year.
+          required: true
+          schema:
+            minimum: 1900
+            type: integer
+            format: int32
+        - name: format
+          in: query
+          description: The requested format.
+          schema:
+            description: Defines the response format for bank holidays.
+            default: Json
+            $ref: '#/components/schemas/HolidayFormat'
+      responses:
+        '200':
+          description: Returns the bank holidays.
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/XRateLimitLimit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/XRateLimitRemaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/XRateLimitReset'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  description: Details of a bank holiday observed by a bank.
+                  $ref: '#/components/schemas/BankHolidayModel'
+              example:
+                - date: '2020-01-01'
+                  name: New Year's Day
+                  localName: Første nyttårsdag
+                - date: '2020-04-09'
+                  name: Maundy Thursday
+                  localName: Skjærtorsdag
+                - date: '2020-04-10'
+                  name: Good Friday
+                  localName: Langfredag
+                - date: '2020-04-12'
+                  name: Easter Sunday
+                  localName: Første påskedag
+                - date: '2020-04-13'
+                  name: Easter Monday
+                  localName: Andre påskedag
+                - date: '2020-05-01'
+                  name: Labour Day
+                  localName: Første mai
+                - date: '2020-05-17'
+                  name: Constitution Day
+                  localName: Syttende mai
+                - date: '2020-05-21'
+                  name: Ascension Day
+                  localName: Kristi himmelfartsdag
+                - date: '2020-05-31'
+                  name: Pentecost
+                  localName: Første pinsedag
+                - date: '2020-06-01'
+                  name: Whit Monday
+                  localName: Andre pinsedag
+                - date: '2020-12-24'
+                  name: Christmas Eve
+                  localName: Julaften
+                - date: '2020-12-25'
+                  name: Christmas Day
+                  localName: Første juledag
+                - date: '2020-12-26'
+                  name: St. Stephen's Day
+                  localName: Andre juledag
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /v1/Banks/{bankId}/BankHolidays:
+    get:
+      tags:
+        - BankHolidays
+      summary: Returns the bank holidays for the specified bank and date range.
+      operationId: GetBankHolidaysBetweenDates
+      parameters:
+        - name: bankId
+          in: path
+          description: The bank identifier.
+          required: true
+          schema:
+            $ref: '#/components/schemas/BankId'
+        - name: startDate
+          in: query
+          description: The start date of the range.
+          required: true
+          schema:
+            type: string
+            format: date
+        - name: endDate
+          in: query
+          description: >-
+            The end date of the range. The maximum interval is 3 years (1095
+            days).
+          required: true
+          schema:
+            type: string
+            format: date
+        - name: format
+          in: query
+          description: The requested format.
+          schema:
+            description: Defines the response format for bank holidays.
+            default: Json
+            $ref: '#/components/schemas/HolidayFormat'
+      responses:
+        '200':
+          description: Returns the bank holidays.
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/XRateLimitLimit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/XRateLimitRemaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/XRateLimitReset'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  description: Details of a bank holiday observed by a bank.
+                  $ref: '#/components/schemas/BankHolidayModel'
+              example:
+                - date: '2020-01-01'
+                  name: New Year's Day
+                  localName: Første nyttårsdag
+                - date: '2020-04-09'
+                  name: Maundy Thursday
+                  localName: Skjærtorsdag
+                - date: '2020-04-10'
+                  name: Good Friday
+                  localName: Langfredag
+                - date: '2020-04-12'
+                  name: Easter Sunday
+                  localName: Første påskedag
+                - date: '2020-04-13'
+                  name: Easter Monday
+                  localName: Andre påskedag
+                - date: '2020-05-01'
+                  name: Labour Day
+                  localName: Første mai
+                - date: '2020-05-17'
+                  name: Constitution Day
+                  localName: Syttende mai
+                - date: '2020-05-21'
+                  name: Ascension Day
+                  localName: Kristi himmelfartsdag
+                - date: '2020-05-31'
+                  name: Pentecost
+                  localName: Første pinsedag
+                - date: '2020-06-01'
+                  name: Whit Monday
+                  localName: Andre pinsedag
+                - date: '2020-12-24'
+                  name: Christmas Eve
+                  localName: Julaften
+                - date: '2020-12-25'
+                  name: Christmas Day
+                  localName: Første juledag
+                - date: '2020-12-26'
+                  name: St. Stephen's Day
+                  localName: Andre juledag
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /v1/Banks/{bankId}/BankHolidays/Next:
+    get:
+      tags:
+        - BankHolidays
+      summary: Returns the next upcoming bank holiday for the specified bank.
+      operationId: GetNextBankHoliday
+      parameters:
+        - name: bankId
+          in: path
+          description: The bank identifier.
+          required: true
+          schema:
+            $ref: '#/components/schemas/BankId'
+      responses:
+        '200':
+          description: Returns the bank holiday.
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/XRateLimitLimit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/XRateLimitRemaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/XRateLimitReset'
+          content:
+            application/json:
+              schema:
+                description: Details of a bank holiday observed by a bank.
+                $ref: '#/components/schemas/BankHolidayModel'
+        '204':
+          description: The bank holidays are not available for the given bank.
+          headers:
+            X-Rate-Limit-Limit:
+              $ref: '#/components/headers/XRateLimitLimit'
+            X-Rate-Limit-Remaining:
+              $ref: '#/components/headers/XRateLimitRemaining'
+            X-Rate-Limit-Reset:
+              $ref: '#/components/headers/XRateLimitReset'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '429':
+          $ref: '#/components/responses/TooManyRequests'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
 components:
   schemas:
     BankDataAvailabilityModel:
@@ -1758,18 +1898,19 @@ components:
           description: The last available effective date.
           format: date
         availableCurrencies:
-          uniqueItems: true
           type: array
           items:
             type: string
           description: The list of available currency codes.
         availablePriceTypes:
-          uniqueItems: true
           type: array
           items:
             $ref: '#/components/schemas/PriceType'
           description: The list of available price types.
       additionalProperties: false
+      description: >-
+        Date range and publication availability information for exchange rate
+        data provided by a bank.
     BankHolidayModel:
       required:
         - date
@@ -1793,6 +1934,7 @@ components:
           description: The local name of the holiday.
           example: Julaften
       additionalProperties: false
+      description: Details of a bank holiday observed by a bank.
     BankId:
       enum:
         - AECB
@@ -1847,6 +1989,7 @@ components:
         - ISCB
         - ITCB
         - ITCBUSD
+        - JOCB
         - JPMUFG
         - KECB
         - KGCB
@@ -1861,9 +2004,11 @@ components:
         - MKCB
         - MMCB
         - MNCB
+        - MOCB
         - MRCB
         - MVCB
         - MXCB
+        - MXCBX
         - MYCB
         - MZCB
         - NGCB
@@ -2015,6 +2160,8 @@ components:
 
         * `ITCBUSD` - Bank of Italy - USD rates
 
+        * `JOCB` - Central Bank of Jordan
+
         * `JPMUFG` - Mitsubishi UFJ Financial Group
 
         * `KECB` - Central Bank of Kenya
@@ -2043,11 +2190,15 @@ components:
 
         * `MNCB` - Bank of Mongolia (Mongolbank)
 
+        * `MOCB` - Monetary Authority of Macao
+
         * `MRCB` - Central Bank of Mauritania
 
         * `MVCB` - Maldives Monetary Authority
 
         * `MXCB` - Bank of Mexico
+
+        * `MXCBX` - Bank of Mexico - Extended
 
         * `MYCB` - Central Bank of Malaysia
 
@@ -2157,18 +2308,24 @@ components:
         name:
           type: array
           items:
+            description: Localized name of an entity.
             $ref: '#/components/schemas/LocalName'
         publishedDays:
+          description: >-
+            The days of the week for which the daily exchange rates are
+            published by the bank.
           $ref: '#/components/schemas/PublishedDays'
         dailyUpdateTime:
-          type: string
+          type:
+            - 'null'
+            - string
           description: >-
             The time at which the daily exchange rates are published by the
             bank.
           format: time
-          nullable: true
           example: '16:00:00'
         bankCurrency:
+          description: The local currency of the bank.
           $ref: '#/components/schemas/CurrencyCode'
         countryCode:
           type: array
@@ -2185,6 +2342,7 @@ components:
           description: The applicable regional groupings.
           example: EuropeNonEU
         timeZone:
+          description: The time zone of the bank.
           $ref: '#/components/schemas/TimeZone'
         supportedFrequencies:
           type: array
@@ -2194,6 +2352,11 @@ components:
         supportedPriceTypes:
           type: array
           items:
+            description: |-
+              Price type:
+              * `Mid` - Midpoint price
+              * `Bid` - Buying (bid) price
+              * `Ask` - Selling (ask) price
             $ref: '#/components/schemas/PriceType'
           description: The price types available for the bank.
         website:
@@ -2201,8 +2364,10 @@ components:
           type: string
           description: The website of the bank.
         peggedRate:
+          description: The fixed exchange rate (if applicable).
           $ref: '#/components/schemas/PeggedRateModel'
       additionalProperties: false
+      description: Details of a supported bank or exchange rate provider.
     CountryCode:
       enum:
         - AD
@@ -3365,67 +3530,6 @@ components:
         * `ZWN` - Zimbabwe Dollar (new)
 
         * `ZWR` - Zimbabwe Dollar
-    CurrencyConversionRateModel:
-      required:
-        - bankId
-        - effectiveDate
-        - frequency
-        - fromCurrency
-        - quoteType
-        - rate
-        - toCurrency
-      type: object
-      properties:
-        rate:
-          type: number
-          description: The exchange rate.
-          format: decimal
-          example: 569.82
-        unitMultiplier:
-          type: integer
-          description: >-
-            Exponent in base 10 specified so that multiplying the rate by
-            10^UnitMultiplier gives a value expressed in the unit of measure.
-          format: int32
-          nullable: true
-          example: 2
-        fromCurrency:
-          maxLength: 3
-          minLength: 3
-          type: string
-          description: The source currency.
-        toCurrency:
-          maxLength: 3
-          minLength: 3
-          type: string
-          description: The target currency.
-        bankId:
-          $ref: '#/components/schemas/BankId'
-        frequency:
-          $ref: '#/components/schemas/Frequency'
-        effectiveDate:
-          type: string
-          description: ''
-          format: date
-        quoteType:
-          $ref: '#/components/schemas/ExchangeRateQuoteType'
-      additionalProperties: false
-    CurrencyConversionResponse:
-      required:
-        - rate
-        - result
-      type: object
-      properties:
-        result:
-          type: number
-          description: The converted amount.
-          format: decimal
-        rate:
-          type: array
-          items:
-            $ref: '#/components/schemas/CurrencyConversionRateModel'
-          description: The list of exchange rates used for the conversion.
-      additionalProperties: false
     CurrencyModel:
       required:
         - code
@@ -3435,6 +3539,7 @@ components:
       type: object
       properties:
         code:
+          description: The ISO 4217 code of the currency.
           $ref: '#/components/schemas/CurrencyCode'
         name:
           minLength: 1
@@ -3444,11 +3549,13 @@ components:
           type: boolean
           description: Indicates if the currency is no longer in use.
         withdrawalDate:
-          type: string
+          type:
+            - 'null'
+            - string
           description: The date when the currency was withdrawn from circulation.
           format: date
-          nullable: true
         replacedBy:
+          description: The currency that replaced the current one.
           $ref: '#/components/schemas/CurrencyCode'
         countryCodes:
           type: array
@@ -3456,6 +3563,7 @@ components:
             $ref: '#/components/schemas/CountryCode'
           description: The countries in which the currency is used.
       additionalProperties: false
+      description: Information about a supported currency.
     ExchangeRateQuoteType:
       enum:
         - Direct
@@ -3482,6 +3590,7 @@ components:
       type: object
       properties:
         bankId:
+          description: The bank identifier.
           $ref: '#/components/schemas/BankId'
         baseCurrency:
           minLength: 1
@@ -3489,21 +3598,28 @@ components:
           description: The base currency.
           example: NOK
         quoteType:
+          description: The quote type.
           $ref: '#/components/schemas/ExchangeRateQuoteType'
         rates:
           type: object
           additionalProperties:
             type: object
             additionalProperties:
+              description: >-
+                Exchange rate for a specific currency relative to the bank's
+                base currency.
               $ref: '#/components/schemas/RateModel'
             description: >-
-              A dictionary of rates for a single date, keyed by the 3-letter ISO
-              4217 currency code.
+              A dictionary of rates for a single date, keyed by the 3-letter
+              `ISO 4217` currency code.
           description: >-
-            The exchange rates. The **first level key is the rate date in ISO
-            8601 format (YYYY-MM-DD)**. The value is a dictionary where the key
-            is the **3-letter ISO 4217 quote currency code**.
+            The exchange rates. The **first level key is the rate date in `ISO
+            8601` format (`YYYY-MM-DD`)**. The value is a dictionary where the
+            key is the **3-letter `ISO 4217` quote currency code**.
       additionalProperties: false
+      description: >-
+        Collection of exchange rates published by a bank for a specific date or
+        period.
     Format:
       enum:
         - Json
@@ -3544,6 +3660,7 @@ components:
         - Json
         - Ics
       type: string
+      description: Defines the response format for bank holidays.
     LocalName:
       required:
         - languageCode
@@ -3561,11 +3678,13 @@ components:
           description: The local name.
           example: Bundesministerium der Finanzen
         abbreviatedName:
-          type: string
+          type:
+            - 'null'
+            - string
           description: The abbreviated name.
-          nullable: true
           example: BMF
       additionalProperties: false
+      description: Localized name of an entity.
     PeggedRateModel:
       required:
         - currency
@@ -3589,6 +3708,9 @@ components:
           format: date
           example: '1997-11-01'
       additionalProperties: false
+      description: >-
+        Details of a fixed exchange rate relationship between the bank currency
+        and a foreign currency.
     PriceType:
       enum:
         - Mid
@@ -3608,21 +3730,26 @@ components:
       type: object
       properties:
         type:
-          type: string
-          nullable: true
+          type:
+            - 'null'
+            - string
         title:
-          type: string
-          nullable: true
+          type:
+            - 'null'
+            - string
         status:
-          type: integer
+          type:
+            - 'null'
+            - integer
           format: int32
-          nullable: true
         detail:
-          type: string
-          nullable: true
+          type:
+            - 'null'
+            - string
         instance:
-          type: string
-          nullable: true
+          type:
+            - 'null'
+            - string
       additionalProperties: {}
     PublishedDays:
       enum:
@@ -3643,14 +3770,21 @@ components:
           format: decimal
           example: 569.82
         unitMultiplier:
-          type: integer
+          type:
+            - 'null'
+            - integer
           description: >-
-            Exponent in base 10 specified so that multiplying the rate by
-            10^UnitMultiplier gives a value expressed in the unit of measure.
+            **Exponent in base 10** specified so that multiplying the rate by
+            `10^UnitMultiplier` gives a value expressed in the unit of measure.
+
+            [Documentation on unit
+            multiplier](https://developer.fluentax.com/docs/exchange-rates-api/terminology#unit-multiplier)
           format: int32
-          nullable: true
           example: 2
       additionalProperties: false
+      description: >-
+        Exchange rate for a specific currency relative to the bank's base
+        currency.
     Region:
       enum:
         - All
@@ -3681,6 +3815,7 @@ components:
           description: The IANA time zone name.
           example: Europe/Oslo
       additionalProperties: false
+      description: Time zone information used for publication schedules.
   responses:
     TooManyRequests:
       description: Too Many Requests
@@ -3695,10 +3830,10 @@ components:
       description: Unauthorized
     Forbidden:
       description: Forbidden
-    Error:
-      description: Error
+    BadRequest:
+      description: Bad Request - Validation failed.
       content:
-        application/json:
+        application/problem+json:
           schema:
             $ref: '#/components/schemas/ProblemDetails'
           example:
@@ -3708,6 +3843,17 @@ components:
             traceId: 00-94ac2e4ee2594c48b1d2598bc4dff011-fb8c0b364263aa44-00
             errors:
               bankId: Daily rates are not supported for the specified bank.
+    InternalServerError:
+      description: Internal Server Error - An unexpected error occurred on the server.
+      content:
+        application/problem+json:
+          schema:
+            $ref: '#/components/schemas/ProblemDetails'
+          example:
+            type: https://tools.ietf.org/html/rfc7231#section-6.6.1
+            title: An unexpected error occurred while processing your request.
+            status: 500
+            traceId: 00-4bf92f3577b34da6a3ce929d0e0e4736-00f067aa0ba902b7-00
     ExchangeRates:
       description: Returns the exchange rates.
       content:
@@ -3808,12 +3954,12 @@ components:
   headers:
     XRateLimitLimit:
       description: >-
-        The rate limit period that is applicable for the current request (eg.
+        The rate limit period that is applicable for the current request (e.g.
         1m, 12h, 1d)
       schema:
         type: string
         description: >-
-          The rate limit period that is applicable for the current request (eg.
+          The rate limit period that is applicable for the current request (e.g.
           1m, 12h, 1d)
         format: ''
     XRateLimitRemaining:
@@ -3831,10 +3977,7 @@ components:
   securitySchemes:
     oauth2:
       type: oauth2
-      description: >-
-        OAuth 2.0 authentication. Use the Authorization Code with PKCE flow for
-        interactive logins and the Client Credentials flow for non-interactive
-        (M2M) logins.
+      description: "OAuth 2.0 authentication. Use the `Authorization Code with PKCE` flow for interactive logins and the `Client Credentials` flow for non-interactive (M2M) logins.\r\n\r\nRead more about the authentication process [here](https://developer.fluentax.com/docs/authentication)."
       flows:
         clientCredentials:
           tokenUrl: >-
@@ -3850,12 +3993,17 @@ components:
             fx_api: Exchange Rates API
     apiKey:
       type: apiKey
-      description: API key supplied in header
+      description: >-
+        API key provided in the X-API-Key header. Fallback authentication for
+        systems that do not support OAuth.
       name: X-API-Key
       in: header
     apiKeyQuery:
       type: apiKey
-      description: API key supplied as a query parameter
+      description: >-
+        API key supplied as a query parameter. Query parameter authentication is
+        provided for legacy and constrained integrations. OAuth 2.0 is
+        recommended for new implementations.
       name: apiKey
       in: query
 security:
@@ -3864,21 +4012,41 @@ security:
   - apiKey: []
   - apiKeyQuery: []
 tags:
-  - name: BankHolidays
-    description: Bank holidays.
   - name: Banks
     description: The available data sources.
-  - name: BiweeklyRates
-    description: Exchange rates with biweekly frequency.
-  - name: Convert
-  - name: Currencies
-    description: The list of currencies.
+    x-displayName: Banks
   - name: DailyRates
     description: Exchange rates with daily frequency.
-  - name: MonthlyRates
-    description: Exchange rates with monthly frequency.
+    x-displayName: Daily rates
   - name: WeeklyRates
     description: Exchange rates with weekly frequency.
+    x-displayName: Weekly rates
+  - name: BiweeklyRates
+    description: Exchange rates with biweekly frequency.
+    x-displayName: Biweekly rates
+  - name: MonthlyRates
+    description: Exchange rates with monthly frequency.
+    x-displayName: Monthly rates
+  - name: Currencies
+    description: The list of currencies.
+    x-displayName: Currencies
+  - name: BankHolidays
+    description: Bank holidays.
+    x-displayName: Bank holidays
 externalDocs:
   description: Find out more on our Developer Portal
   url: https://developer.fluentax.com
+x-tagGroups:
+  - name: Banks
+    tags:
+      - Banks
+      - BankHolidays
+  - name: Exchange Rates
+    tags:
+      - DailyRates
+      - WeeklyRates
+      - BiweeklyRates
+      - MonthlyRates
+  - name: Currencies
+    tags:
+      - Currencies
