@@ -1972,6 +1972,7 @@ components:
         - EGCB
         - ETCB
         - EUECB
+        - FJCB
         - GBCB
         - GBHMRC
         - GECB
@@ -1986,6 +1987,7 @@ components:
         - IDMOF
         - ILCB
         - INCB
+        - INCBIC
         - ISCB
         - ITCB
         - ITCBUSD
@@ -2126,6 +2128,8 @@ components:
 
         * `EUECB` - European Central Bank
 
+        * `FJCB` - Reserve Bank of Fiji
+
         * `GBCB` - Bank of England
 
         * `GBHMRC` - HM Revenue & Customs
@@ -2153,6 +2157,8 @@ components:
         * `ILCB` - Bank of Israel
 
         * `INCB` - Reserve Bank of India
+
+        * `INCBIC` - Central Board of Indirect Taxes and Customs
 
         * `ISCB` - Central Bank of Iceland
 
@@ -2257,7 +2263,7 @@ components:
 
         * `TRCB` - Central Bank of the Republic of Turkey
 
-        * `TWBOT` - Bank Of Taiwan
+        * `TWBOT` - Bank of Taiwan
 
         * `TZCB` - Bank of Tanzania
 
